@@ -1,0 +1,42 @@
+<style>
+    .det .det1 {
+        border-left: 1px solid rgb(187, 186, 186);
+    }
+
+    .det .det1:first-child {
+        border-left: none;
+    }
+
+    .det .det1:last-child {
+        border-right: none;
+    }
+
+    .lgout {
+        color: black;
+        padding-left: 10px;
+        font-size: 20px;
+    }
+
+    .lgout:hover {
+        color: red;
+    }
+</style>
+
+<div class="header_top bg-light ">
+    <div class="container">
+        <div class="col-sm-12 col-md-12 col-lg-12 d-flex">
+            <div class="col-sm-12 col-md-12 col-lg-12 d-flex flex-wrap py-2 justify-content-between gap-2">
+                <div class="det d-flex">
+                    <div class="m-auto det1 px-2"> <i class="bi bi-telephone-fill"></i> {{otherdetails.phone_number}} </div>
+                    <div class="m-auto det1 px-2"> <i class="bi bi-envelope-fill"></i> {{otherdetails.email}} </div>
+                </div>
+                <div class=" det d-flex ">
+                    <div class="m-auto det1 px-2">Services</div>
+                    <div class="m-auto det1 px-2">Support</div>
+                    <div class="logout m-auto det1 px-2"> <a href="{% url 'logout' %}"><i
+                                class="bi bi-box-arrow-right lgout"></i></a> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block search %}
+
+<style>
+    /* card */
+    /* .categ {
+        top: 0;
+    }
+
+    .categ p {
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+        width: 200px;
+        white-space: nowrap;
+        text-wrap: nowrap;
+    } */
+
+
+
+    .card {
+        display: flex;
+        max-width: 150px;
+        border-radius: 0;
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .card .pic {
+        max-width: 150px;
+
+    }
+
+    .card .pic img {
+        width: 100%;
+        height: 190px;
+        object-fit: cover;
+        border-radius: 0;
+    }
+
+    .card .name {
+        padding: 5px;
+        color: aliceblue;
+        background-color: rgba(0, 0, 0, 0.7);
+        opacity: 0;
+        padding-top: 40px;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .card .name h5 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-wrap: nowrap;
+    }
+
+    .card:hover .name {
+        opacity: 1;
+    }
+
+    .card .name>p {
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .inputbox:focus {
+        box-shadow: none;
+    }
+
+    .clickbox:focus {
+        box-shadow: none;
+    }
+
+    .clickbox {
+        background-color: rgb(219, 52, 68);
+    }
+</style>
+<div class="col-sm-12 col-md-12 col-lg-12">
+    <div class="d-flex align-items-center col-sm-12 col-md-12 col-lg-12">
+        <h2 class="d-flex align-items-center">Search Results for "{{ query }}":</h2>
+        {% if request.path == "/search/" %}
+        <form action="{% url 'search_query' %}" method="get">
+            {% csrf_token %}
+            <div class="d-flex align-items-center p-2">
+                <div>
+                    <input type="text" type="search" name="search_query" id="search_query"
+                        class="inputbox form-control rounded-0" placeholder="Search for products">
+                </div>
+                <div>
+                    <button type="submit" class="btn rounded-0 clickbox"><i class="bi bi-search"></i></button>
+                </div>
+            </div>
+        </form>
+        {% endif %}
+    </div>
+    <hr class="p-0 my-2">
+
+    <div class="col-sm-12 col-md-12 col-lg-12 bg-secondary p-2">
+        <div class="d-flex">
+        {% if products %}
+            {% for product in products %}
+            <div class="d-flex bg-info mx-2" style="width: 500px;">
+                <div>
+                    {% if product.product_image %}
+                    <img src="{{product.product_image.url}}" alt="{{product.product_name}}" height="200px" width="200px">
+                    {% else %}
+                    <img src="{% static 'images/default_image.png' %}" alt="{{product.product_name}}" height="200px" width="200px">
+                    {% endif %}
+                </div>
+                <div class="px-2">
+                    <p>{{ product.product_name }}</p>
+                    <p>{{ product.product_price }}</p>
+                    <p>{{ product.product_category }}</p>
+                    <p>{{ product.product_description }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+    <p>No products found.</p>
+    <hr>
+
+    <div class="col-lg-12">
+        <p class="d-flex flex-row card text-center p-2 ">
+            <span class="d-flex align-items-center">
+                More Product
+            </span>
+            <span class="d-flex align-items-center">
+                <i class="fa fa-caret-down px-2"></i>
+            </span>
+        </p>
+        <div class="d-flex flex-wrap gap-1 justify-content-between">
+            {% for product in product %}
+            <div class="card col-lg-2 d-flex justify-content-center">
+                <div class="pic">
+                    {% if product.product_image %}
+                    <img src="{{product.product_image.url}}" alt="{{product.product_name}}" height="200px"
+                        width="200px">
+                    {% else %}
+                    <img src="{% static 'images/default_image.png' %}" alt="{{product.product_name}}">
+                    {% endif %}
+                </div>
+                <div class="name">
+                    <!-- <div class="categ position-absolute" style="top: 0; ">
+                            <p> {{product.pro_sub_category}} </p>
+                        </div> -->
+                    <h5 class="fs-3"> {{product.product_name}} </h5>
+                    <p class="m-0"> {{product.product_description}} </p>
+                    <div class="d-flex gap-2">
+                        <p>Rs.800</p>
+                        <strike class="text-danger"> {{product.product_price}} </strike>
+                    </div>
+                    <div>
+                        <a href="{%  url 'add_to_cart' product.id %}" class="btn btn-success">ADD TO CART</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+    {% endif %}
+</div>
+{% endblock %}

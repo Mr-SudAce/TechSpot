@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+        integrity="sha384-4LISF5TTJX/fLmGSxO53rV4miRxdg84mZsxmO8Rx5jGtp/LbrixFETvWa5a6sESd" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Register</title>
+
+    <style>
+        .reg-form { background-color: transparent; }
+        .form-control { border-top: none; border-left: none; border-right: none; border-bottom: 1px solid rgb(116, 116, 116); border-radius: 0px; padding: 0; }
+        .form-control:focus { border-bottom: 1px solid green; box-shadow: none; }
+        .form-control::placeholder { color: rgb(209, 209, 209); font-size: small; }
+        .form-group { margin: 5px; font-family: Georgia, 'Times New Roman', Times, serif; }
+        .btn { background-color: white; border: 1px solid rgb(79, 79, 255); color: rgb(79, 79, 255); border-radius: 0px; }
+        .btn:hover { background-color: white; color: black; border: 1px solid black; }
+        .error-message { color: red; font-size: small; }
+    </style>
+</head>
+
+<body>
+    {% load static %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 mt-5">
+                <div class="d-flex gap-2 mt-5">
+                    <div class="col-lg-6">
+                        <img src="{% static 'images/registerimg.jpg' %}" width="100%" height="500px" alt="Register Image">
+                    </div>
+                    <div class="reg-form col-lg-6 d-flex m-auto justify-content-center">
+                        <div id="registerForm" class="w-75">
+                            <h2 class="text-center mb-4" style="font-family: Georgia, 'Times New Roman', Times, serif; font-weight: bolder; text-transform: uppercase;">
+                                Register
+                            </h2>
+                            
+                            <!-- Error Messages -->
+                            <!-- {% if form.errors %}
+                            <div class="alert alert-danger">
+                                <ul>
+                                    {% for field, errors in form.errors.items %}
+                                        {% for error in errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% endif %} -->
+                            
+                            <form method="POST">
+                                {% csrf_token %}
+
+                                <div class="py-2 d-flex flex-column justify-content-center">
+                                    <label for="username">Username:</label>
+                                    {{ form.username }}
+                                    {% if form.username.errors %}
+                                    <div class="error-message">
+                                        {{ form.username.errors|join:", " }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="py-2 d-flex flex-column justify-content-center">
+                                    <label for="password1">Password:</label>
+                                    {{ form.password1 }}
+                                    {% if form.password1.errors %}
+                                    <div class="error-message">
+                                        {{ form.password1.errors|join:", " }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="py-2 d-flex flex-column justify-content-center">
+                                    <label for="password2">Confirm Password:</label>
+                                    {{ form.password2 }}
+                                    {% if form.password2.errors %}
+                                    <div class="error-message">
+                                        {{ form.password2.errors|join:", " }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+
+                                <button type="submit" class="btn btn-primary text-center mt-3">Register</button>
+                            </form>
+
+                            <div class="mt-3">
+                                <a href="{% url 'login' %}">Already have an account? Login here</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

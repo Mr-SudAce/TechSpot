@@ -1,0 +1,254 @@
+{% load static %}
+<style>
+    .form-control:focus {
+        box-shadow: 0 0 0 .2rem rgb(255 255 255 / 25%);
+    }
+
+    .header-middle .cart {
+        display: none;
+    }
+
+    .header-middle .cart_icon:hover .cart {
+        display: block;
+        position: absolute;
+        background-color: rgb(255, 255, 255);
+        width: 210px;
+        color: black;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        padding: 5px;
+        top: 33px;
+        border-radius: 5px;
+        right: -8px;
+        z-index: 1;
+    }
+
+    .chkot:hover {
+        background-color: rgb(25, 135, 84);
+        color: white;
+    }
+
+    .chkot {
+        margin-top: 10px;
+    }
+
+    .header-middle .crt_lst::-webkit-scrollbar {
+        display: none;
+    }
+
+    .header-middle .bi-x {
+        position: relative;
+        top: -5px;
+        border: none;
+        background-color: rgb(250, 250, 250);
+        font-size: large;
+        padding: 0;
+        margin: 0;
+        left: 180px;
+        color: rgb(255, 0, 0);
+    }
+
+    .header-middle #see_all {
+        text-decoration: none;
+        color: black;
+    }
+
+    .header-middle #see_all:hover {
+        color: rgb(60, 104, 150);
+    }
+
+    .crt_lst {
+        max-height: 300px;
+        max-width: 500px;
+        overflow-y: scroll;
+    }
+
+    .crt_lst .cart-list {
+        max-height: 350px;
+        width: 100%;
+    }
+
+    .product-det #img {
+        height: 50px;
+        width: 50px;
+    }
+
+    .header-middle .detail span {
+        font-size: small;
+    }
+
+    .header-middle .detail p {
+        font-weight: bold;
+        font-size: small;
+    }
+
+    .header-middle .product-det {
+        border-top: 1px solid grey;
+        border-bottom: 1px solid grey;
+    }
+
+    .header-middle .product-det:first-child {
+        border-top: none;
+    }
+
+    .header-middle .product-det:last-child {
+        border-bottom: none;
+    }
+
+    .header-middle #pro-name {
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 150px;
+    }
+
+    #shoppingcart,
+    #total_items {
+        font-size: 12px;
+    }
+
+    #item_notification {
+        position: absolute;
+        top: -16px;
+        left: 29px;
+        border: none;
+        background-color: green;
+        font-size: large;
+        width: 20px;
+        height: 20px;
+        font-weight: bolder;
+        font-size: 14px;
+        border-radius: 50%;
+        color: #ffffff;
+        margin: 0;
+    }
+</style>
+
+<div class="header-middle">
+    <div class="container">
+        <div class="col-sm-12 col-md-12 col-lg-12 d-flex flex-wrap py-5 gap-1">
+            <div class=" col-sm-12 col-md-12 col-lg-12 d-flex flex-wrap justify-content-between">
+                <div class="d-flex col-sm-12 col-md-4 col-lg-3 align-items-center justify-content-center"
+                    style="height: 100px;">
+                    {% if header and header.header_image_left.url %}
+                    {% if header.header_image_left.url %}
+                    <img src="{{ header.header_image_left.url }}" alt="NepHot" style="width: 100px;">
+                    {% else %}
+                    <img src="{% static 'images/favicon.jpg' %}" alt="NepHot" style="width: 100px;">
+                    {% endif %}
+                    {% endif %}
+
+                    <!-- {% if headers.url %}
+                    <img src="{{ headers.url }}" alt="NepHot" style="width: 90px;">
+                    {% else %}
+                    <img src="{% static 'images/favicon.jpg' %}" alt="NepHot" style="width: 90px;">
+                    {% endif %} -->
+                </div>
+                <div class="d-flex col-sm-12 col-md-8 col-lg-7">
+                    <div class="d-flex">
+                        <select class="form-control rounded-0 m-auto bg-light" style="width: 150px;">
+                            <option value="" class="fs-6">All Category ⏷ </option>
+                            {% for category in categories %}
+                            {% for subcat in category.subcategories.all %}
+                            <option value=""> <a href="#{{category_name}}">{{subcat.sub_category_name}}</a></option>
+                            {% endfor %}
+                            {% endfor %}
+                        </select>
+
+                        <form action="{% url 'search_query' %}" method="get" class="d-flex">
+                            <input class="form-control rounded-0 m-auto border-gray" style="width: 400px;" type="search"
+                                name="search_query" id="search_query" placeholder="I'm Searching For.........">
+                            <button type="submit"
+                                class="btn btn-danger border border-1 border-danger rounded-0 align-items-center m-auto d-flex">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+                <div class=" bg-light-subtle d-flex col-sm-12 col-md-2 col-lg-2">
+                    <div class="d-flex align-items-center m-auto border gap-2">
+                        <div class="d-flex flex-column align-items-center" style="width: 138px;">
+                            <p id="shoppingcart" class="text-center m-0 px-1">Shopping Cart</p>
+                            <p id="total_items" class="text-muted m-0 px-1 ">Rs.{{grand_total }}</p>
+                        </div>
+                        <div class="border border-danger bg-danger">
+                            <i
+                                class="bi bi-cart cart_icon text-light position-relative d-flex align-items-center py-2 btn m-auto rounded-0">
+
+                                <div id="item_notification">
+                                    {{total_items_count}}
+                                </div>
+                                <div class="cart m-auto">
+                                    <div class="crt_lst">
+                                        <div class="cart-list">
+                                            {% if cart_item %}
+                                            {% for cart_item in cart_item %}
+                                            <div class="position-relative">
+                                                <div
+                                                    class="product-det d-flex gap-2 d-flex flex-row p-2 position-relative">
+                                                    <form class="position-absolute"
+                                                        action="{% url 'del_cart_item' cart_item.id %}"
+                                                        method="POST">
+                                                        {% csrf_token %}
+                                                        <input type="submit" value="x" class="bi bi-x bg-white py-0"
+                                                            id="delete">
+                                                    </form>
+                                                    <div class="text-start table d-flex border flex-wrap" id="img">
+                                                        {% if cart_item.product.product_image %}
+                                                        <img id="img" src="{{ cart_item.product.product_image.url }}"
+                                                            alt="{{ cart_item.product.product_name }}">
+                                                        {% else %}
+                                                        <img id="img" src="{% static '/images/default_image.png' %}"
+                                                            alt="product">
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="d-flex flex-column overflow-hidden detail">
+                                                        <div class="d-flex">
+                                                            <p class="m-0">Product:</p>
+                                                            <span class="px-2 text-start"
+                                                                id="pro-name">{{cart_item.product.product_name}}</span>
+                                                        </div>
+                                                        <div class="d-flex">
+                                                            <p class="m-0">Price:</p>
+                                                            <span
+                                                                class="px-2">Rs.{{cart_item.product.product_price}}</span>
+                                                        </div>
+                                                        <div class="d-flex">
+                                                            <p class="m-0">Quantity:</p>
+                                                            <span class="px-2">{{cart_item.quantity}}</span>
+                                                        </div>
+                                                        <div class="d-flex">
+                                                            <p class="m-0">Total:</p>
+                                                            <span class="px-2">Rs.{{cart_item.total_price}}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                            {% else %}
+                                            <img src="{% static '/images/Empty Cart.jpeg' %}" width="100%" alt="">
+                                            <p class="text-secondary">Empty Cart</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="bg-white p-0" style="border-top: 1px solid grey;">
+                                        <div class="position-relative d-flex justify-content-end">
+                                            <a id="see_all" href="{% url 'cart_Detail' %}">See all</a>
+                                        </div>
+                                        <div class="d-flex position-relative gap-2" style="align-items: center;">
+                                            <!-- <button type="submit" class="chkot btn btn-outline-success m-0">CheckOut</button> -->
+                                            <div class="d-flex flex-column">
+                                                <span class="text-dark text-start">Total: </span>
+                                                <span class="text-success">Rs. {{ grand_total }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

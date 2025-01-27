@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+
+Shop
+
+{% endblock %}
+
+{% load static %}
+
+
+{% block shop %}
+
+<style>
+    .dropdown {
+        display: none;
+    }
+
+    .sort_dropdown {
+        width: 150px;
+        background-color: black;
+        color: white;
+    }
+
+    .sort_dropdown:hover {
+        color: white;
+    }
+
+    .dropdown ul li {
+        padding: 5px 0 0 10px;
+        list-style: none;
+    }
+
+    .dropdown ul li:hover {
+        background-color: gray;
+        color: white;
+    }
+
+    .sort_dropdown:hover .dropdown::-webkit-scrollbar {
+        display: none;
+    }
+
+    .sort_dropdown:hover .dropdown {
+        display: block;
+        position: absolute;
+        background-color: rgb(209, 209, 209);
+        width: 150px;
+        height: 150px;
+        overflow-y: scroll;
+        color: black;
+        box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.2);
+        top: 190px;
+        left: 82px;
+        padding: 0;
+        z-index: 1;
+        border-radius: 0 0 5px 5px;
+    }
+
+    /* card */
+
+    .cards {
+        width: 1298px;
+    }
+
+    .card {
+        display: flex;
+        border-radius: 0;
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .card .pic img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        border-radius: 0;
+    }
+
+    .card .name {
+        padding: 5px;
+        color: aliceblue;
+        background-color: rgba(0, 0, 0, 0.7);
+        opacity: 0;
+        padding-top: 85px;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .card:hover .name {
+        opacity: 1;
+    }
+
+    .card .name>p {
+        width: 180px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .categ {
+        top: 0;
+    }
+
+    .categ p {
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+        width: 200px;
+        white-space: nowrap;
+        text-wrap: nowrap;
+    }
+</style>
+
+<div class="py-2 border-bottom">
+    <h1>SHOP</h1>
+    <div class="sort_dropdown p-2">Sort &#11206;
+        <div class="dropdown">
+            <ul class="p-0">
+                <li>Popular</li>
+                <li>Average Rating</li>
+                <li>Price: Low - High</li>
+                <li>Price: High - Low</li>
+                <li>Sale</li>
+                <li>On Sale</li>
+                <li>Feature</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="py-2 col-lg-12">
+    <div class="cards col-sm-12 col-md-12 col-lg-12 gap-2 d-flex flex-wrap">
+        {% for shop_product in shop_products %}
+        <div class="col-sm-12 col-md-12 col-lg-2 align-content-center d-flex">
+            <div class="card col-sm-12 col-md-6 col-lg-12 d-flex justify-content-around">
+
+                <div class="pic">
+                    {% if shop_product.product_image %}
+                        <img src="{{ shop_product.product_image.url }}" alt="{{ shop_product.product_name }}">
+                    {% else %}
+                        <img src="{% static 'images/default_image.png' %}" alt="Default Image">
+                    {% endif %}
+                </div>
+                <div class="name">
+                    <div class="categ position-absolute" style="top: 0; ">
+                        <p> {{shop_product.pro_sub_category}} </p>
+                    </div>
+                    <h5 class="fs-3"> {{shop_product.product_name}} </h5>
+                    <p class="m-0"> {{shop_product.product_description}} </p>
+                    <div class="d-flex gap-2">
+                        <p>Rs.800</p>
+                        <strike class="text-danger"> {{shop_product.product_price}} </strike>
+                    </div>
+                    <div>
+                        <a href="{%  url 'add_to_cart' shop_product.id %}" class="btn btn-success">
+                            ADD TO CART</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

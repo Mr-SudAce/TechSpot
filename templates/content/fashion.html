@@ -1,0 +1,223 @@
+{% load static %}
+
+<style>
+    #div-top1 .image1 {
+        height: 100%;
+        object-fit: cover;
+    }
+
+    #div-top1 {
+        border-top: 2px solid rgb(219, 52, 68);
+    }
+
+    #div-top1 .image2 {
+        width: 100%;
+    }
+
+    #div-top1 .image1 {
+        height: auto;
+        overflow-y: hidden;
+        width: 100%;
+    }
+
+    #div-top1 {
+        height: 300px;
+    }
+
+    #div-top1 .pic1:hover {
+        filter: brightness(0.6);
+    }
+
+    .card {
+        display: flex;
+        border-radius: 0;
+        transition: transform 0.2s ease-in-out;
+        position: relative;
+        /* Added for absolute positioning of the name */
+    }
+
+    .card .pic img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        border-radius: 0;
+    }
+
+    .card .name {
+        padding: 5px;
+        color: aliceblue;
+        background-color: rgba(0, 0, 0, 0.7);
+        opacity: 0;
+        padding-top: 85px;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .card:hover .name {
+        opacity: 1;
+    }
+
+    .card .name>p {
+        width: 180px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* .arrow {
+        border: none;
+        height: 50px;
+        margin: auto;
+        padding: 10px;
+    } */
+
+    .pic1 {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .txt {
+        width: 200px;
+        text-wrap: nowrap;
+        font-size: large;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .nav-link {
+        display: flex;
+        align-items: center;
+        padding: 0;
+    }
+
+    .nav-link-bar {
+        width: 1px;
+        height: 100%;
+        background-color: grey;
+    }
+
+    .nav-link a {
+        display: block;
+        text-decoration: none;
+        color: black;
+        padding: 10px 15px;
+        flex: 1;
+    }
+
+    .nav-link a:hover {
+        background-color: rgb(219, 52, 68);
+        color: white;
+    }
+
+    /* Additional styles */
+    .card-container {
+        cursor: pointer;
+        /* Indicate that the card is clickable */
+    }
+</style>
+
+{% for category in categories %}
+<div class="col-sm-12 col-md-12 col-lg-12">
+    <div class="header-nav bg-light">
+        <div class="container">
+            <div>
+                <div class="col-sm-12 col-md-12 col-lg-12 d-flex bg-white">
+                    <div class="col-sm-6 col-md-4 col-lg-2 bg-dark text-light">
+                        <div class="d-flex">
+                            <span id="{{ category.category_name }}" class="txt p-2">
+                                <i class="{{ category.category_icon }}" style="padding-right: 15px;"></i>
+                                {{ category.category_name }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-8 col-lg-9 my-auto">
+                        <div class="d-flex">
+                            {% for subcategory in category.subcategories.all %}
+                            <li class="nav-link">
+                                {% if not forloop.first %}
+                                <div class="nav-link-bar"></div>
+                                {% endif %}
+                                <a href="#"><i class="{{ subcategory.sub_category_icon }}"></i>
+                                    {{ subcategory.sub_category_name }}
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="container col-sm-12 col-md-12 col-lg-12">
+            <div class="col-sm-12 col-md-12 col-lg-12 d-flex flex-wrap bg-white">
+                <div id="div-top1" class="d-flex col-lg-12 col-md-12 col-sm-12">
+
+                    <div class="col-sm-4 col-md-4 col-lg-2">
+                        {% if category.category_image %}
+                        <img class="pic1" src="{{ category.category_image.url }}" alt="{{ category.category_name }}">
+                        {% else %}
+                        <img class="pic1" src="{% static 'images/default_image.png' %}" alt="Default Image">
+                        {% endif %}
+                    </div>
+
+
+                    <!-- card carousel -->
+                    <div class="col-sm-8 col-md-8 col-lg-10 d-flex">
+                        <!-- <button type="button" class="arrow left" onclick="slideLeft()"> &#10094;</button> -->
+                        <style>
+                            .cards::-webkit-scrollbar{
+                                display: none;
+                            }
+                        </style>
+                        <div class="cards col-sm-12 col-md-12 col-lg-12 gap-4 d-flex overflow-hidden overflow-scroll px-4">
+                            {% for products in category.productcategory.all %}
+                            <div class="col-sm-12 col-md-12 col-lg-3 align-content-center">
+                                <div class="card-container"onclick="location.href='{% url 'product_itemView_detail' products.id %}'">
+                                    <div class="card col-sm-12 col-md-6 col-lg-12 d-flex">
+                                        <div class="pic">
+                                            {% if products.product_image %}
+                                            <img src="{{ products.product_image.url }}"
+                                                alt="{{ products.product_name }}">
+                                            {% else %}
+                                            <img src="{% static 'images/default_image.png' %}" alt="Default image">
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="name">
+                                            <h5 class="fs-3 position-absolute" style="top: 10px; width: 100%;">
+                                                {{products.product_name}}</h5>
+                                            <br>
+                                            <p>{{ products.product_description }}</p>
+                                            <p>Rs.800 <strike class="text-danger">{{ products.product_price }}</strike>
+                                            </p>
+
+                                            <a href="{% url 'add_to_cart' products.id %}"
+                                                class="btn btn-success position-absolute" style="bottom: 10px;">ADD
+                                                TO CART</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <!-- <button type="button" class="arrow right" onclick="slideRight()"> &#10095; </button> -->
+
+                    </div>
+                    <!-- card carousel -->
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}

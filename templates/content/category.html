@@ -1,0 +1,52 @@
+{% load static %}
+<style>
+    .list-group {
+        height: 500px;
+        /* padding: 0px 2.5px 0px 0px; */
+        overflow-y: scroll;
+    }
+
+    .list-group-item:hover {
+        background-color: rgb(224, 224, 224);
+        color: rgb(255, 0, 0);
+    }
+
+    .list-group-item:hover a {
+        color: rgb(255, 0, 0);
+    }
+
+    .list-group::-webkit-scrollbar {
+        display: none;
+    }
+
+    .list-group-item > a{
+        color: black;
+        font-size: 12px;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .list-group-item > i > a {
+        color: green;
+        text-decoration: none;
+        font-weight: bold;
+        margin: 0;
+        padding: 10px;
+    }
+</style>
+
+<div class="col-sm-6 col-md-4 col-lg-3">
+    <ul class="list-group d-flex">
+        {% for category in categories %}
+        {% if category %}
+        <div class="list-group-item">
+            <i class="{{ category.category_icon }}"></i>
+            <a href="#{{ category.category_name }}" >{{ category.category_name }}</a>
+        </div>
+
+        {% else %}
+        <img src="{% static '/images/Empty Category.jpeg' %}" width="300px" height="500px" alt="">
+        {% endif %}
+        {% endfor %}
+    </ul>
+</div>

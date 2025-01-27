@@ -1,0 +1,122 @@
+{% extends "index.html" %}
+
+{% load static %}
+
+
+
+{% block page %}
+<style>
+    .nav li a {
+        color: black;
+        border-left: 1px solid grey;
+    }
+
+    .nav li:hover {
+        background-color: rgb(219, 52, 68);
+    }
+
+    .nav li a:hover {
+        color: white;
+    }
+
+    .nav-item .nav-link {
+        color: black;
+        padding: 10px 20px;
+        text-decoration: none;
+    }
+
+    .nav li:first-child a {
+        border-left: none;
+    }
+
+    .nav li:last-child a {
+        border-right: none;
+    }
+</style>
+{% include "header/header_top.html" %}
+
+<div class="header-nav bg-light">
+    <div class="container p-0">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="col-sm-6 col-md-8 col-lg-12 bg-white border d-flex justify-content-center">
+                <div class=" d-flex">
+                    <ul class="nav bg-light d-flex flex-wrap m-auto bg-white">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'home' %}"><i class="bi bi-house-fill"></i> Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'shop' %}"><i class="bi bi-cart-fill"></i> Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'tele_shopping_nepal' %}"><i class="bi bi-display"></i>
+                                Tele-Shopping Nepal</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'gym' %}"><i class="bi bi-person-arms-up"></i> Gym</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'gaming' %}"><i class="bi bi-controller"></i> Gaming</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'contactus' %}"><i class="bi bi-telephone-fill"></i>
+                                Contact Us</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" href="{% url 'cart_Detail' %}"><i class="bi bi-cart"></i> &#8811 </a>
+                        </li> -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container p-0">
+
+    {% block blog %} {% endblock %}
+    
+    {% block my_orders %} {% endblock %}
+
+    {% block terms_and_conditions %} {% endblock %}
+
+    {% block FAQ %} {% endblock %}
+
+    {% block return_refund %} {% endblock %}
+
+    {% block delivery_timeline %} {% endblock %}
+
+    {% block return_product %} {% endblock %}
+
+    {% block canceling_order %} {% endblock %}
+
+    {% block order_tracking %} {% endblock %}
+
+    {% block shipping_charges %} {% endblock %}
+
+    {% block new_user_guide %} {% endblock %}
+
+    {% block product_detail %} {% endblock %}
+
+    {% block search %} {% endblock %}
+
+    {% block cart_detail %} {% endblock %}
+
+    {% block shop %} {% endblock %}
+
+    {% block tele_shopping_nepal %} {% endblock %}
+
+    {% block gym %} {% endblock %}
+
+    {% block gaming %} {% endblock %}
+
+    {% block contactus %} {% endblock %}
+
+</div>
+
+
+
+{% endblock %}
+
+
+{% include "footer.html" %}

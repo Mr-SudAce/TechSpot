@@ -1,0 +1,298 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block title %}
+
+Product Detail
+
+{% endblock %}
+
+
+{% block product_detail %}
+<style>
+    .card {
+        display: flex;
+        max-width: 150px;
+        border-radius: 0;
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .card .pic {
+        max-width: 150px;
+
+    }
+
+    .card .pic img {
+        width: 100%;
+        height: 190px;
+        object-fit: cover;
+        border-radius: 0;
+    }
+
+    .card .name {
+        padding: 5px;
+        color: aliceblue;
+        background-color: rgba(0, 0, 0, 0.7);
+        opacity: 0;
+        padding-top: 40px;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .card .name h5 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-wrap: nowrap;
+    }
+
+    .card:hover .name {
+        opacity: 1;
+    }
+
+    .card .name>p {
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+
+
+
+
+
+
+
+    .text-bold {
+        font-weight: 800;
+    }
+
+    text-color {
+        color: #0093c4;
+    }
+
+    /* Main image - left */
+    .main-img img {
+        width: 100%;
+    }
+
+    /* Preview images */
+    .previews img {
+        width: 100%;
+        height: 140px;
+    }
+
+    .img-fluid {
+        max-width: 100%;
+        object-fit: cover;
+        height: 613px;
+        border-radius: 15px;
+    }
+
+    .main-description .category {
+        text-transform: uppercase;
+        color: #0093c4;
+    }
+
+    .main-description .product-title {
+        font-size: 2.5rem;
+    }
+
+    .old-price-discount {
+        font-weight: 600;
+    }
+
+    .new-price {
+        font-size: 2rem;
+    }
+
+    .details-title {
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 1.2rem;
+        color: #757575;
+    }
+
+    .buttons .block {
+        margin-right: 5px;
+    }
+
+    .quantity input {
+        border-radius: 0;
+        height: 40px;
+
+    }
+
+
+    .custom-btn {
+        text-transform: capitalize;
+        background-color: #0093c4;
+        color: white;
+        width: 150px;
+        height: 40px;
+        border-radius: 0;
+    }
+
+    .custom-btn:hover {
+        background-color: #0093c4 !important;
+        font-size: 18px;
+        color: white !important;
+    }
+
+    .similar-product img {
+        height: 400px;
+    }
+
+    .similar-product {
+        text-align: left;
+    }
+
+    .similar-product .title {
+        margin: 17px 0px 4px 0px;
+    }
+
+    .similar-product .price {
+        font-weight: bold;
+    }
+
+    .questions .icon i {
+        font-size: 2rem;
+    }
+
+    .questions-icon {
+        font-size: 2rem;
+        color: #0093c4;
+    }
+
+
+    @media (max-width: 767.98px) {
+
+        .previews img {
+            width: 100%;
+            height: auto;
+        }
+
+    }
+
+    #message {
+        position: absolute;
+        top: 6rem;
+        left: 67rem;
+        list-style: none;
+        padding: 4px;
+        border: 0px solid green;
+        box-shadow: 0px 0px 4px green;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: medium;
+        border-radius: 5px;
+    }
+</style>
+<h1>Product Detail</h1>
+<div class="row">
+    <div class="col-md-5">
+        <div class="main-img">
+            <img class="img-fluid" src=" {{product_detailV.product_image.url}} " alt="ProductS">
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="main-description">
+            <div class="category text-bold">
+                Category: {{product_detailV.product_category}}
+            </div>
+            <div class="product-title text-bold my-3">
+                {{product_detailV.product_name}}
+            </div>
+
+
+            <div class="price-area my-4">
+                <p class="old-price mb-1"><del>...[discount]..</del> <span
+                        class="old-price-discount text-danger">Rs.{{product_detailV.product_price}}</span></p>
+                <p class="new-price text-bold mb-1">Rs. {{product_detailV.product_price}}</p>
+            </div>
+
+
+            <div class="buttons d-flex my-2 flex-column">
+
+                <!-- quantity -->
+                <form method="POST" action="{% if product_in_cart %} {% url 'update_cart_quantity' product_detailV.id %} {% else %} {% url 'add_to_cart' product_detailV.id %} {% endif %}">
+                    {% csrf_token %}
+                    <div class="block d-flex quantity py-2">
+                        <label for="cart_quantity">Quantity:</label>
+                        <input type="number" name="quantity" class="mx-3" style="width: 50px; border: 1px solid black; height: 25px;" value="{{ cart_itm.quantity|default:1 }}" min="1">
+                    </div>
+                    <div class="block">
+                        <button type="submit" class="btn btn-success">ADD TO CART</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="product-details my-4">
+            <p class="details-title text-color mb-1">Product Details</p>
+            <p class="description"> {{product_detailV.product_description}} </p>
+        </div>
+
+        <div class="row questions bg-light p-3">
+            <div class="col-md-1 icon">
+                <i class="fa-brands fa-rocketchat questions-icon"></i>
+            </div>
+        </div>
+
+        <div class="delivery my-4">
+            <p class="font-weight-bold mb-0"><span><i class="fa-solid fa-truck"></i></span> <b>Delivery done in 3
+                    days from date of purchase</b> </p>
+            <p class="text-secondary">Order now to get this product delivery</p>
+        </div>
+        <div class="delivery-options my-4">
+            <p class="font-weight-bold mb-0"><span><i class="fa-solid fa-filter"></i></span> <b>Delivery options</b>
+            </p>
+            <p class="text-secondary">View delivery options here</p>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container similar-products my-4">
+    <hr>
+    <p class="display-5">Similar Products</p>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="d-flex flex-wrap gap-1 justify-content-between">
+                {% for product in products %}
+                <div class="card col-lg-2 d-flex justify-content-center">
+                    <div class="pic">
+                        {% if product.product_image %}
+                        <img src="{{ product.product_image.url }}" alt="{{ product.product_name }}">
+                        {% else %}
+                        <img src="{% static 'images/default_image.png' %}" alt="Default image">
+                        {% endif %}
+                    </div>
+                    <div class="name">
+                        <div class="categ position-absolute" style="top: 0;">
+                            <p>{{ product.pro_sub_category }}</p>
+                        </div>
+                        <h5 class="fs-3">{{ product.product_name }}</h5>
+                        <p class="m-0">{{ product.product_description }}</p>
+                        <div class="d-flex gap-2">
+                            <p>Rs.800</p>
+                            <strike class="text-danger">{{ product.product_price }}</strike>
+                        </div>
+                        <div>
+                            <a href="{% url 'add_to_cart' product.id %}" class="btn btn-success">ADD TO CART</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

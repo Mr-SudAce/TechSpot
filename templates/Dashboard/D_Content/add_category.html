@@ -1,0 +1,76 @@
+{% extends "Dashboard/dashboard.html" %}
+{% load static %}
+
+{% block add_category %}
+<style>
+    input,
+    select {
+        width: 50%;
+        padding: 6px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+    }
+</style>
+
+<h1>Add Category</h1>
+
+<table class="table bg-white">
+    <tr>
+        <th class="align-middle"><label for="category_icon">Icon: </label></th>
+        <td>{{ A_category.category_icon|default:"N/A" }}</td>
+    </tr>
+    <tr>
+        <th class="align-middle"><label for="category_name">Name: </label></th>
+        <td>{{ A_category.category_name|default:"N/A" }}</td>
+    </tr>
+    <tr>
+        <th class="align-middle"><label for="category_image">Category Image: </label></th>
+        <td>{{A_category.category_image}}</td>
+    </tr>
+</table>
+
+<button type="submit" name="submit_A_category" class="btn btn-success">Save</button>
+
+<div>
+    <table class="table bg-white mt-3">
+        <thead>
+            <tr>
+                <th>Icon</th>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in category %}
+            {% if category %}
+            <tr>
+                {{category.category_id}}
+                <td>{{ category.category_icon|default:"N/A" }}</td>
+                <td>{{ category.category_name|default:"N/A" }}</td>
+                <td class="align-middle">
+                    {% if category.category_image and category.category_image.url %}
+                    <img src="{{ category.category_image.url }}" alt="Category Image" class="img-fluid rounded shadow"
+                        style="width: 100px; height: 100px; object-fit: cover;">
+                    {% else %}
+                    <img src="{% static 'images/default_image.png' %}" alt="Default Image"
+                        class="img-fluid rounded shadow" style="width: 100px; height: 100px; object-fit: cover;">
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'del_category' category.id %}" class="btn btn-danger btn-sm">
+                        <i class="fas fa-trash-alt"></i> Delete
+                    </a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4" class="text-center">No category found.</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

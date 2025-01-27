@@ -1,0 +1,14 @@
+{% extends "Dashboard/dashboard.html" %}
+
+{% block add_image_slider %}
+<h1>Add Image Slider</h1>
+
+<table class="table table-borderless">
+    <tr>
+        <th>Image: </th>
+        <td>{{A_Image_slider.image}}</td>
+    </tr>
+</table>
+
+<button type="submit" name="submit_A_image_slider" class="btn btn-success">Save</button>
+{% endblock %}

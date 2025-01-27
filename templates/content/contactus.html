@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block contactus %}
+<style>
+    .form-control:focus {
+        border-color: none;
+        box-shadow: none;
+    }
+
+    .form-control {
+        border-radius: 0;
+    }
+
+    #table_1,
+    td {
+        padding: 0;
+    }
+    
+</style>
+<div>
+    <h1 class="text-center">Contact us</h1>
+    <div class="d-flex flex-wrap col-sm-12 col-md-12 col-lg-12 my-2 p-2" style=" border-radius: 21px; box-shadow: 0px 0px 9px -3px black;
+    border-radius: 20px; ">
+        <!-- first -->
+        <div class="col-sm-12 col-md-12 col-lg-6 d-flex align-items-center justify-content-center"
+            style="background-image: url(/static/images/nephot.jpg); background-size: cover; border-radius: 20px;">
+
+            <div class="position-relative d-flex " style="top: 175px; left: 100px; background-color: rgba(255, 255, 255, 0.5);
+            padding: 5px; border-radius: 20px;">
+                <div>
+                    <p class="px-2 fw-bold"><i class="bi bi-envelope-fill px-2"></i>Email:</p>
+                    <p class="px-2 fw-bold"><i class="bi bi-telephone-fill px-2"></i>Phone:</p>
+                    <p class="px-2 fw-bold"><i class="fa fa-map-location px-2"></i>Address:</p>
+                </div>
+                <div>
+                    <p>info@nephot.com</p>
+                    <p>01-4220013, 9801818913/14/15</p>
+                    <p>Jhocchen, New Road, Kathmandu</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- second -->
+
+        <div class="col-sm-12 col-md-12 col-lg-6 d-flex justify-content-center">
+            <div class="m-2">
+                <h3 class="mb-3">Leave us a Quick Message</h3>
+                <form action="#">
+                    <table id="table_1" class="table table-borderless border-0">
+                        <tbody>
+                            <tr>
+                                <th class="pt-3"><label for="">Email:</label></th>
+                                <td><input type="email" name="contact-email" id="contact-email" class="form-control"
+                                        placeholder="Enter your Email"></td>
+                            </tr>
+                            <tr>
+                                <th class="pt-3"><label for="">Number:</label></th>
+                                <td><input type="text" name="contact-number" id="contact-number" class="form-control"
+                                        placeholder="Enter your Number">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="pt-3"><label for="">Remarks:</label></th>
+                                <td><textarea name="contact-remark" id="contact-remark" class="form-control" cols="25"
+                                        rows="10" placeholder="Enter your Remarks"></textarea></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="d-flex justify-content-end mx-2">
+                        <button class="btn btn-success" type="submit">Submit</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <!-- third -->
+    <div class="col-12 d-flex flex-column mb-3" style="box-shadow: 0px 0px 9px -3px black;
+    border-radius: 10px;">
+        <iframe/;
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d56519.87183066929!2d85.311999!3d27.702092!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19a471a32905%3A0xad5fa3615fcce0fc!2sNep%20Hot%20-%20Online%20Shopping%20in%20Nepal!5e0!3m2!1sen!2snp!4v1725017047769!5m2!1sen!2snp"
+            width="100%" height="300px" style="border:0; border-radius: 5px;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <hr class="mx-1 p-0">
+</div>
+{% include 'footer/footer.html' %}
+
+{% endblock %}

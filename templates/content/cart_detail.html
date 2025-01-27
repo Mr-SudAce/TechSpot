@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block cart_detail %}
+<style>
+    #delete {
+        position: relative;
+    }
+
+    td {
+        border: 1px solid rgb(222, 222, 222);
+    }
+
+    td:first-child {
+        border-left: none;
+    }
+
+    td:last-child {
+        border-right: none;
+    }
+</style>
+
+
+<h1>Cart Detail</h1>
+<div class="col-lg-12">
+    <!-- Form for updating all items -->
+    <form action="{% url 'update_all_cart_details' %}" method="POST">
+        {% csrf_token %}
+        <table class="table">
+            <tr class="table-dark text-center">
+                <th>Product Image</th>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Total Price</th>
+                <th></th>
+            </tr>
+            {% if cartdet %}
+            {% for cartdetail in cartdet %}
+            <tr class="table-light text-center">
+                <td class="p-0 m-0">
+                    <img src="{{ cartdetail.product.product_image.url }}" width="50px" height="50px"
+                        alt="{{ cartdetail.product.product_name }}">
+                </td>
+                <td>{{ cartdetail.product.product_name }}</td>
+                <td>{{ cartdetail.product.product_price }}</td>
+                <td><input type="number" name="quantity_{{ cartdetail.id }}" style="width: 50px;"
+                        value="{{ cartdetail.quantity|default:1 }}" min="1">
+                </td>
+                <td>{{ cartdetail.product.product_price }}</td>
+                <td>{{ cartdetail.total_price|default:cartdetail.product.product_price }}</td>
+                <td>
+                    <a href="{% url 'cartdetail_delete' cartdetail.id %}" class="text-danger bi bi-trash-fill"></a>
+                </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="7" class="text-center fw-bold">NO Cart</td>
+            </tr>
+            {% endif %}
+            <tfoot>
+                <tr class="table-dark text-end">
+                    <td colspan="7" class="">Total: <span class="fw-bold">Rs.{{grand_total}}</span></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="d-flex justify-content-between">
+            <div class="inline">
+                <a href="{% url 'home' %}"
+                    class="btn btn-primary rounded-0 bg-transparent text-dark fw-bold border-dark">Continue
+                    Shopping</a>
+            </div>
+            <div class="text-center d-flex justify-content-end ">
+                <button type="submit"
+                    class="btn btn-primary rounded-0 bg-transparent text-dark fw-bold border-dark updateCartBtn">Update
+                    Cart</button>
+                <div class="text-center d-flex justify-content-end" style="padding-left: 10px;">
+                    <button type="submit"
+                        class="btn btn-primary rounded-0 bg-success text-light fw-bolder border-dark" >CheckOut</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

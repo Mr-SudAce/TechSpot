@@ -1,0 +1,13 @@
+{% load static %}
+<style>
+    /* .imageSlide{
+        padding: 0px 0px 0px 2.5px;
+    } */
+</style>
+<div id="image" class="col-sm-12 col-md-8 col-lg-7">
+    {% for image in images %}
+    <div class="imageSlide">
+        <img src="{{ image.image.url }}" alt="Image" height="500px" width="100%">
+    </div>
+    {% endfor %}
+</div>

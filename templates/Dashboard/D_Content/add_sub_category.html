@@ -1,0 +1,32 @@
+{% extends "Dashboard/dashboard.html" %}
+
+{% block add_sub_category%}
+<h1>Add Sub Category</h1>
+
+<!-- {{A_sub_category.as_p}} -->
+
+<div>
+
+    <table class="table table-borderless">
+
+        <tr>
+            <th><label for="sub_category_icon">Icon: </label></th>
+            <td>{{A_sub_category.sub_category_icon}}</td>
+        </tr>
+
+        <tr>
+            <th><label for="sub_category_name">Sub Category Name: </label></th>
+            <td>{{A_sub_category.sub_category_name}}</td>
+        </tr>
+
+        <tr>
+            <th><label for="sub_category_category">Category: </label></th>
+            <td>{{A_sub_category.category}}</td>
+        </tr>
+
+    </table>
+</div>
+
+<button type="submit" name="submit_A_sub_category" class="btn btn-success">Save</button>
+
+{% endblock %}

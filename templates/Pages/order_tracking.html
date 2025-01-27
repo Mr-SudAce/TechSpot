@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+NEPHOT - Order Tracking
+{% endblock %}
+
+
+{% block order_tracking %}
+<h1 class="text-center"><u>Order Tracking</u></h1>
+
+<div class="mt-5">
+    <p>To track an order, Nephot provides you variants of media such as SMS, email, and notification to keep in touch
+        with the updates of your product.</p>
+
+    <h4>How to track an order?</h4>
+    <p>Basically, if you have placed the order via phone or email you will be notified accordingly via SMS and emails.
+    </p>
+    <p>But, if you have used a Nephot account to place an order, you will be notified via SMS, email, and notification.
+        All of the status from your order being packed to the journey of the product until it reaches your door will be
+        notified.</p>
+
+    <h4>Tracking order from Nephot account</h4>
+    <ul>
+        <li>Click on my account and <b>sign in</b> to further proceed.</li>
+        <li>Go under <b>my order</b> to view the status of your product.</li>
+        <li>You can <b>view your product</b> going through different statuses as in a warehouse, being packed, on the
+            way, and delivered.</li>
+    </ul>
+
+    <p>This way you can always keep track of your order. For more information on your product, you can contact us at
+        <b>9809527885</b>.</p>
+</div>
+<hr>
+{% include "footer/footer.html" %}
+{% endblock %}

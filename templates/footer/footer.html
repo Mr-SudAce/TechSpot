@@ -1,0 +1,194 @@
+<style>
+    .footer table th {
+        padding-right: 15px;
+    }
+
+    .footer>div h3 {
+        text-transform: uppercase;
+        font-size: 20px;
+        text-align: start;
+    }
+
+    .footer>div ul li {
+        font-size: 14px;
+        padding: 3px 0;
+    }
+
+    .footer>div ul{
+        margin: 0;
+        padding: 0px 0px 0px 20px;
+    }
+
+    .footer>div ul a {
+        text-decoration: none;
+        color: #000;
+    }
+
+    .footer>div ul li:hover {
+        color: rgb(219, 52, 68);
+    }
+</style>
+
+<div class="footer py-0">
+    <div class="container">
+        <div class=" d-flex justify-content-around col-sm-12 col-md-12 col-lg-12">
+            <div class="d-flex gap-3 col-sm-8 col-md-12 col-lg-12 overflow-hidden flex-wrap justify-content-between">
+                <div class="p-2 col-sm-4 col-md-4 col-lg-3">
+                    <div>
+                        <h3>NEP HOT Pvt. Ltd.</h3>
+                    </div>
+                    <div class="py-3">
+                        <img src="/static/images/logo.png" alt="">
+                    </div>
+                    <div class="py-2">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>Address:</th>
+                                    <td>New Road, KTM</td>
+                                </tr>
+                                <tr>
+                                    <th>Phone:</th>
+                                    <td>+977 986-2953766</td>
+                                </tr>
+                                <tr>
+                                    <th>Email:</th>
+                                    <td>info@nephot.com</td>
+                                </tr>
+                                <tr>
+                                    <th>Reg No:</th>
+                                    <td>95235632</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="py-3">
+                        <ul class="list-unstyled d-flex p-0 gap-2 align-items-center">
+                            <a href="https://facebook.com" target="_blank"><i class="fa-brands fa-square-facebook fs-3" style="color: #3ba0ed;"></i></a>
+                            <a href="https://www.instagram.com" target="_blank">
+                                <li class="fa-brands fa-instagram fs-3" style="color: #ff7b00;"></li>
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank">
+                                <li class="fa-brands fa-youtube fs-3" style="color: #ff0000;"></li>
+                            </a>
+                            <a href="https://twitter.com" target="_blank">
+                                <li class="fa-brands fa-twitter fs-3" style="color: #74c0fc;"></li>
+                            </a>
+                            <a href="https://www.google.com" target="_blank">
+                                <li class="fa-brands fa-google fs-3" style="color: #d74545;"></li>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="p-2 col-sm-4 col-md-4 col-lg-2">
+                    <div>
+                        <h3>Company</h3>
+                    </div>
+                    <div>
+                        <ul>
+                            <a href="{% url 'new_user_guide' %}">
+                                <li>New user guide</li>
+                            </a>
+                            <a href="{% url 'shipping_charges' %}">
+                                <li>Shipping Charges</li>
+                            </a>
+                            <a href="{% url 'delivery_timeline' %}">
+                                <li>Delivery Timelines</li>
+                            </a>
+                            <a href="{% url 'order_tracking' %}">
+                                <li>Order Tracking</li>
+                            </a>
+                            <a href="{% url 'canceling_order' %}">
+                                <li>Cancelling an order</li>
+                            </a>
+                            <a href="{% url 'return_product' %}">
+                                <li>To return a product</li>
+                            </a>
+                            <a href="{% url 'return_refund' %}">
+                                <li>Return &amp; Refunds</li>
+                            </a>
+                            <a href="{% url 'faq' %}">
+                                <li>FAQ</li>
+                            </a>
+                            <a href="{% url 'terms_and_condition' %}">
+                                <li>Terms &amp; Conditions</li>
+                            </a>
+                            <a href="{% url 'my_orders' %}">
+                                <li>My Orders</li>
+                            </a>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div class="p-2 col-sm-4 col-md-4 col-lg-2">
+                    <div>
+                        <h3>My Account</h3>
+                    </div>
+                    <div>
+                        <ul>
+                            <a href="#">
+                                <li>My Account</li>
+                            </a>
+                            <a href="{% url 'cart_Detail' %}">
+                                <li>Cart</li>
+                            </a>
+                            <a href="{% url 'checkout' %}">
+                                <li>Checkout</li>
+                            </a>
+                            <a href="{% url 'my_orders' %}">
+                                <li>My Orders</li>
+                            </a>
+                            <a href="{% url 'shop' %}">
+                                <li>Shop</li>
+                            </a>
+                            <a href="{% url 'order_tracking' %}">
+                                <li>Order Tracking</li>
+                            </a>
+                            <a href="{% url 'shipping_charges' %}">
+                                <li>Shipping Charges</li>
+                            </a>
+                            <a href="{% url 'blog' %}">
+                                <li>Blog</li>
+                            </a>
+                            <a href="{% url 'contactus' %}">
+                                <li>Contact us</li>
+                            </a>
+                            <a href="{% url 'faq' %}">
+                                <li>FAQ</li>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="p-2 col-sm-4 col-md-6 col-lg-2">
+                    <div>
+                        <h3>Information &amp; Complaints</h3>
+                    </div>
+                    <div class="d-flex justify-content-start ">
+                        <img src="https://nephot.com/wp-content/uploads/2021/01/Screen-Shot-2021-01-06-at-10.52.55-PM-150x150.png"
+                            alt="person">
+                    </div>
+                    <div>
+                        <p class="fs-6">For any information and complaint, please contact Trilochan Subedi
+                            9847820183.</p>
+                    </div>
+                </div>
+
+                <div class="p-2 col-sm-4 col-md-12 col-lg-2">
+                    <div>
+                        <h3>Visit our store</h3>
+                    </div>
+                    <div class="col-12">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d56519.87183066929!2d85.311999!3d27.702092!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19a471a32905%3A0xad5fa3615fcce0fc!2sNep%20Hot%20-%20Online%20Shopping%20in%20Nepal!5e0!3m2!1sen!2snp!4v1725017047769!5m2!1sen!2snp"
+                            width="100%" height="250px" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,119 @@
+{% extends 'index.html' %}
+
+{% load static %}
+
+{% block title %}
+NepHot - Home
+{% endblock %}
+
+{% block page %}
+
+<style>
+    #scroll_top a i {
+        font-size: 30px;
+        margin: 10px;
+        color: black;
+        width: 20px;
+        border-radius: 50%;
+        text-align: center;
+        position: fixed;
+        right: 10px;
+        bottom: 10px;
+    }
+
+    #scroll_top a i:hover {
+        font-size: 30px;
+        margin: 10px;
+        width: 20px;
+        border-radius: 50%;
+        text-align: center;
+        position: fixed;
+        right: 10px;
+        bottom: 10px;
+    }
+
+    #div-top {
+        border-top: 3px solid rgb(219, 52, 68);
+    }
+
+    #div-top1 .image1 {
+        height: 100%;
+        object-fit: cover;
+    }
+</style>
+
+<main>
+    <div class="main-container ">
+
+        {% include 'header/header_top.html' %}
+
+        {% include 'header/header_mid.html' %}
+
+        {% include 'header/header_nav.html' %}
+    </div>
+
+
+    <div class="main-content col-sm-12 col-md-12 col-lg-12">
+        <div class="container">
+            <div id="div-top">
+                <div class="d-flex flex-wrap">
+
+                    {% include 'content/category.html' %}
+
+                    {% include 'content/image_slider.html' %}
+
+                    {% include 'content/image_scroll.html' %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-12 col-md-12 col-sm-12 py-5">
+        <div class="container">
+            {% include 'content/display.html' %}
+        </div>
+    </div>
+
+
+
+    <div class="div bg-light col-sm-12 col-md-12 col-lg-12"
+        style="row-gap: 2rem; padding-top: 2rem; display: flex; flex-direction: column;">
+
+
+        {% include 'content/fashion.html' %}
+
+        {% include 'content/advertisement.html' %}
+        
+        {% include 'footer/footer.html' %}
+
+        
+
+        <!-- {% include 'content/digital.html' %}
+
+        {% include 'content/electronics.html' %}
+
+        {% include 'content/fitness.html' %}
+
+        {% include 'content/watches.html' %}   -->
+
+
+
+
+
+
+
+    </div>
+
+
+    <div id="scroll_top">
+        <a href="#">
+            <i class="bi bi-arrow-up"></i>
+        </a>
+    </div>
+
+</main>
+
+
+{% endblock %}

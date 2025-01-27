@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Gym
+{% endblock %}
+
+{% block gym %}
+
+<style>
+    .gym-title {
+        text-align: center;
+        font-size: 36px;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .category-title {
+        font-size: 28px;
+        margin-bottom: 15px;
+        color: #2c3e50;
+    }
+
+    .product-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: space-between;
+    }
+
+    .product-card {
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        /* padding: 10px; */
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease;
+    }
+
+    .product-card:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .product-image img {
+        max-width: 200px;
+        cursor: pointer;
+        height: 200px;
+        object-fit: cover;
+        width: 200px;
+        border-radius: 5px;
+    }
+
+    .product-name {
+        white-space: nowrap;
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #2980b9;
+    }
+
+    .product-description {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #7f8c8d;
+    }
+
+    .product-price {
+        color: #27ae60;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 10px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+        opacity: 0.9;
+    }
+
+    .product-info {
+        display: none;
+        cursor: pointer;
+    }
+
+    .product-card:hover .product-info {
+        display: block;
+        bottom: 0;
+        color: white;
+        font-size: 14px;
+        text-align: center;
+        width: 100%;
+        background-color: rgba(49, 49, 49, 0.9);
+    }
+</style>
+
+<div class="gym-title">
+    {% for gym_categ in gym_category %}
+    <h1 class="gym-title">{{ gym_categ.category_name }} Products</h1>
+
+    <hr>
+
+    <div class="product-list col-sm-12 col-md-12 col-lg-12">
+        {% for prod in gym_categ.productcategory.all %}
+        <div class="product-card">
+            <div class="product-image position-relative"onclick="location.href='{% url 'product_itemView_detail' prod.id %}'">
+                {% if prod.product_image %}
+                <img src="{{ prod.product_image.url }}" alt="{{ prod.product_name }}">
+                {% else %}
+                <img src="{% static 'images/default_image.png' %}" alt="{{ prod.product_name }}">
+                {% endif %}
+                <div class="product-info position-absolute">
+                    <h3 class="product-name m-0">{{ prod.product_name }}</h3>
+                    <!-- <p class="product-description m-0">{{ prod.product_description }}</p> -->
+                    <p class="product-price m-0">Price: Rs. {{ prod.product_price }} <br>
+                        <strike class="text-danger">[discount]</strike>
+                    </p>
+
+                    <div class="product-actions">
+                        <!-- <a href="{% url 'product_itemView_detail' prod.id %}" class="btn view-details">View Details</a> -->
+                        <!-- <a href="{% url 'add_to_cart' prod.id %}" class="btn btn-success add-to-cart">Add to
+                            Cart</a> -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+    {% empty %}
+    <p>No products available.</p>
+    {% endfor %}
+</div>
+{% endblock %}

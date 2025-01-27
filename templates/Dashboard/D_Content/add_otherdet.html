@@ -1,0 +1,77 @@
+{% extends "Dashboard/dashboard.html" %}
+{% load static %}
+
+{% block otherdetail %}
+<style>
+    input,
+    select {
+        width: 50%;
+        padding: 6px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+    }
+</style>
+<h1>Other details</h1>
+<table class="table bg-white">
+    <tr>
+        <th class="align-middle"><label for="category_icon">Link: </label></th>
+        <td>{{ A_otherdetails.sm_link|default:"N/A" }}</td>
+    </tr>
+    <tr>
+        <th class="align-middle"><label for="category_image">Email: </label></th>
+        <td>{{A_otherdetails.email}}</td>
+    </tr>
+    <tr>
+        <th class="align-middle"><label for="category_image">Phone Number: </label></th>
+        <td>{{A_otherdetails.phone_number}}</td>
+    </tr>
+    <tr>
+        <th class="align-middle"><label for="category_image">Address: </label></th>
+        <td>{{A_otherdetails.address}}</td>
+    </tr>
+</table>
+<button type="submit" name="submit_A_otherdetails_save" class="btn btn-success">Save</button>
+
+
+<div>
+    <table class="table bg-white mt-3">
+        <thead>
+            <tr>
+                <th>Links:</th>
+                <th>Email:</th>
+                <th>Phone No.:</th>
+                <th>Address:</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if otherdetails %}
+            <tr>
+                <td>
+                    <p>{{ otherdetails.sm_link }}</p>
+                </td>
+                <td>
+                    <p>{{ otherdetails.email }}</p>
+                </td>
+                <td>
+                    <p>{{ otherdetails.phone_number }}</p>
+                </td>
+                <td>
+                    <p>{{ otherdetails.address }}</p>
+                </td>
+                <td>
+                    <a href="{% url 'del_otherdetail' otherdetails.id %}" class="btn btn-danger btn-sm">
+                        <i class="fas fa-trash-alt"></i> Delete
+                    </a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6" class="text-muted">No Other Details Available</td>
+            </tr>
+            {% endif %}
+        </tbody>
+        
+    </table>
+</div>
+{% endblock %}
