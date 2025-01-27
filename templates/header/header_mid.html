@@ -131,16 +131,15 @@
                     style="height: 100px;">
                     {% if header and header.header_image_left.url %}
                     {% if header.header_image_left.url %}
-                    <img src="{{ header.header_image_left.url }}" alt="NepHot" style="width: 100px;">
+                    <img src="{{ header.header_image_left.url }}" alt="TechSpot" style="width: 100px;">
                     {% else %}
-                    <img src="{% static 'images/favicon.jpg' %}" alt="NepHot" style="width: 100px;">
+                    <img src="{% static 'images/favicon.jpg' %}" alt="TechSpot" style="width: 100px;">
                     {% endif %}
                     {% endif %}
-
                     <!-- {% if headers.url %}
-                    <img src="{{ headers.url }}" alt="NepHot" style="width: 90px;">
+                    <img src="{{ headers.url }}" alt="TechSpot" style="width: 90px;">
                     {% else %}
-                    <img src="{% static 'images/favicon.jpg' %}" alt="NepHot" style="width: 90px;">
+                    <img src="{% static 'images/favicon.jpg' %}" alt="TechSpot" style="width: 90px;">
                     {% endif %} -->
                 </div>
                 <div class="d-flex col-sm-12 col-md-8 col-lg-7">
@@ -187,8 +186,7 @@
                                                 <div
                                                     class="product-det d-flex gap-2 d-flex flex-row p-2 position-relative">
                                                     <form class="position-absolute"
-                                                        action="{% url 'del_cart_item' cart_item.id %}"
-                                                        method="POST">
+                                                        action="{% url 'del_cart_item' cart_item.id %}" method="POST">
                                                         {% csrf_token %}
                                                         <input type="submit" value="x" class="bi bi-x bg-white py-0"
                                                             id="delete">

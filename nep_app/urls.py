@@ -6,12 +6,7 @@ from .views import *
 
 urlpatterns = [
     path("", home, name="home"),
-    path("gym/", gym, name="gym"),
-    path("shop/", shop, name="shop"),
-    path("gaming/", gaming, name="gaming"),
     path("cart/", cart_detail, name="cart_Detail"),
-    path("contactus/", contact_us, name="contactus"),
-    path("tele_shopping_nepal/", tele_shopping_nepal, name="tele_shopping_nepal"),
     #
     #
     # cart
@@ -34,6 +29,7 @@ urlpatterns = [
     path("dashboard/add-cart-item/", add_cart_item, name="add_cart_item"),
     path("dashboard/add_header_mid/", add_header_mid, name="add_header_mid"),
     path("dashboard/add_otherdetail/", add_otherdetail, name="add_otherdetail"),
+    path("dashboard/add_advertisement/", add_advertisement, name="add_advertisement"),
     #
     #
     # D_Content [delete function]
@@ -45,6 +41,7 @@ urlpatterns = [
     path("delete-cart-item/<int:id>", del_cart_item, name="del_cart_item"),
     path("delete-header/<int:id>", del_header, name="del_header"),
     path("delete-otherdetail/<int:id>", del_otherdetail, name="del_otherdetail"),
+    path("delete-advertisement/<int:id>", del_advertisement, name="del_advertisement"),
     #
     #
     # search
@@ -54,24 +51,10 @@ urlpatterns = [
     # dashboard
     path("dashboard/", dashboard, name="dashboard"),
     #
+    #
     # authentication
     path("accounts/login/", user_login, name="login"),
     path("accounts/register/", user_register, name="register"),
     path("logout/", user_logout, name="logout"),
-    #
-    #
-    # pages
-    path("new_user_guide/", new_user_guide, name="new_user_guide"),
-    path("shipping_charges/", shipping_charges, name="shipping_charges"),
-    path("delivery_timeline/", delivery_timeline, name="delivery_timeline"),
-    path("order_tracking/", order_tracking, name="order_tracking"),
-    path("faq/", faq, name="faq"),
-    path("terms_and_condition/", terms_and_condition, name="terms_and_condition"),
-    path("return_refund/", return_refund, name="return_refund"),
-    path("checkout/", checkout, name="checkout"),
-    path("canceling_order/", canceling_order, name="canceling_order"),
-    path("return_product/", return_product, name="return_product"),
-    path("my_orders/", my_orders, name="my_orders"),
-    path("blog/", blog, name="blog"),
-    
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

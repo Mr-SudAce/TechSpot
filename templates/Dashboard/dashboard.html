@@ -101,10 +101,6 @@
 
                         <div class="side_menu_mid d-flex flex-column rounded-3">
                             <div class="row gap-2 p-3">
-                                <a href="{% url 'add_otherdetail' %}"
-                                    class=" fw-bold dash_link nav-link text-start {% if request.resolver_match.url_name == 'other_detail' %} active text-primary {% endif %}"
-                                    onclick="toggleDisplay('other_detail')"><i
-                                        class="bi bi-plus fw-bold px-2 py-0"></i>Other Detail</a>
 
                                 <a href="{% url 'add_header_mid' %}"
                                     class=" fw-bold dash_link nav-link text-start {% if request.resolver_match.url_name == 'header_mid' %} active text-primary {% endif %}"
@@ -140,6 +136,16 @@
                                     class=" fw-bold dash_link nav-link text-start {% if request.resolver_match.url_name == 'add_cart_item' %} active text-primary {% endif %} "
                                     onclick="toggleDisplay('Add_cart_item')"><i
                                         class="bi bi-plus fw-bold px-2 py-0"></i>Cart Item</a>
+
+                                <a href="{% url 'add_otherdetail' %}"
+                                    class=" fw-bold dash_link nav-link text-start {% if request.resolver_match.url_name == 'other_detail' %} active text-primary {% endif %}"
+                                    onclick="toggleDisplay('other_detail')"><i
+                                        class="bi bi-plus fw-bold px-2 py-0"></i>Other Detail</a>
+
+                                <a href="{% url 'add_advertisement' %}"
+                                    class=" fw-bold dash_link nav-link text-start {% if request.resolver_match.url_name == 'add_advertisement' %} active text-primary {% endif %}"
+                                    onclick="toggleDisplay('advertisement')"><i
+                                        class="bi bi-plus fw-bold px-2 py-0"></i>Advertisement</a>
                             </div>
 
                         </div>
@@ -165,11 +171,22 @@
                                                 {% url 'add_cart' %}
                                             {% elif request.resolver_match.url_name == 'add_cart_item' %}
                                                 {% url 'add_cart_item' %}
+                                            {% elif request.resolver_match.url_name == 'add_advertisement' %}
+                                                {% url 'add_advertisement' %}
                                             {% else %}
                                                 {% url 'dashboard' %}
                                             {% endif %}" method="POST" enctype="multipart/form-data">
 
                                     {% csrf_token %}
+                                    <style>
+                                        input,
+                                        select {
+                                            width: 50%;
+                                            padding: 6px;
+                                            border: 1px solid #ccc;
+                                            border-radius: 10px;
+                                        }
+                                    </style>
                                     {% block otherdetail %} {% endblock %}
                                     {% block add_product %} {% endblock %}
                                     {% block add_category %} {% endblock %}
@@ -178,6 +195,7 @@
                                     {% block add_cart %} {% endblock %}
                                     {% block add_cart_item %} {% endblock %}
                                     {% block add_header_mid %} {% endblock %}
+                                    {% block add_advertisement %} {% endblock %}
                                 </form>
                             </div>
 

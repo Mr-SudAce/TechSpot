@@ -74,6 +74,8 @@ def home(request):
     product = Product.objects.all()
     header = Header.objects.last()
     otherdetails = OtherDetail.objects.last()
+    advertisement = Advertisement.objects.all()
+    
 
     if request.user.is_authenticated:
         cart = Cart.objects.filter(user=request.user, is_paid=False).first()
@@ -97,52 +99,10 @@ def home(request):
         "grand_total": grand_total,
         "header": header,
         "otherdetails": otherdetails,
+        "advertisement": advertisement,
     }
+    print("home add ",advertisement)
     return render(request, "home.html", context)
-
-
-def shop(request):
-    shop_products = Product.objects.all()
-    context = {
-        "shop_products": shop_products,
-    }
-    return render(request, "content/shop.html", context)
-
-
-def tele_shopping_nepal(request):
-    tele_category = Category.objects.filter(
-        category_name="Tele-Shopping"
-    ).prefetch_related("productcategory")
-    context = {
-        "tele_category": tele_category,
-    }
-    return render(request, "content/tele_shopping_nepal.html", context)
-
-
-def gym(request):
-    gym_category = Category.objects.filter(category_name="GYM").prefetch_related(
-        "productcategory"
-    )
-
-    context = {
-        "gym_category": gym_category,
-    }
-    return render(request, "content/gym.html", context)
-
-
-def gaming(request):
-    gaming_category = Category.objects.filter(
-        category_name="Gaming & Accessories"
-    ).prefetch_related("productcategory")
-    context = {
-        "gaming_category": gaming_category,
-    }
-    return render(request, "content/gaming.html", context)
-
-
-def contact_us(request):
-    return render(request, "content/contactus.html")
-
 
 # add to cart
 @login_required
@@ -179,7 +139,6 @@ def delete_cart_item(request, cart_item_id):
         cart_item.delete()
         return redirect("/")
 
-
 def cartdetail_delete(request, cart_det_id):
     try:
         cart_item = get_object_or_404(CartItem, id=cart_det_id)
@@ -213,7 +172,6 @@ def cart_detail(request):
     }
     return render(request, "content/cart_detail.html", context)
 
-
 def update_all_cart_details(request):
     if request.method == "POST":
         for key, value in request.POST.items():
@@ -226,7 +184,6 @@ def update_all_cart_details(request):
                 cart_item.save()
 
         return redirect("cart_Detail")
-
 
 def search_query(request):
     if request.method == "GET":
@@ -261,7 +218,6 @@ def product_itemView_detail(request, id):
     }
     return render(request, "content/product_detail.html", context)
 
-
 def update_cart_quantity(request, id):
     product = get_object_or_404(Product, id=id)
     cart = Cart.objects.filter(user=request.user, is_paid=False).first()
@@ -280,7 +236,6 @@ def update_cart_quantity(request, id):
 def dashboard(request):
 
     return render(request, "Dashboard/dashboard.html")
-
 
 # Dashboard > D_Content
 def add_product(request):
@@ -308,7 +263,6 @@ def add_category(request):
     context = {"A_category": A_category, "category": category}
     return render(request, "Dashboard/D_Content/add_category.html", context)
 
-
 def add_sub_category(request):
     A_sub_category = AddSub_CategoryView()
     if request.method == "POST":
@@ -332,7 +286,6 @@ def add_image_slider(request):
     context = {"A_Image_slider": A_Image_slider}
     return render(request, "Dashboard/D_Content/add_image_slider.html", context)
 
-
 def add_cart(request):
     A_cart = AddCartView()
     if request.method == "POST":
@@ -343,8 +296,6 @@ def add_cart(request):
                 return redirect("add_cart")
     context = {"A_cart": A_cart}
     return render(request, "Dashboard/D_Content/add_cart.html", context)
-
-
 def add_cart_item(request):
     A_cat_item = AddCartItemView()
     if request.method == "POST":
@@ -356,6 +307,17 @@ def add_cart_item(request):
     context = {"A_cat_item": A_cat_item}
     return render(request, "Dashboard/D_Content/add_cart_item.html", context)
 
+def add_advertisement(request):
+    advertisement = Advertisement.objects.all()
+    A_advertisement = AddAdvertisementView()
+    if request.method == "POST":
+        if "submit_A_advertisement" in request.POST:
+            A_advertisement = AddAdvertisementView(request.POST, request.FILES)
+            if A_advertisement.is_valid():
+                A_advertisement.save()
+                return redirect("add_advertisement")
+    context = {"A_advertisement": A_advertisement, "advertisement": advertisement}
+    return render(request, "Dashboard/D_Content/add_advertisement.html" , context)
 
 # header
 def add_header_mid(request):
@@ -372,8 +334,6 @@ def add_header_mid(request):
 
     context = {"A_header_mid": A_header_mid, "header": header}
     return render(request, "Dashboard/D_Content/add_header_mid.html", context)
-
-
 def add_otherdetail(request):
     otherdetails = OtherDetail.objects.last()
     if request.method == "POST":
@@ -402,111 +362,45 @@ def del_header(request, id):
     header.delete()
     messages.success(request, "Header deleted successfully.")
     return redirect("add_header_mid")
-
 def del_product(request, id):
     product = get_object_or_404(Product, id=id)
     product.delete()
     messages.success(request, "Product deleted successfully.")
     return redirect("add_product")
-
 def del_category(request, id):
     category = get_object_or_404(Category, id=id)
     category.delete()
     messages.success(request, "Category deleted successfully.")
     return redirect("add_category")
-
 def del_sub_category(request, id):
     sub_category = get_object_or_404(Sub_Category, id=id)
     sub_category.delete()
     messages.success(request, "Sub-Category deleted successfully.")
     return redirect("add_sub_category")
-
 def del_image_slider(request, id):
     image_slider = get_object_or_404(image_Slider, id=id)
     image_slider.delete()
     messages.success(request, "Image Slider deleted successfully.")
     return redirect("add_image_slider")
-
 def del_cart(request, id):
     cart = get_object_or_404(Cart, id=id)
     cart.delete()
     messages.success(request, "Cart deleted successfully.")
     return redirect("add_cart")
-
 def del_cart_item(request, id):
     cart_item = get_object_or_404(CartItem, id=id)
     cart_item.delete()
     messages.success(request, "Cart Item deleted successfully.")
     return redirect("add_cart_item")
 
+def del_advertisement(request, id):
+    advertisement = get_object_or_404(Advertisement, id=id)
+    advertisement.delete()
+    messages.success(request, "Advertisement deleted successfully.")
+    return redirect("add_advertisement")
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# pages
-def new_user_guide(request):
-    return render(request, "Pages/new_user_guide.html")
-
-
-def shipping_charges(request):
-    return render(request, "Pages/shipping_charges.html")
-
-
-def delivery_timeline(request):
-    return render(request, "Pages/delivery_timeline.html")
-
-
-def order_tracking(request):
-    return render(request, "Pages/order_tracking.html")
-
-
-def canceling_order(request):
-    return render(request, "Pages/canceling_order.html")
-
-
-def return_product(request):
-    return render(request, "Pages/return_product.html")
-
-
-def return_refund(request):
-    return render(request, "Pages/return_refund.html")
-
-
-def faq(request):
-    return render(request, "Pages/FAQ.html")
-
-
-def checkout(request):
-    return render(request, "Pages/checkout.html")
-
-
-def terms_and_condition(request):
-    return render(request, "Pages/terms_and_condition.html")
-
-
-def my_orders(request):
-    return render(request, "Pages/my_orders.html")
-
-
-def blog(request):
-    return render(request, "Pages/blog.html")

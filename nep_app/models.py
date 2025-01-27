@@ -97,3 +97,10 @@ class OtherDetail(models.Model):
     address = models.CharField(max_length=200, default="", blank=True)
     def __str__(self) -> str:
         return f"{self.sm_link} - {self.email} - {self.phone_number} - {self.address}"
+
+
+class Advertisement(models.Model):
+    image = models.ImageField(upload_to="ad/", default="")
+    link = models.CharField(max_length=200, default="", blank=True)
+    def __str__(self) -> str:
+        return f"{self.image}"
