@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Add to cart{% endblock %}
+
+{% block content %}
+<style>
+    .container{
+        margin-top: 15rem;
+    }
+    .container h3{
+        text-align: center;
+        color: darkred;
+        text-transform: capitalize;
+    }
+    
+</style>
+{%load static%}
+<div class="container">
+    <h3 >Product added to cart successfully. </h3><span style="margin-left: 48rem;"><a href="{% url 'ecomapp:allproducts' %}" style="color: green;">Click To Add more Products</a></span>
+</div>
+{% endblock %}

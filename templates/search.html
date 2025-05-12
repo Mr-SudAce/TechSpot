@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Search {% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 "
+            style=" display: flexbox; justify-content: center;">
+            <h3>Search Results for <span
+                    class="text-info">"{{request.GET.keyword}}"</span></h3>
+            <hr>
+
+            {% for result in results %}
+            <div class="row mb-5"
+                style=" margin-left: 10rem; box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 15px; border-radius: 4px;">
+                <div class="col-md-3">
+                    <img src="{{result.image.url}}" width="300px"
+                        class="img-fluid p-3" alt="image"
+                        style="max-width: 500px;">
+                </div>
+                <div class="col-md-4" style="margin: 2rem 5rem 5rem 12rem;">
+                    <h4
+                        style="margin-top: 2rem;  text-transform: uppercase; font-size: 20px; width: 600px;">
+                        {{result.title}}</h4>
+                    <div style="margin-top: 4rem;">
+                        {% if result.stock_quantity <= 0 %} <a class="p-2"
+                            style=" color:red; border:1px solid red; border-radius: 4px; font:14px bolder;">Out
+                            of
+                            Stock</a>
+                        {% else %}
+                        <a class="p-2" href="{% url 'addtocart' product.id %}"
+                            style="background-color: green; border-radius: 4px; text-decoration: none; color: aliceblue; font: 14px bolder;">Add
+                            To Cart</a>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

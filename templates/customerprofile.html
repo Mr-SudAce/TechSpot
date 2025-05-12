@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+<div class="container" style="margin: 0;">
+    <div class="row">
+        <div class="col-4 ml-5 p-3" style=" margin-left: 20px; border-radius: 2px 20px; background-color: greenyellow;">
+            <h3
+                style="text-align: center; font-size: large; text-transform: uppercase; padding: 5px 0; margin: -10px; font-weight: bolder; width: 100%;">
+                Detail Information</h3>
+            <hr>
+            <p><span class="font-weight-bold" style="text-transform: uppercase; font-size: medium;"> Name: </span> <br>
+                <span style=" font-size: medium; padding: 2px 0 2px 2px;"> {{customer.full_name}}</span>
+            </p>
+            <p><span class="font-weight-bold" style="text-transform: uppercase; font-size: medium;"> Username: </span>
+                <br>
+                <span style=" font-size: medium; padding: 2px 0 2px 2px;"> {{customer.user.username}}</span>
+            </p>
+            <p><span class="font-weight-bold" style="text-transform: uppercase; font-size: medium;"> Email: </span> <br>
+                <span style=" font-size: medium; padding: 2px 0 2px 2px;"> {{customer.user.email}}</span>
+            </p>
+            <p><span class="font-weight-bold" style="text-transform: uppercase; font-size: medium;"> Address: </span>
+                <br>
+                <span style=" font-size: medium; padding: 2px 0 2px 2px;"> {{customer.address}}</span>
+            </p>
+            <p><span class="font-weight-bold" style="text-transform: uppercase; font-size: medium;"> Joined on: </span>
+                <br>
+                <span style=" font-size: medium; padding: 2px 0 2px 2px;"> {{customer.joined_on}}</span>
+            </p>
+        </div>
+        <div class="col-7 p-4" style="margin-left: 20px; border-radius: 20px 2px; background-color: skyblue; ">
+            <h3
+                style="text-align: center; font-size: xx-large; text-transform: uppercase; color: white; padding: 5px 0; margin: -10px; width: 100%;">
+                Previous Orders</h3>
+            <hr>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>SN</th>
+                        <th>Order ID</th>
+                        <th>Amount</th>
+                        <th>Ordered on</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ord in orders %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td><a href="{% url 'ecomapp:customerorderdetail' ord.pk %}">#ORDER_{{ord.id}}</a></td>
+                        <td>Rs. {{ord.total}}</td>
+                        <td>{{ord.created_at|timesince}} ago</td>
+                        <td>{{ord.order_status}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

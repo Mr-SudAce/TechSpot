@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %} All Products {% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 100%; margin-left: 5px; ">
+    <h3 style="text-align: center; font-size: xx-large; text-transform: uppercase; background: linear-gradient(to left, white, rgb(0, 162, 255), white);color: white; padding: 5px 0; margin: -10px; ;">All Products</h3>
+    {% for cat in allcategories %}
+    <hr>
+    <h4 class="p-3" style=" border-radius: 6px; text-transform: uppercase; color: white; background:linear-gradient(to right, black 10%, white);">
+        {{cat.title}}</h4>
+    <div class="row ml-1 " style="gap: 6px;">
+        {% for p in cat.product_set.all %}
+        <div style=" max-width: 80%; padding: 1px; border: 1px solid rgb(173, 172, 172); border-radius: 4px;">
+            <div style="margin: 0; padding: 0;">
+                
+                
+            <h4>
+                <a href="{% url 'ecomapp:productdetail' p.slug %}" style="text-decoration: none; font-size: 14px;" > 
+                    <img src="{{p.image.url}}" alt="" class="img-fluid" style="height: 200px; width: 200px; "> <p> {{p.title}} </p> 
+                </a>
+            </h4>
+                <p style="color: black; font-size: 14px; font-weight: bolder;"><strike style="color: red; font-weight: 700;" >Rs.{{p.marked_price}}</strike> Rs.{{p.selling_price}}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

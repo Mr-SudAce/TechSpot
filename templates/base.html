@@ -1,0 +1,157 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="{% static '\techspotttt.png' %}" />
+    <title>TechSpot</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+</head>
+<style>
+    .navbar {
+        background: rgb(186,172,220) !important;
+        background: linear-gradient(0deg, rgba(186,172,220,1) 0%, rgba(171,168,235,1) 48%, rgba(152,197,243,1) 100%) !important;
+    }
+
+    .nav-link {
+        padding: 1px;
+    }
+
+    .nav-link:hover {
+        border-radius: 40px;
+        padding: 1px;
+        justify-items: center;
+    }
+</style>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+        <a class="navbar-brand ms-3 text-dark" href="/">
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+                integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+                crossorigin="anonymous" />
+
+            <!-- title name -->
+            <a href="/" style="text-decoration: none">
+                <img src="{% static '\TechSpot.png' %}"
+                    style="width: 100px; height: 100px; margin-top:-52px; margin-right: -10px; position:absolute" />
+                    <!-- <span style="font-size: 10px; font-weight:800; color:black; margin-right:-10px;">TechSpot</span> -->
+                <!-- <span class="ml-3" style="
+                font-size: 24px;
+                font-weight: 800;
+            ">Tech</span>
+                <span style=" font-size: 24px;
+                font-weight: 800;
+            ">Spot</span></a> -->
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- catagory, cart, search -->
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent"
+            style="margin-left: 50rem; position: relative">
+            <ul class="navbar-nav">
+                <li class="nav-item p-0">
+                    <a class="nav-link" href="{% url 'ecomapp:allproducts' %}"
+                        style="font: 20px bolder; font-weight:800; color: #420376">Categories</a>
+                </li>
+                <li class="nav-item p-0">
+                    <a class="nav-link" href="{% url 'ecomapp:mycart' %}" style="font: 20px bolder; color: black">
+                        <img src="https://th.bing.com/th/id/R.d01f6a524827d080143ba7b6a4fd2961?rik=CTAD0k7MJtPlMA&pid=ImgRaw&r=0"
+                            alt height="25px" width="25px" />
+                    </a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" action="{% url 'ecomapp:search' %}" method="GET" style="color:#420376 !important  ">
+                <!-- search -->
+                <input name="keyword" class="form-control mr-sm-2" type="search" placeholder="Search"
+                    aria-label="Search" required />
+                <button class="btn btn-danger my-2 my-sm-0" type="submit" style="margin-left: -5px;  background:#420376 !important; border:#420376">
+                    Search
+                </button>
+            </form>
+        </div>
+
+        <!-- ACCOUNT -->
+        <div class="nav-item dropdown" style="position: absolute; margin-left: 94%;">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" style="font: 15px bolder; color: black">
+                <img src="{% static '\Account.png' %}" alt height="25px" width="25px" />
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="
+                max-width: 10%;
+                background-color: transparent;
+                align-content: center;
+                border: transparent;
+                margin-left: -3.5rem;
+                padding-left: 0.5rem;
+                padding-bottom: 0.1rem;
+            ">
+                {% if request.user.customer %}
+                <a class="dropdown-item" href="{% url 'ecomapp:customerprofile' %}" style="
+                font-size: 12px;
+                border-radius: 5px;
+                background-color: rgb(255, 255, 255);
+                opacity: 90%;
+                border: 1px solid black;
+                text-align: center;
+                max-width: 100px;
+                color: black;
+            ">Profile <img src="{% static '\profile.png' %}" alt="" height="20px" width="20px" /> </a>
+                <a class="dropdown-item my-2" href="{% url 'ecomapp:customerlogout' %}" style="
+                font-size: 12px;
+                border-radius: 5px;
+                background-color: rgb(255, 255, 255);
+                opacity: 90%;
+                border: 1px solid black;
+                text-align: center;
+                max-width: 100px;
+                color: black;
+            ">Logout <img src="{% static '\logout.png' %}" alt height="20px" width="20px" />
+                </a>
+                {% else %}
+                <a class="dropdown-item" href="{% url 'ecomapp:customerregistration' %}" style="
+                font-size: 12px;
+                border-radius: 5px;
+                background-color: rgb(255, 255, 255);
+                opacity: 90%;
+                border: 1px solid black;
+                text-align: center;
+                max-width: 100px;
+                color: black;
+            ">Register <img src="{% static '\sign-up.png' %}" alt height="20px" width="20px" /> </a>
+                <a class="dropdown-item my-2" href="{% url 'ecomapp:customerlogin' %}" style="
+                font-size: 12px;
+                border-radius: 5px;
+                background-color: rgb(255, 255, 255);
+                opacity: 90%;
+                border: 1px solid black;
+                text-align: center;
+                max-width: 100px;
+                color: black;
+            ">Login <img src="{% static '\Login.png' %}" alt height="20px" width="20px" /> </a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <hr />
+
+    {% block content %} {% endblock %}
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

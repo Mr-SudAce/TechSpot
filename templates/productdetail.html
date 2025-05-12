@@ -1,0 +1,135 @@
+{% extends 'base.html' %} {% block title %}{{product.title}}{% endblock %}
+{% block content %}
+<style>
+    #desp {
+        max-height: 100px;
+
+        overflow: hidden;
+    }
+
+    #SM {
+        display: block;
+    }
+</style>
+<div class="container">
+    <h3 style="
+      text-align: center;
+      font-size: x-large;
+      text-transform: uppercase;
+      background: linear-gradient(to left, white, rgb(0, 0, 0), white);
+      color: white;
+      font-weight: bolder;
+      padding: 5px 0;
+      margin: -10px;
+      width: 100%;
+    ">
+        Product: {{product.title}}
+    </h3>
+    <hr />
+    <h5 class="p-2" style="
+      margin-left: -15px;
+      font-weight: bolder;
+      border-radius: 6px;
+      font-size: x-large;
+      background: linear-gradient(to right, gray, white);
+    ">
+        <span style="color: white;">Category:</span><span> {{product.category}}</span>
+    </h5>
+    <div class="row" style="margin-top: 1rem">
+        <!-- image -->
+        <div class="col-md-3" style="border-radius: 4px">
+            <img src="{{product.image.url}}" width="300px" alt="" class="img-fluid"/>
+            <div class="row">
+                {% for pi in product.productimage_set.all %}
+                <div class="col-md-4">
+                    <a href="{{pi.image.url}}" target="_blank">
+                        <img src="{{pi.image.url}}" class="img-fluid" style="height: 100px; object-fit: contain"
+                            alt="" />
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <!-- <h5 class="p-2" style=" margin-left: -15px; font-weight: bolder; border-radius: 6px; font-size: xx-large; background: linear-gradient(to right, gray, white);">Category:<span> {{product.category}}</span> </h5> -->
+            <h4 style="
+          font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial,
+            sans-serif;
+          font-size: 20px;
+        ">
+                {{product.title}}
+                <br />
+                <!-- <span style="font-size: 10px;"> (Viewed {{product.view_count}} times)</span>  -->
+            </h4>
+            <br />
+
+            <div style="margin-top: 8rem">
+                <h5 style="color: black; font: 15px bolder;">
+                    Price:
+                    <strike style="color: red; font-weight: bolder">Rs. {{product.marked_price}}</strike>
+                    Rs.{{product.selling_price}}
+                </h5>
+                <hr style="margin-left: 1px; width: 25%" />
+
+                <span style="
+            color: orangered;
+            font-size: 12px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bolder;
+          ">{{product.stock_quantity}} in Stock</span>
+                <br />
+                {% if product.stock_quantity <= 0 %} <a class="p-2" style="
+            margin-top: 5px;
+            color: red;
+            border: 1px solid red;
+            border-radius: 4px;
+            font: 14px bolder;
+          ">Out of Stock</a>
+                    {% else %}
+
+                    <!-- <p> <input style="width: 50px;" type="number" name="QTY"></p> -->
+
+                    <a href="{% url 'ecomapp:addtocart' product.id %}" class="p-2" style="
+            background-color: green;
+            border-radius: 4px;
+            text-decoration: none;
+            color: aliceblue;
+            font: 14px bolder;
+          ">Add To Cart</a>
+                    {% endif %}
+                    <p style="
+            padding-top: -5px;
+            margin-top: 18px;
+            font-style: italic;
+            font-weight: bolder;
+          ">
+                        Warranty:
+                        <span style="font-style: italic; color: cadetblue">{{product.warranty}}</span>
+                    </p>
+                    <p style="
+            padding: 0;
+            margin-top: -10px;
+            font-style: italic;
+            font-weight: bolder;
+          ">
+                        Return Policy:
+                        <span style="font-style: italic; color: cadetblue">{{product.return_policy}}</span>
+                    </p>
+            </div>
+        </div>
+        <div style="padding: 0 5px 2px 2px; max-width: 450px; text-align: justify">
+            <p style="font-size: 12px; color: black; font-weight: bolder">
+                <span style="color: chocolate; font-size: 15px">Description:</span>
+                <br />
+                <span style="
+            margin-left: 1rem;
+            color: grey;
+            font-family: 'Times New Roman', Times, serif;
+          ">{{product.description}}
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

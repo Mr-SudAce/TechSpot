@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %} My cart{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 3rem;">
+    <div class="row" style="justify-content: center; text-transform: uppercase;">
+        <div class="col-md-12">
+            <h4
+                style="text-transform:uppercase; font-size: 50px; background-color: cadetblue; border-radius: 6px; color: white; text-align: center; ">
+                cart</h4>
+            <hr>
+            <table class="table">
+                <thead style="text-align: center; font-size:medium;">
+                    <tr>
+                        <th>SNo.</th>
+                        <th>Product</th>
+                        <th>Rate</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cp in cart.cartproduct_set.all %}
+                    <tr style="text-align: center;">
+                        <td>{{forloop.counter}}</td>
+                        <td>{{cp.product.title}}</td>
+                        <td>{{cp.rate}}</td>
+                        <td>{{cp.quantity}}</td>
+                        <td>{{cp.subtotal}}</td>
+                        <td>
+                            <a href="{% url 'ecomapp:managecart' cp.id %}?action=inc" class="btn"
+                                style="background-color: rgb(70, 70, 70); color: cyan; font-size: larger; padding: 0 3px;">
+                                + </a>
+                            <a href="{% url 'ecomapp:managecart' cp.id %}?action=dcr" class="btn"
+                                style="background-color: rgb(70, 70, 70); color: cyan; font-size: larger; padding: 0 3px;">
+                                - </a>
+                            <a href="{% url 'ecomapp:managecart' cp.id %}?action=rmv" class="btn"
+                                style="background-color: rgb(255, 0, 0); color: black; font-size: larger; padding: 0 3px;">
+                                x </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    <tr style="text-align: center;">
+                        <th colspan="4" style="font-size: large; text-align: center;">Total</th>
+                        <th style="font-size: large;">Rs. {{cart.total}}</th>
+                        {% if cart.cartproduct_set.all %}
+                        <th><a class="btn btn-success" href="{% url 'ecomapp:checkout' %} "> Check out
+                            </a></th>
+                        {% endif %}
+                    </tr>
+                    {% if cart.cartproduct_set.all %}
+                    <tr>
+                        <th><a href="{% url 'ecomapp:emptycart' %}" class="btn btn-danger">Empty Cart</a></th>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
