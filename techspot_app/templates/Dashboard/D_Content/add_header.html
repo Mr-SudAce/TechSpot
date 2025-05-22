@@ -20,17 +20,12 @@
     <button type="submit" name="submit" class="btn btn-success">
         Save
     </button>
-{% elif form.instance.id %}
+    {% elif form.instance.id %}
     <!-- Show Update button only when editing existing Header -->
     <button type="submit" name="submit" class="btn btn-success">
         Update
     </button>
-{% endif %}
-
-
-
-
-
+    {% endif %}
     <div class="mt-5">
         <table class="table bg-white">
             <thead>
