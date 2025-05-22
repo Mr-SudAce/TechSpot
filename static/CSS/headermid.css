@@ -1,0 +1,25 @@
+.headermid_grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.headermid_headimg {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+
+.headermid_search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.headermid_carts {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}

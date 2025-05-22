@@ -1,0 +1,14 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'CSS/imageSlider.css' %}">
+
+
+{% for imgslide in image_slider %}
+<div class="imageSlide container ">
+    {% if imgslide.image and imgslide.image.url %}
+    <img src="{{ imgslide.image.url }}" alt="Image" class="imageSliderimage">
+    {% else %}
+    <img src="{% static 'images/default_image.jpg' %}" alt="Default Image" class="imageSliderimage">
+    {% endif %}
+</div>
+{% endfor %}

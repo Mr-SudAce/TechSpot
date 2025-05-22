@@ -1,0 +1,28 @@
+.header_top {
+    background-color: var(--main-color);
+    
+}
+
+.contact-info .info-item,
+.user-actions .action-item {
+    padding: 0 10px;
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.contact-info .info-item:first-child,
+.user-actions .action-item:first-child {
+    border-left: none;
+}
+
+.logoutlink{
+    color: #fff;
+    text-decoration: none;
+}
+
+.logouticon {
+    font-size: 15px;
+    color: #fff;
+}
+
+
+

@@ -1,0 +1,75 @@
+<style>
+  .order-success {
+    max-width: 600px;
+    margin: 60px auto;
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 30px 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    text-align: center;
+  }
+
+  .order-success h2 {
+    color: #27ae60;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+
+  .order-success p {
+    margin: 10px 0;
+    font-size: 1.1rem;
+  }
+
+  .order-success ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    text-align: left;
+  }
+
+  .order-success li {
+    padding: 6px 0;
+    border-bottom: 1px dashed #ccc;
+  }
+
+  .order-success strong {
+    font-weight: bold;
+  }
+
+  .order-success a {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 12px 25px;
+    background-color: #27ae60;
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .order-success a:hover {
+    background-color: #219653;
+  }
+</style>
+
+<div class="order-success">
+  <h2>🎉 Order Placed Successfully!</h2>
+
+  <p>Thank you, <strong>{{ request.user.username }}</strong>!</p>
+  <p>Your order ID is <strong>#{{ order.id }}</strong></p>
+
+  <p>We’ll ship your items to:</p>
+  <ul>
+    <li>{{ order.shipping_info.address }}</li>
+    <li>{{ order.shipping_info.city }} - {{ order.shipping_info.postal_code }}</li>
+    <li>📞 {{ order.shipping_info.phone_number }}</li>
+  </ul>
+
+  <p><strong>Total Paid:</strong> Rs.{{ order.total_price }}</p>
+  <p><strong>Payment Method:</strong> {{ order.payment_method }}</p>
+  <p><strong>Status:</strong> {{ order.status }}</p>
+
+  <a href="{% url 'mainpage' %}">⬅️ Back to Home</a>
+</div>

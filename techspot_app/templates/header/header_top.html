@@ -1,0 +1,44 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'CSS/headertop.css' %}">
+
+<!-- Alert Messages -->
+<div class="alertmsg">
+    {% for msg in messages %}
+    <div class="alert alert-success alert-dismissible fade show"
+        style="position: absolute; right: 14px; font-size: 15px;" role="alert">
+        {{ msg }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Header Top Bar -->
+<div class="header_top py-2">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center flex-wrap">
+
+            <!-- Left Side: Contact Details -->
+            <div class="d-flex align-items-center contact-info">
+                <div class="info-item">
+                    <i class="bi bi-telephone-fill me-1"></i>{{ otherdetails.phone_number }}
+                </div>
+                <div class="info-item">
+                    <i class="bi bi-envelope-fill me-1"></i>{{ otherdetails.email }}
+                </div>
+            </div>
+
+            <!-- Right Side: Navigation -->
+            <div class="d-flex align-items-center user-actions">
+                <div class="action-item">Services</div>
+                <div class="action-item">Support</div>
+                <div class="action-item">
+                    <a href="{% url 'userlogout' %}" class="logoutlink">
+                        <i class="bi bi-box-arrow-right logouticon"></i>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

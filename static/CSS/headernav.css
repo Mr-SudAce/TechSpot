@@ -1,0 +1,26 @@
+.nav li a {
+    color: black;
+    border-left: 1px solid grey;
+}
+
+.nav li:hover {
+    background-color: rgb(219, 52, 68);
+}
+
+.nav li a:hover {
+    color: white;
+}
+
+.nav-item .nav-link {
+    color: black;
+    padding: 10px 20px;
+    text-decoration: none;
+}
+
+.nav li:first-child a {
+    border-left: none;
+}
+
+.nav li:last-child a {
+    border-right: none;
+}

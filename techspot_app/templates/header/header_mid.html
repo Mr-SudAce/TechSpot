@@ -1,0 +1,16 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'CSS/headermid.css' %}">
+
+<div class="headermid_grid container d-flex col-12">
+    <div class="headermid_headimg col-lg-2 col-md-2 col-sm-12">
+        {% include "content/mainlogo.html" %}
+    </div>
+    <div class="headermid_search col-lg-8 col-md-8 col-sm-12">
+        {% include "content/searchbox.html" %}
+    </div>
+    <div class="headermid_carts col-lg-2 col-md-2 col-sm-12">
+        {% include "content/cart.html" %}
+    </div>
+</div>
+<hr>

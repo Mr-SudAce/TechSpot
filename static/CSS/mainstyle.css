@@ -1,0 +1,20 @@
+.container {
+  max-width: 95%;
+  padding: 0;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+
+
+hr{
+  border: 1px solid var(--main-color);
+}
+
+:root{
+  --main-color: #4CAF50;
+  --secondary-color: #f1f1f1;
+  --text-color: #333;
+}

@@ -1,0 +1,141 @@
+
+
+
+
+
+<style>
+  .checkout-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .checkout-title {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 25px;
+  }
+
+  .checkout-form .form-section p {
+    margin-bottom: 15px;
+  }
+
+  .checkout-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+  }
+
+  .checkout-form input,
+  .checkout-form select,
+  .checkout-form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+  }
+
+  .checkout-form input:focus,
+  .checkout-form select:focus,
+  .checkout-form textarea:focus {
+    border-color: #007BFF;
+    outline: none;
+    background-color: #fff;
+  }
+
+  .cart-summary {
+    margin-top: 30px;
+    padding: 20px;
+    border-top: 2px solid #eee;
+  }
+
+  .cart-summary h3 {
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+    color: #444;
+  }
+
+  .cart-summary ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .cart-summary li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .product-name {
+    font-weight: 500;
+    color: #222;
+  }
+
+  .product-details {
+    color: #666;
+  }
+
+  .total-price {
+    margin-top: 15px;
+    font-size: 1.2rem;
+    color: #000;
+    text-align: right;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #28a745;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 25px;
+    transition: background-color 0.3s ease;
+  }
+
+  .submit-btn:hover {
+    background-color: #218838;
+  }
+</style>
+
+<div class="checkout-container">
+  <a href='#'><i class="bi bi-arrow-left"></i></a>
+  <h2 class="checkout-title">Checkout</h2>
+
+  <form method="post" class="checkout-form">
+    {% csrf_token %}
+    <div class="form-section">
+      {{ form.as_p }}
+    </div>
+
+    <div class="cart-summary">
+      <h3>Cart Summary</h3>
+      <ul>
+        {% for item in cart_items %}
+        <li>
+          <span class="product-name">{{ item.product.product_name }} ({{ item.quantity }} x)</span>
+          <span class="product-details">Rs.{{ item.product.product_price }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+      <div class="total-price">
+        <strong>Total: Rs.{{ total_price }}</strong>
+      </div>
+    </div>
+
+    <button type="submit" class="submit-btn">Place Order (COD)</button>
+  </form>
+</div>

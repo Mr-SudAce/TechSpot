@@ -1,0 +1,82 @@
+/* login.css */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #1f1c2c, #928dab);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container {
+    position: relative;
+    background: #2c2f48;
+    padding: 2rem 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 100%;
+    color: #fff;
+}
+
+.login-container h1 {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bolder;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1rem;
+    border: none;
+    border-radius: 12px;
+    background-color: #3c3f5c;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background-color: #ff4c60;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.login-container button:hover {
+    background-color: #ff1e40;
+}
+
+.login-container p {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+.login-container a {
+    color: #ff4c60;
+    text-decoration: none;
+}
+
+.messages {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    color: #ff4c60;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    text-align: center;
+}

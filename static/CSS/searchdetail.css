@@ -1,0 +1,77 @@
+  /* card */
+  /* .categ {
+        top: 0;
+    }
+
+    .categ p {
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+        width: 200px;
+        white-space: nowrap;
+        text-wrap: nowrap;
+    } */
+
+
+
+  .card {
+      display: flex;
+      max-width: 150px;
+      border-radius: 0;
+      transition: transform 0.2s ease-in-out;
+  }
+
+  .card .pic {
+      max-width: 150px;
+
+  }
+
+  .card .pic img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      border-radius: 0;
+  }
+
+  .card .name {
+      padding: 5px;
+      color: aliceblue;
+      background-color: rgba(0, 0, 0, 0.7);
+      opacity: 0;
+      padding-top: 40px;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      transition: opacity 0.3s ease-in-out;
+  }
+
+  .card .name h5 {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+      text-wrap: nowrap;
+  }
+
+  .card:hover .name {
+      opacity: 1;
+  }
+
+  .card .name>p {
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+  }
+
+  .inputbox:focus {
+      box-shadow: none;
+  }
+
+  .clickbox:focus {
+      box-shadow: none;
+  }
+
+  .clickbox {
+      background-color: rgb(219, 52, 68);
+  }

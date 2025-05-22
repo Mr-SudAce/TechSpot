@@ -1,0 +1,43 @@
+{% extends "Dashboard/dashboard.html" %}
+
+
+{% block user%}
+
+
+
+
+<div class="container mt-4">
+  {% if user %}
+  <table class="table table-bordered table-striped align-middle text-center">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Username</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for usr in user %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ usr.username }}</td>
+        <td>
+          <a href="{% url 'del_user' usr.id %}" class="btn btn-sm btn-danger">
+            <i class="fa fa-trash-alt"></i> Delete
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="alert alert-warning text-center">
+    <strong>No users found.</strong>
+  </div>
+  {% endif %}
+</div>
+
+
+
+
+{% endblock %}

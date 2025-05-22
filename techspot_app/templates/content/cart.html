@@ -1,0 +1,59 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'CSS/cart.css' %}">
+
+
+<div class="cart-section">
+    <div class="cart-icon-wrapper form-control ">
+        <!-- <p id="total_items" class="m-0">Rs.{{ grand_total|default:"10000" }}</p> -->
+        <div id="item_notification">{{ total_items_count|default:"0" }}</div>
+        <i class="bi bi-cart cart-icon"></i>
+        <div class="cart-dropdown">
+            <div class="cart-list">
+                {% if cart_item %}
+                {% for item in cart_item %}
+                <div class="cart-product">
+                    <div class="cart-product-detail">
+                        <div class="cart-img-wrapper">
+                            {% if item.product.product_image %}
+                            <img class="cart-img" src="{{ item.product.product_image.url }}"
+                                alt="{{ item.product.product_name }}">
+                            {% else %}
+                            <img class="cart-img" src="{% static 'images/default_image.png' %}" alt="product">
+                            {% endif %}
+                        </div>
+
+                        <div class="cart-detail-text">
+                            <p class="m-0">Product:</p>
+                            <span>{{ item.product.product_name }}</span>
+                            <p class="m-0">Price: Rs.{{ item.product.product_price }}</p>
+                            <p class="m-0">Quantity: {{ item.quantity }}</p>
+                            <p class="m-0">Total: Rs.{{ item.total_price }}</p>
+                        </div>
+
+                        <form method="POST" action="{% url 'delete_cart_item' item.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="cart-remove-btn">X</button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="cart-empty">
+                    <img src="{% static 'images/Empty Cart.jpeg' %}" alt="Empty Cart">
+                    <p>Empty Cart</p>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="cart-bottom">
+                <a id="see_all" href="{% url 'cart_Detail' %}">See all</a>
+                <a href="{% url 'checkout' %}" class="cart-checkout">Checkout</a>
+                <div>
+                    <span>Total:</span>
+                    <span>Rs. {{ grand_total }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

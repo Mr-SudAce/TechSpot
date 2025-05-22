@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}
+Register
+{% endblock %}
+{% load static %}
+
+{% block register %}
+<link rel="stylesheet" href="{% static 'CSS/userregister.css' %}">
+
+<div class="register-container">
+    <h1>Register</h1>
+
+    {% if messages %}
+    {% for msg in messages %}
+    <div class="messages">{{ msg }}</div>
+    {% endfor %}
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <button type="submit">Submit</button>
+    </form>
+
+    <p>
+        Already have an account? <a href="{% url 'userlogin' %}">Login here</a>
+    </p>
+
+    <p>
+        <a href="{% url 'mainpage' %}">← Return to Home</a>
+    </p>
+</div>
+{% endblock %}

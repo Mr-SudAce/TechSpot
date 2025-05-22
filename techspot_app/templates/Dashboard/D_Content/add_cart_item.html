@@ -1,0 +1,57 @@
+{% extends "Dashboard/dashboard.html" %}
+
+{% block add_cart_item %}
+
+<h1>Add Cart Item</h1>
+
+
+<table class="table table-borderless">
+    <tr>
+        <th><label for="cart_item">Cart</label></th>
+        <td>{{form.cart}}</td>
+    </tr>
+    <tr>
+        <th>Product</th>
+        <td>{{form.product}}</td>
+    </tr>
+    <tr>
+        <th>Quantity</th>
+        <td>{{form.quantity}}</td>
+    </tr>
+</table>
+
+<button type="submit" name="submit" class="btn btn-success">
+    {% if form.instance.id %} Update {% else %} Save {% endif %}
+</button>
+
+
+<div class="mt-5">
+    <h2 class="text-center mb-3">Cart-Item List</h2>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover text-center shadow">
+            <thead class="table-dark">
+                <tr>
+                    <th>User</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cartitem in data %}
+                <tr>
+                    <td class="align-middle">{{ cartitem.cart }}</td>
+                    <td class="align-middle">{{ cartitem.product }}</td>
+                    <td class="align-middle">{{ cartitem.quantity }}</td>
+                    <td>
+                        <a href="{% url 'del_cart_item' cartitem.id %}" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                        <a href="{% url 'update_cart_item' cartitem.id %}" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

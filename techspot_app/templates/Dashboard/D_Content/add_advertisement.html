@@ -1,0 +1,57 @@
+{% extends "Dashboard/dashboard.html" %}
+
+{% block add_advertisement %}
+<h1>Add Advertisement</h1>
+
+<table class="table table-borderless">
+    <tr>
+        <th>Image</th>
+        <td>{{form.image}}</td>
+    </tr>
+    <tr>
+        <th>Link</th>
+        <td>{{form.link}}</td>
+    </tr>
+</table>
+
+<button type="submit" name="submit" class="btn btn-success">
+    {% if form.instance.id %} Update {% else %} Save {% endif %}
+</button>
+
+
+<div>
+    <table class="table bg-white mt-3">
+        <thead>
+            <tr>
+                <th>Image:</th>
+                <th>Links:</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if data %}
+            {% for ad in data %}
+            <tr>
+                <td>
+                    <img src="{{ ad.image.url }}" width="100%" height="150px" style="object-fit: cover;" alt="adv1"
+                        class="advertisement-img" loading="lazy">
+                </td>
+                <td>
+                    <p>{{ ad.link }}</p>
+                </td>
+                <td>
+                    <a href="{% url 'del_advertisement' ad.id %}" class="btn btn-danger">Delete</a>
+                    <a href="{% url 'update_advertisement' ad.id %}" class="btn btn-warning">Update</a>
+                </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="6" class="text-muted">No Other Details Available</td>
+            </tr>
+            {% endif %}
+        </tbody>
+
+    </table>
+</div>
+{% endblock %}

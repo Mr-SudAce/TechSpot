@@ -1,0 +1,93 @@
+{% extends "Dashboard/dashboard.html" %}
+{% load static %}
+
+{% block add_product %}
+
+<link rel="stylesheet" href="{% static 'CSS/Dashboard/addproduct.css' %}">
+
+
+<h1 class="text-center mb-4">Add Product</h1>
+<div class="container mt-4">
+
+    <table class="table bg-white">
+        <tr>
+            <th>Product Name:</th>
+            <td>{{ form.product_name }}</td>
+            <th>Category:</th>
+            <td>{{ form.product_category }}</td>
+        </tr>
+        <tr>
+            <th>Description:</th>
+            <td>{{ form.product_description }}</td>
+            <th>Price:</th>
+            <td>{{ form.product_price }}</td>
+        </tr>
+        <tr>
+            <th>Stock:</th>
+            <td>{{ form.product_stock }}</td>
+            <th>Image:</th>
+            <td>
+                {% if form.instance.product_image %}
+                <img src="{{ form.instance.product_image.url }}" width="100"><br>
+                {% endif %}
+                {{ form.product_image }}
+            </td>
+        </tr>
+        <tr>
+            <th>Sub-Category:</th>
+            <td>{{ form.pro_sub_category }}</td>
+            <th>Discount</th>
+            <td>{{ form.product_discount }}</td>
+        </tr>
+    </table>
+
+
+    <button type="submit" name="submit" class="btn btn-success">
+        {% if form.instance.id %} Update {% else %} Save {% endif %}
+    </button>
+
+    <div>
+        <table class="table table-striped bg-white mt-5">
+            <thead>
+                <tr>
+                    <th class="bg-dark text-light">Image</th>
+                    <th class="bg-dark text-light">Name</th>
+                    <th class="bg-dark text-light">Category</th>
+                    <th class="bg-dark text-light">Description</th>
+                    <th class="bg-dark text-light">Price(Rs.)</th>
+                    <th class="bg-dark text-light">Stock</th>
+                    <th class="bg-dark text-light">Sub-Category</th>
+                    <th class="bg-dark text-light">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for prod in data %}
+                <tr>
+                    <td class="detl align-middle">
+                        {% if prod.product_image and prod.product_image.url %}
+                        <img src="{{ prod.product_image.url }}" alt="Product Image" loading="lazy"
+                            class="img-fluid rounded shadow" style="width: 100px; height: 100px; object-fit: cover;">
+                        {% else %}
+                        <img src="{% static 'images/default_image.png' %}" alt="Default Image" loading="lazy"
+                            class="img-fluid rounded shadow" style="width: 100px; height: 100px; object-fit: cover;">
+                        {% endif %}
+                    </td>
+                    <td class="detl align-middle">{{ prod.product_name|truncatewords:2 }}</td>
+                    <td class="detl align-middle">{{ prod.product_category }}</td>
+                    <td class="detl align-middle">{{ prod.product_description|truncatewords:3 }}</td>
+                    <td class="detl align-middle">{{ prod.product_price }}</td>
+                    <td class="detl align-middle">{{ prod.product_stock }}</td>
+                    <td class="detl align-middle">{{ prod.pro_sub_category }}</td>
+                    <td class="align-middle">
+                        <a href="{% url 'update_product' prod.id %}" class="btn btn-warning"><i
+                                class="fas fa-pencil-alt"></i></a>
+                        <a href="{% url 'del_product' prod.id %}" class="btn btn-danger"><i
+                                class="fas fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

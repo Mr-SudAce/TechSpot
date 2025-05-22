@@ -1,0 +1,17 @@
+{% load static %}
+
+
+<link rel="stylesheet" href="{% static 'CSS/mainlogo.css' %}">
+
+
+
+<a href="{% url 'mainpage' %}">
+
+    {% if header.header_image_left and header.header_image_left.url %}
+    <img src="{{ header.header_image_left.url }}" alt="Header Image Left" class="mainlogo-img" loading="lazy">
+    {% else %}
+    <img src="{% static 'images/default_image.png' %}" alt="Default Header Image Left" class="mainlogo-img"
+        loading="lazy">
+    {% endif %}
+
+</a>

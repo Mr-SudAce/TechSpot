@@ -1,0 +1,51 @@
+{% extends "Dashboard/dashboard.html" %}
+
+{% block add_cart %}
+<h1>Add Cart</h1>
+
+<table class="table table-borderless">
+    <tr>
+        <th><label for="cart_user">User</label></th>
+        <td>{{form.user}}</td>
+    </tr>
+    <tr>
+        <th><label for="cart_status">Status</label></th>
+        <td>{{form.is_paid}}</td>
+    </tr>
+    <tr>
+        <th><label for="cart_status">Active</label></th>
+        <td>{{form.is_active}}</td>
+    </tr>
+</table>
+
+<button type="submit" name="submit" class="btn btn-success">
+    {% if form.instance.id %} Update {% else %} Save {% endif %}
+</button>
+
+<div class="mt-5">
+    <table class="table bg-white">
+        <thead>
+            <tr>
+                <th class="bg-dark text-light">Cart</th>
+                <th class="bg-dark text-light">Status</th>
+                <th class="bg-dark text-light">Active</th>
+                <th class="bg-dark text-light">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for crt in data %}
+            <tr>
+                <td class="align-middle">{{ crt.user }}</td>
+                <td class="align-middle">{{ crt.is_paid }}</td>
+                <td class="align-middle">{{ crt.is_active }}</td>
+                <td>
+                    <a href="{% url 'del_cart' crt.id %}" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                    <a href="{% url 'update_cart' crt.id %}" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

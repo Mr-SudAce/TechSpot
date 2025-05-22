@@ -1,0 +1,31 @@
+<style>
+    .advertisement {
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .advertisement-img {
+        width: 100%;
+        width: 640px;
+        height: 150px;
+    }
+
+    .advertisement img:hover {
+        transition: filter 0.5s ease-in-out;
+        filter: brightness(0.6);
+    }
+</style>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-12 col-md-12 col-sm-6 gap-2 text-center">
+            <div class="advertisement">
+                {% for ad in advertisement %}
+                <img src="{{ad.image.url}}" alt="adv1" class="advertisement-img py-1" loading="lazy">
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

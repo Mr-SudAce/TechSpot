@@ -1,0 +1,49 @@
+{% extends "Dashboard/dashboard.html" %}
+
+{% block add_image_slider %}
+<h1>Add Image Slider</h1>
+
+<table class="table table-borderless">
+    <tr>
+        <th>Image: </th>
+        <td>{{form.image}}</td>
+    </tr>
+</table>
+
+
+<button type="submit" name="submit" class="btn btn-success">
+    {% if form.instance.id %} Update {% else %} Save {% endif %}
+</button>
+
+
+<div class="mt-5">
+    <table class="table bg-white">
+        <thead>
+            <tr>
+                <th class="bg-dark text-light">Image</th>
+                <th class="bg-dark text-light">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for imgslider in data %}
+            <tr>
+                <td class="align-middle">
+                    {% if imgslider.image and imgslider.image.url %}
+                    <img src="{{ imgslider.image.url }}" alt="cart Image" loading="lazy"
+                        class="img-fluid rounded shadow" style="width: 100px; height: 100px; object-fit: cover;">
+                    {% else %}
+                    <p>no images</p>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'del_image_slider' imgslider.id %}" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                    <a href="{% url 'update_image_slider' imgslider.id %}" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "Dashboard/dashboard.html" %}
+{% load static %}
+
+{% block add_category %}
+<h1>Add Category</h1>
+
+<table class="table bg-white">
+    <tr>
+        <th class="align-middle"><label for="category_icon">Icon: </label></th>
+        <td>{{ form.category_icon|default:"N/A" }}</td>
+    </tr>
+    <tr>
+        <th class="align-middle"><label for="category_name">Name: </label></th>
+        <td>{{ form.category_name|default:"N/A" }}</td>
+    </tr>
+    <tr>
+        <th class="align-middle"><label for="category_image">Category Image: </label></th>
+        <td>{{form.category_image}}</td>
+    </tr>
+</table>
+
+<button type="submit" name="submit" class="btn btn-success">
+    {% if form.instance.id %} Update {% else %} Save {% endif %}
+</button>
+<div>
+    <table class="table table-striped bg-white mt-3">
+        <thead>
+            <tr>
+                <th class="bg-dark text-light">Icon</th>
+                <th class="bg-dark text-light">Name</th>
+                <th class="bg-dark text-light">Image</th>
+                <th class="bg-dark text-light">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in data %}
+            {% if category %}
+            <tr>
+                {{category.category_id}}
+                <td class="align-middle"> 
+                    {% if category.category_icon %}
+                    {{ category.category_icon|default:"N/A" }} [<i class="{{ category.category_icon }}"></i>]
+                    {% else %}
+                    <p>N/A</p>
+                    {% endif %}
+                </td>
+                <td class="align-middle">{{ category.category_name|default:"N/A" }}</td>
+                <td class="align-middle">
+                    {% if category.category_image and category.category_image.url %}
+                    <img src="{{ category.category_image.url }}" alt="Category Image" class="img-fluid rounded shadow"
+                        style="width: 100px; height: 100px; object-fit: cover;">
+                    {% else %}
+                    <img src="{% static 'images/default_image.png' %}" alt="Default Image"
+                        class="img-fluid rounded shadow" style="width: 100px; height: 100px; object-fit: cover;">
+                    {% endif %}
+                </td>
+                <td class="align-middle">
+                    <a href="{% url 'update_category' category.id %}" class="btn btn-warning btn-sm"><i
+                            class="fas fa-pencil-alt"></i></a>
+                    <a href="{% url 'del_category' category.id %}" class="btn btn-danger btn-sm"><i
+                            class="fas fa-trash-alt"></i></a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4" class="text-center">No category found.</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
