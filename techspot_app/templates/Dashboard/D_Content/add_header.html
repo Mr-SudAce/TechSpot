@@ -16,13 +16,7 @@
     </table>
 
 
-    {% if form.instance.id %}
-    <button type="submit" name="submit" class="btn btn-success">
-        Update
-    </button>
-    {% endif %}
-
-    <!-- {% if form.instance.id %}
+    {% if form.instance.id >= 1 %}
     <button type="submit" name="submit" class="btn btn-success">
         Update
     </button>
@@ -30,7 +24,8 @@
     <button type="submit" name="submit" class="btn btn-success">
         Save
     </button>
-    {% endif %} -->
+    {% endif %}
+
 
     <div class="mt-5">
         <table class="table bg-white">
