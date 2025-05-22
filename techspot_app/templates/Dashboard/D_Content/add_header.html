@@ -15,16 +15,20 @@
         </tr> -->
     </table>
 
-
-    {% if form.instance.id >= 1 %}
-    <button type="submit" name="submit" class="btn btn-success">
-        Update
-    </button>
-    {% else %}
+    {% if data|length == 0 and not form.instance.id %}
+    <!-- Show Save button only if no Header data exists and it's a new form -->
     <button type="submit" name="submit" class="btn btn-success">
         Save
     </button>
-    {% endif %}
+{% elif form.instance.id %}
+    <!-- Show Update button only when editing existing Header -->
+    <button type="submit" name="submit" class="btn btn-success">
+        Update
+    </button>
+{% endif %}
+
+
+
 
 
     <div class="mt-5">
