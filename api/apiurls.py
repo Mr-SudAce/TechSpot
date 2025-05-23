@@ -3,7 +3,7 @@ from .apiviews import *
 from django.urls import path
 
 urlpatterns = [
-    path("home/", index, name="apihome"),
+    path("", index, name="apihome"),
     
     # User
     path("user/", GetUserAPI, name="getuserapi"),
@@ -20,11 +20,11 @@ urlpatterns = [
     path("product/delete/<int:id>/", DeleteProductAPI, name="deleteproductapi"),
 
     # Header
-    path("Header/", GetHeaderAPI, name="getheaderapi"),
-    path("Header/create/", CreateHeaderAPI, name="createheaderapi"),
-    path("Header/<int:id>/", GetHeaderByIdAPI, name="getheaderbyidapi"),
-    path("Header/update/<int:id>/", UpdateHeaderAPI, name="updateheaderapi"),
-    path("Header/delete/<int:id>/", DeleteHeaderAPI, name="deleteheaderapi"),
+    path("header/", GetHeaderAPI, name="getheaderapi"),
+    path("header/create/", CreateHeaderAPI, name="createheaderapi"),
+    path("header/<int:id>/", GetHeaderByIdAPI, name="getheaderbyidapi"),
+    path("header/update/<int:id>/", UpdateHeaderAPI, name="updateheaderapi"),
+    path("header/delete/<int:id>/", DeleteHeaderAPI, name="deleteheaderapi"),
 
     # Slider
     path("slider/", GetSliderAPI, name="getsliderapi"),
