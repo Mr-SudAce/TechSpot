@@ -19,6 +19,13 @@ urlpatterns = [
     path("product/update/<int:id>/", UpdateProductAPI, name="updateproductapi"),
     path("product/delete/<int:id>/", DeleteProductAPI, name="deleteproductapi"),
 
+    # Header
+    path("Header/", GetHeaderAPI, name="getheaderapi"),
+    path("Header/create/", CreateHeaderAPI, name="createheaderapi"),
+    path("Header/<int:id>/", GetHeaderByIdAPI, name="getheaderbyidapi"),
+    path("Header/update/<int:id>/", UpdateHeaderAPI, name="updateheaderapi"),
+    path("Header/delete/<int:id>/", DeleteHeaderAPI, name="deleteheaderapi"),
+
     # Slider
     path("slider/", GetSliderAPI, name="getsliderapi"),
     path("slider/create/", CreateSliderAPI, name="createsliderapi"),
