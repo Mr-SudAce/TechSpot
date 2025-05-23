@@ -1,9 +1,5 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 from techspot_main.settings import base_url
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.pagination import PageNumberPagination
 from .apihandler import *
 from .serializers import *
 
