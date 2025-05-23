@@ -13,7 +13,16 @@ class UserModel(models.Model):
 
     def __str__(self) -> str:
         return f"{self.username} - {self.number} - {self.email}"
-    
+  
+# Header////////////////////////////////
+class HeaderModel(models.Model):
+    header_image_left = models.ImageField(upload_to="header/", null=True, blank=True)
+    header_image_right = models.ImageField(upload_to="header/", null=True, blank=True)
+
+    def __str__(self) -> str:
+        return f"{self.header_image_left} - {self.header_image_right}"
+
+  
 
 class image_SliderModel(models.Model):
     image = models.ImageField(upload_to="slider/", default="")
@@ -138,7 +147,7 @@ class ShippingInfoModel(models.Model):
 
 
 # Order////////////////////////////////
-class Order(models.Model):
+class OrderModel(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     shipping_info = models.ForeignKey(ShippingInfoModel, on_delete=models.CASCADE)
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -150,8 +159,8 @@ class Order(models.Model):
         return f"{self.user}"
 
 # OrderItem////////////////////////////////
-class OrderItem(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+class OrderItemModel(models.Model):
+    order = models.ForeignKey(OrderModel, on_delete=models.CASCADE)
     product = models.ForeignKey(ProductModel, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -159,16 +168,7 @@ class OrderItem(models.Model):
     def __str__(self):
         return f"{self.order} - {self.product}"
 
-# Header////////////////////////////////
-class HeaderModel(models.Model):
-    header_image_left = models.ImageField(upload_to="header/", null=True, blank=True)
-    header_image_right = models.ImageField(upload_to="header/", null=True, blank=True)
-
-    def __str__(self) -> str:
-        return f"{self.header_image_left} - {self.header_image_right}"
-
-
-# other detail////////////////////////////////
+# otherDetail////////////////////////////////
 class OtherDetailModel(models.Model):
     sm_link = models.CharField(max_length=200, default="", blank=True)
     email = models.CharField(max_length=200, default="", blank=True)
