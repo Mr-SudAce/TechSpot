@@ -13,7 +13,8 @@ class UserModel(models.Model):
 
     def __str__(self) -> str:
         return f"{self.username} - {self.number} - {self.email}"
-  
+
+
 # Header////////////////////////////////
 class HeaderModel(models.Model):
     header_image_left = models.ImageField(upload_to="header/", null=True, blank=True)
@@ -22,7 +23,6 @@ class HeaderModel(models.Model):
     def __str__(self) -> str:
         return f"{self.header_image_left} - {self.header_image_right}"
 
-  
 
 class image_SliderModel(models.Model):
     image = models.ImageField(upload_to="slider/", default="")
@@ -77,19 +77,16 @@ class ProductModel(models.Model):
     product_stock = models.IntegerField(default=0)
     product_discount = models.DecimalField(max_digits=5, decimal_places=2, default=0)
 
-    
     def get_discount_amount(self):
-        return (self.product_price - (self.product_price * self.product_discount) / 100)
-
+        return self.product_price - (self.product_price * self.product_discount) / 100
 
     def __str__(self) -> str:
         return f"{self.product_name} - {self.product_description} - {self.product_price} - {self.product_category}"
 
 
-
 # -----------------------------CARTS--------------------------------
 class CartModel(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="cart")
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name="cart")
     is_paid = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
@@ -158,6 +155,7 @@ class OrderModel(models.Model):
     def __str__(self):
         return f"{self.user}"
 
+
 # OrderItem////////////////////////////////
 class OrderItemModel(models.Model):
     order = models.ForeignKey(OrderModel, on_delete=models.CASCADE)
@@ -167,6 +165,7 @@ class OrderItemModel(models.Model):
 
     def __str__(self):
         return f"{self.order} - {self.product}"
+
 
 # otherDetail////////////////////////////////
 class OtherDetailModel(models.Model):

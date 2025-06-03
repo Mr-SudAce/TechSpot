@@ -7,6 +7,7 @@ from django.contrib.auth.hashers import *
 from handler.authhandler import *
 from django.db.models import Q
 
+
 # Create your views here.
 # Admin dashboard
 def dashboard(request):
@@ -22,6 +23,22 @@ def mainpage(request):
     user_id = request.session.get("user_id")
     user = UserModel.objects.filter(id=user_id).first()
 
+
+    if user_id:
+        cart = CartModel.objects.get(user=user, is_paid=False)
+        cart_items = CartItemModel.objects.filter(cart=cart) if cart else []
+    else:
+        cart_items = []
+
+    # total_items_count = cart_items.count()
+    total_items_count = (
+        len(cart_items) if isinstance(cart_items, list) else cart_items.count()
+    )
+    
+    grand_total = sum(
+        float(item.total_price()) if item.product else 0 for item in cart_items
+    )
+
     if not user:
         messages.error(request, "User not found. Please login again.")
         request.session.flush()
@@ -30,7 +47,11 @@ def mainpage(request):
     context = {
         "user": user,
         "header": HeaderModel.objects.all().first(),
+        "product": ProductModel.objects.all(),
         "image_slider": image_SliderModel.objects.all(),
+        "cart_item": CartItemModel.objects.all(),
+        "total_items_count" : total_items_count,
+        "grand_total": grand_total,
         "otherdetails": OtherDetailModel.objects.all().first(),
     }
     return render(request, "index.html", context)
@@ -70,6 +91,8 @@ def del_user(request, id):
     user.delete()
     return redirect("user")
 
+   
+
 
 # Search
 def search_query(request):
@@ -82,13 +105,22 @@ def search_query(request):
             subcategory = Sub_CategoryModel.objects.all()
 
             # Direct matches
-            queryproducts = ProductModel.objects.filter(Q(product_name__icontains=query) | Q(product_description__icontains=query))
+            queryproducts = ProductModel.objects.filter(
+                Q(product_name__icontains=query)
+                | Q(product_description__icontains=query)
+            )
             querycategory = CategoryModel.objects.filter(category_name__icontains=query)
-            querysubcategory = Sub_CategoryModel.objects.filter(sub_category_name__icontains=query)
+            querysubcategory = Sub_CategoryModel.objects.filter(
+                sub_category_name__icontains=query
+            )
 
             # Products matching category or subcategory
-            category_products = ProductModel.objects.filter(product_category__in=querycategory)
-            subcategory_products = ProductModel.objects.filter(pro_sub_category__in=querysubcategory)
+            category_products = ProductModel.objects.filter(
+                product_category__in=querycategory
+            )
+            subcategory_products = ProductModel.objects.filter(
+                pro_sub_category__in=querysubcategory
+            )
 
             # Combine all product querysets without duplicates
             all_query_products = (
@@ -102,7 +134,7 @@ def search_query(request):
                 "product": product,
                 "category": category,
                 "subcategory": subcategory,
-                "query": query
+                "query": query,
             }
             return render(request, "content/search.html", context)
         else:
@@ -165,12 +197,11 @@ def get_common_context(request, products=None, extra_context=None):
     advertisement = AdvertisementModel.objects.all()
     allcategory = CategoryModel.objects.all()
 
-
     user_id = request.session.get("user_id")
     cart_items = []
     try:
         if user_id:
-            custom_user = UserModel.objects.get(id=user_id)            
+            custom_user = UserModel.objects.get(id=user_id)
             # Check if user is active
             if not custom_user.is_active:
                 request.session.flush()
@@ -253,15 +284,13 @@ def show_allproducts(request, category_id=None):
     return render(request, "content/cards.html", context)
 
 
-
 # add to cart
 def add_to_cart(request, id):
     product = get_object_or_404(ProductModel, id=id)
 
-    user_id = request.session.get("user_id")
-
-    if user_id:
-        cart, _ = CartModel.objects.get_or_create(user_id=user_id, is_paid=False)
+    userid = request.session.get("user_id")
+    if userid:
+        cart, _ = CartModel.objects.get_or_create(user_id=userid, is_paid=False)
         cart_item = CartItemModel.objects.filter(cart=cart, product=product).first()
         if cart_item:
             cart_item.quantity += 1
@@ -280,12 +309,15 @@ def add_to_cart(request, id):
             }
         request.session["cart"] = cart
         return redirect(request.META.get("HTTP_REFERER", "/"))
+
+
 # delete cart item
 def delete_cart_item(request, id):
     if request.method == "POST":
         cart_item = get_object_or_404(CartItemModel, id=id)
         cart_item.delete()
         return redirect(request.META.get("HTTP_REFERER", "/"))
+
 
 # delete cartdetail item
 def cartdetail_delete(request, cart_det_id):
@@ -315,29 +347,28 @@ def update_cart_quantity(request, id):
             return redirect("product_itemView_detail", id=id)
 
 
-
-
 # checkout
 @transaction.atomic  # Just in case you use a custom user model
-
 def checkout(request):
     user_id = request.session.get("user_id")
     if not user_id:
-        return redirect('login')  # Fallback if user_id isn't in session
+        return redirect("login")  # Fallback if user_id isn't in session
 
     custom_user = get_object_or_404(UserModel, id=user_id)
     cart = CartModel.objects.filter(user=custom_user.id, is_active=True).first()
 
     if not cart:
-        return redirect('cart_Detail')
+        return redirect("cart_Detail")
 
     cart_items = CartItemModel.objects.filter(cart=cart)
     if not cart_items.exists():
-        return redirect('cart_Detail')
+        return redirect("cart_Detail")
 
-    total_price = sum(float(item.product.product_price) * item.quantity for item in cart_items)
+    total_price = sum(
+        float(item.product.product_price) * item.quantity for item in cart_items
+    )
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = ShippingForm(request.POST)
         if form.is_valid():
             shipping = form.save(commit=False)
@@ -345,21 +376,21 @@ def checkout(request):
             shipping.save()
 
             # Create the order
-            order = Order.objects.create(
+            order = OrderModel.objects.create(
                 user_id=custom_user.id,
                 shipping_info=shipping,
                 total_price=total_price,
-                payment_method='COD',
-                status='Confirmed'
+                payment_method="COD",
+                status="Confirmed",
             )
 
             # Create order items and update stock
             for item in cart_items:
-                OrderItem.objects.create(
+                OrderItemModel.objects.create(
                     order=order,
                     product=item.product,
                     quantity=item.quantity,
-                    price=item.product.product_price
+                    price=item.product.product_price,
                 )
                 item.product.product_stock -= item.quantity
                 item.product.save()
@@ -369,27 +400,20 @@ def checkout(request):
             cart.save()
             cart_items.delete()
 
-            return redirect('order_success', order_id=order.id)
+            return redirect("order_success", order_id=order.id)
     else:
         form = ShippingForm()
 
-    return render(request, 'content/checkout.html', {
-        'form': form,
-        'cart_items': cart_items,
-        'total_price': total_price
-    })
-
+    return render(
+        request,
+        "content/checkout.html",
+        {"form": form, "cart_items": cart_items, "total_price": total_price},
+    )
 
 
 def order_success(request, order_id):
-    order = get_object_or_404(Order, id=order_id, user=request.session.get("user_id"))
-    return render(request, 'content/order_success.html', {
-        'order': order
-    })
-
-
-
-
+    order = get_object_or_404(OrderModel, id=order_id, user=request.session.get("user_id"))
+    return render(request, "content/order_success.html", {"order": order})
 
 
 # productDetail
@@ -398,11 +422,16 @@ def product_itemView_detail(request, id):
     products = ProductModel.objects.exclude(id=id)
     cart_itm = CartItemModel.objects.all()
     header = HeaderModel.objects.last()
-    cart = CartModel.objects.get(user=request.session.get("user_id"), is_paid=False)
-    product_in_cart = CartItemModel.objects.filter(
-        cart=cart, product=product_itemView_detail
-    ).exists()
-    
+
+    cart = CartModel.objects.filter(
+        user=request.session.get("user_id"), is_paid=False
+    ).first()
+    product_in_cart = False
+    if cart:
+        product_in_cart = CartItemModel.objects.filter(
+            cart=cart, product=product_itemView_detail
+        ).exists()
+
     context = {
         "product_detailV": product_itemView_detail,
         "product_in_cart": product_in_cart,

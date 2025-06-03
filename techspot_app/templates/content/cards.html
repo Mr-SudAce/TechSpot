@@ -7,130 +7,8 @@ Products
 
 
 {% block category %}
-<style>
-    .catg {
-        display: grid;
-        grid-template-columns: 1fr 4fr;
-        gap: 10px;
-    }
 
-    /* Category Sidebar */
-    .catglist {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .catglist a {
-        text-decoration: none;
-        color: #333;
-        font-weight: 500;
-    }
-
-    .category-dropdown {
-        overflow: hidden;
-        /* box-shadow: 0 2px 6px rgba(0,0,0,0.08); */
-    }
-
-    .category-dropdown summary {
-        padding: 10px;
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .category-dropdown summary::-webkit-details-marker {
-        display: none;
-    }
-
-    .category-dropdown[open] summary::after {
-        content: "▲";
-    }
-
-    .category-dropdown summary::after {
-        content: "▼";
-        font-size: 0.8rem;
-    }
-
-    .subcategory-menu {
-        padding: 10px 20px;
-        background-color: #f1f3f5;
-    }
-
-    .subcategory-menu a {
-        display: block;
-        padding: 6px 0;
-        color: #212529;
-        transition: 0.3s ease;
-    }
-
-    .subcategory-menu a:hover {
-        text-decoration: underline;
-        color: #007bff;
-    }
-
-    /* Products Area */
-    .product-area {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 1rem;
-    }
-
-    .card-container {
-        cursor: pointer;
-    }
-
-    .product-card {
-        background-color: #ffffff;
-        border-radius: 0.75rem;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s ease-in-out;
-        overflow: hidden;
-    }
-
-    .product-card:hover {
-        transform: translateY(-5px);
-    }
-
-    .product-card img {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-    }
-
-    .product-details {
-        padding: 1rem;
-    }
-
-    .product-details h5 {
-        font-size: 1.1rem;
-        margin-bottom: 0.5rem;
-        font-weight: 600;
-    }
-
-    .product-details p {
-        font-size: 0.9rem;
-        margin-bottom: 0.4rem;
-        color: #6c757d;
-    }
-
-    .price {
-        color: #28a745;
-        font-weight: bold;
-    }
-
-    .original-price {
-        color: #dc3545;
-        text-decoration: line-through;
-        font-size: 0.85rem;
-        margin-left: 6px;
-    }
-
-    .btn-add {
-        width: 100%;
-        margin-top: 0.75rem;
-    }
-</style>
+<link rel="stylesheet" href="{% static 'CSS/cards.css' %}">
 {% include "content/cart.html" %}
 <div class="catg">
     <div class="catglist py-2">
@@ -160,36 +38,32 @@ Products
     </div>
 
     <!-- Product Cards -->
-    <section class="product-area py-2">
-        {% for product in products %}
-        <div class="card-container" onclick="location.href=`{% url 'product_itemView_detail' product.id %}`">
-            <div class="product-card">
-                {% if product.product_image %}
-                <img src="{{ product.product_image.url }}" alt="{{ product.product_name }}">
-                {% else %}
-                <img src="{% static 'images/default_image.png' %}" alt="Default image">
-                {% endif %}
-                <div class="product-details">
-                    <h6>{{product.product_stock}}</h6>
-                    <h5>{{ product.product_name|truncatewords:3.2 }}</h5>
-                    <p>{{ product.product_description|truncatewords:3 }}</p>
-                    <p>
-                        <span class="price">Rs.800</span>
-                        <span class="original-price">{{ product.product_price }}</span>
-                    </p>
-                    <form action="{% url 'add_to_cart' product.id %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-success btn-add">Add to Cart</button>
-                    </form>
-                    <!-- <a href="{% url 'add_to_cart' product.id %}" class="btn btn-success btn-add">Add to Cart</a> -->
+    <div class="card-container my-2">
+        {% for prodct in products %}
+        <article class="product-card" onclick="location.href=`{% url 'product_itemView_detail' prodct.id %}`">
+            <span class="badge">{{ prodct.product_discount }}% OFF</span>
+            {% if prodct.product_image %}
+            <img src="{{ prodct.product_image.url }}" alt="{{ prodct.product_name }}" class="product-img">
+            {% else %}
+            <img src="{% static 'images/default_image.png' %}" alt="Default image" class="product-img">
+            {% endif %}
+            <div class="card-content">
+                <h3 class="product-title">{{ prodct.product_name }}</h3>
+                <p class="product-description">{{ prodct.product_description }}</p>
+                <p class="price">
+                    Rs.{{ prodct.get_discount_amount|floatformat:0 }}
+                    <span class="old-price">Rs.{{ prodct.product_price|floatformat:0 }}</span>
+                </p>
+                <div class="button-group">
+                    <a href="{% url 'add_to_cart' prodct.id %}" class="btn add-cart" title="Add to Cart">
+                        Add to Cart
+                    </a>
+                    <button class="btn buy" title="Buy Now">Buy</button>
                 </div>
             </div>
-        </div>
-        {% empty %}
-        <p>Not found</p>
+        </article>
         {% endfor %}
-
-    </section>
+    </div>
 </div>
 
 {% endblock %}

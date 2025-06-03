@@ -1,0 +1,40 @@
+{% load static %}
+
+
+{% block similarproduct%}
+<link rel="stylesheet" href="{% static 'CSS/similarproduct.css' %}">
+<div class="container similar-products my-4">
+    <hr>
+    <p class="display-5">Similar Products</p>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card-container my-2">
+                {% for prodct in similarproduct %}
+                <article class="product-card" onclick="location.href=`{% url 'product_itemView_detail' prodct.id %}`">
+                    <span class="badge">{{ prodct.product_discount }}% OFF</span>
+                    {% if prodct.product_image %}
+                    <img src="{{ prodct.product_image.url }}" alt="{{ prodct.product_name }}" class="product-img">
+                    {% else %}
+                    <img src="{% static 'images/default_image.png' %}" alt="Default image" class="product-img">
+                    {% endif %}
+                    <div class="card-content">
+                        <h3 class="product-title">{{ prodct.product_name }}</h3>
+                        <p class="product-description">{{ prodct.product_description }}</p>
+                        <p class="price">
+                            Rs.{{ prodct.get_discount_amount|floatformat:0 }}
+                            <span class="old-price">Rs.{{ prodct.product_price|floatformat:0 }}</span>
+                        </p>
+                        <div class="button-group">
+                            <a href="{% url 'add_to_cart' prodct.id %}" class="btn add-cart" title="Add to Cart">
+                                Add to Cart
+                            </a>
+                            <button class="btn buy" title="Buy Now">Buy</button>
+                        </div>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
