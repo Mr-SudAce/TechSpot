@@ -1,12 +1,16 @@
 from .views import *
+from .authview import *
 from .operationView import *
 from django.conf.urls.static import *
 from django.urls import path
+
+
 
 urlpatterns = [
     path('', mainpage, name='mainpage'),
     # dashboard
     path("dashboard/", dashboard, name="dashboard"),
+    
     # 
     # 
     # 
@@ -25,6 +29,9 @@ urlpatterns = [
     path('register/', userregister, name='userregister'),
     path('login/', userlogin, name='userlogin'),
     path('logout/', userlogout, name='userlogout'),
+    # Dash_url
+    path("create-staff/", create_staff_user_view, name="create_staff"),
+    path("create-admin/", create_admin_user_view, name="create_admin"),
     # 
     # 
     # 

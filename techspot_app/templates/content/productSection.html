@@ -5,7 +5,7 @@
     <h1>Products</h1>
     <div class="card-container mb-2">
         {% for prodct in product %}
-        <article class="product-card">
+        <article class="product-card" onclick="location.href=`{% url 'product_itemView_detail' prodct.id %}`">
             <span class="badge">{{ prodct.product_discount }}% OFF</span>
             {% if prodct.product_image %}
             <img src="{{ prodct.product_image.url }}" alt="{{ prodct.product_name }}" class="product-img">

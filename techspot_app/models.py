@@ -1,18 +1,24 @@
 from django.db import models
 from django.conf import settings
-
+from django.contrib.auth.models import *
+from .manageauth import *
 # Create your models here.
 
 
-class UserModel(models.Model):
-    username = models.CharField(max_length=600, unique=False, blank=False)
+class UserModel(AbstractBaseUser, PermissionsMixin):
+    username = models.CharField(max_length=600, unique=True)
     number = models.PositiveBigIntegerField()
     email = models.EmailField(unique=True)
-    password = models.CharField(max_length=200)
     is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
 
-    def __str__(self) -> str:
-        return f"{self.username} - {self.number} - {self.email}"
+    objects = CustomUserManager()
+
+    USERNAME_FIELD = 'email'  # how user logs in
+    REQUIRED_FIELDS = ['username', 'number']  # for createsuperuser
+
+    def __str__(self):
+        return self.email
 
 
 # Header////////////////////////////////
@@ -25,7 +31,7 @@ class HeaderModel(models.Model):
 
 
 class image_SliderModel(models.Model):
-    image = models.ImageField(upload_to="slider/", default="")
+    image = models.ImageField(upload_to="slider/", null=True, blank=True)
 
     def __str__(self) -> str:
         return f"{self.image}"
@@ -35,7 +41,7 @@ class CategoryModel(models.Model):
     category_icon = models.CharField(max_length=200, default="", blank=True)
     category_name = models.CharField(max_length=200, default="", unique=True)
     category_image = models.ImageField(
-        upload_to="category_image/", default="", blank=True
+        upload_to="category_image/", default="", null=True, blank=True
     )
 
     def __str__(self) -> str:
@@ -58,7 +64,6 @@ class ProductModel(models.Model):
         CategoryModel,
         related_name="productcategory",
         on_delete=models.CASCADE,
-        default="",
     )
     product_name = models.CharField(max_length=200, default="")
     product_description = models.CharField(max_length=200, default="")
@@ -72,7 +77,6 @@ class ProductModel(models.Model):
         on_delete=models.CASCADE,
         null=True,
         blank=True,
-        default="",
     )
     product_stock = models.IntegerField(default=0)
     product_discount = models.DecimalField(max_digits=5, decimal_places=2, default=0)
@@ -86,7 +90,7 @@ class ProductModel(models.Model):
 
 # -----------------------------CARTS--------------------------------
 class CartModel(models.Model):
-    user = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name="cart")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="cart")
     is_paid = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 

@@ -1,0 +1,159 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'CSS/Dashboard/analytics.css' %}" />
+<link rel="stylesheet" href="{% static 'CSS/mainstyle.css' %}" />
+<!-- 
+
+<div class="dashboard-container">
+  <div class="card-row">
+    <div class="card">
+      <div class="card-left">{{ product }}</div>
+      <div class="card-info">{{ productinfo }}</div>
+      <div class="card-right">
+        <img src="{% static 'images/TechSpot.png' %}" alt="icon" />
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <div class="chart-legend">
+      {% for label, percent, color in category_data %}
+      <span class="legend" style="background-color: {{ color }}"></span>
+      {{ label }} 
+      {% endfor %}
+    </div>
+    <div class="css-pie-chart" style="background: conic-gradient({{ category_gradient }});">
+
+  </div>
+</div> -->
+
+<div class="row g-4 mb-4">
+  <div class="col-md-3">
+    <div class="card bg-warning text-dark card-glow p-3">
+      <h5>Total Products</h5>
+      <h3>{{productcount}}</h3>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card bg-success text-white card-glow p-3">
+      <h5>Total Orders</h5>
+      <h3>{{order_count}}</h3>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card bg-info text-white card-glow p-3">
+      <h5>Offers</h5>
+      <h3>1023</h3>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card bg-danger text-white card-glow p-3">
+      <h5>Reports</h5>
+      <h3>421</h3>
+    </div>
+  </div>
+</div>
+
+<!-- Business Overview + Status -->
+<div class="row g-4 mb-4">
+  <div class="col-md-8">
+    <div class="chart-container">
+      <h5 class="mb-3">Business Overview</h5>
+      <canvas id="lineChart" height="150"></canvas>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="chart-container text-center">
+      <h5 class="mb-3">Status</h5>
+      <canvas id="doughnutChart" height="150"></canvas>
+      <p class="mt-3">
+        <span class="text-success">✔ 654 On Progress</span><br />
+        <span class="text-danger">✖ 89 Cancelled</span>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Bottom Stats -->
+<div class="row g-4">
+  <div class="col-md-6">
+    <div class="card bg-warning text-dark card-glow p-3">
+      <h5>Lifetime Sales</h5>
+      <h3>$40,453.80</h3>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card bg-success text-white card-glow p-3">
+      <h5>Average Order</h5>
+      <h3>$1,965.08</h3>
+    </div>
+  </div>
+</div>
+
+<!-- <script>
+  // Line Chart
+  new Chart(document.getElementById("lineChart"), {
+    type: "line",
+    data: {
+      labels: [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ],
+      datasets: [
+        {
+          label: "Orders",
+          data: [30, 90, 150, 80, 240, 300, 260, 310, 270, 390, 320, 330],
+          borderColor: "#00FFB7",
+          backgroundColor: "transparent",
+          tension: 0.4,
+        },
+        {
+          label: "Reports",
+          data: [50, 100, 140, 180, 190, 120, 200, 180, 250, 220, 270, 260],
+          borderColor: "#FF4C4C",
+          backgroundColor: "transparent",
+          tension: 0.4,
+        },
+      ],
+    },
+    options: {
+      plugins: {
+        legend: {
+          labels: { color: "white" },
+        },
+      },
+      scales: {
+        x: { ticks: { color: "white" } },
+        y: { ticks: { color: "white" } },
+      },
+    },
+  });
+
+  // Doughnut Chart
+  new Chart(document.getElementById("doughnutChart"), {
+    type: "doughnut",
+    data: {
+      labels: ["Orders", "Products", "Offers", "Reports"],
+      datasets: [
+        {
+          data: [44, 22, 18, 16],
+          backgroundColor: ["#00FFB7", "#FFD700", "#8A2BE2", "#FF4C4C"],
+        },
+      ],
+    },
+    options: {
+      plugins: {
+        legend: { labels: { color: "white" } },
+      },
+    },
+  });
+</script> -->

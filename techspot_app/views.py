@@ -1,17 +1,43 @@
 from django.shortcuts import *
 from .models import *
 from .forms import *
+import json
+from django.core.exceptions import ValidationError
 from django.contrib import messages
-from django.db import transaction
+from django.db import transaction, IntegrityError
 from django.contrib.auth.hashers import *
 from handler.authhandler import *
-from django.db.models import Q
+from django.db.models import *
+from handler.otherhandler import *
 
 
 # Create your views here.
 # Admin dashboard
+
+
 def dashboard(request):
-    return render(request, "Dashboard/dashboard.html")
+    user = UserModel.objects.all()
+    product_count = ProductModel.objects.all().count()
+    order_count = OrderItemModel.objects.all().count()
+
+    categories = CategoryModel.objects.annotate(total=Count("productcategory"))
+    category_labels = [cat.category_name for cat in categories]
+    category_counts = [cat.total for cat in categories]
+
+    color_map = ["#FF0037", "#0099FF", "#FFB700", "#00FF77"]
+
+    category_gradient = build_conic_gradient(category_counts, color_map)
+
+    context = {
+        "user": user,
+        "productcount": product_count,
+        "ordercount": order_count,
+        "product": "Product",
+        "category_data": zip(category_labels, category_counts, color_map),
+        "category_gradient": category_gradient,
+    }
+
+    return render(request, "Dashboard/dashboard.html", context)
 
 
 # User Interface
@@ -23,61 +49,34 @@ def mainpage(request):
     user_id = request.session.get("user_id")
     user = UserModel.objects.filter(id=user_id).first()
 
-
-    if user_id:
-        cart = CartModel.objects.get(user=user, is_paid=False)
-        cart_items = CartItemModel.objects.filter(cart=cart) if cart else []
-    else:
-        cart_items = []
-
-    # total_items_count = cart_items.count()
-    total_items_count = (
-        len(cart_items) if isinstance(cart_items, list) else cart_items.count()
-    )
-    
-    grand_total = sum(
-        float(item.total_price()) if item.product else 0 for item in cart_items
-    )
-
     if not user:
         messages.error(request, "User not found. Please login again.")
         request.session.flush()
         return redirect("userlogin")
 
+    cart = CartModel.objects.filter(user=user, is_paid=False, is_active=True).first()
+    if not cart:
+        cart = CartModel.objects.create(user=user, is_paid=False, is_active=True)
+
+    cart_items = CartItemModel.objects.filter(cart=cart)
+
+    total_items_count = cart_items.count()
+    grand_total = sum(
+        float(item.total_price()) if item.product else 0 for item in cart_items
+    )
+
     context = {
         "user": user,
-        "header": HeaderModel.objects.all().first(),
+        "header": HeaderModel.objects.first(),
         "product": ProductModel.objects.all(),
         "image_slider": image_SliderModel.objects.all(),
-        "cart_item": CartItemModel.objects.all(),
-        "total_items_count" : total_items_count,
+        "cart_item": cart_items,
+        "total_items_count": total_items_count,
         "grand_total": grand_total,
-        "otherdetails": OtherDetailModel.objects.all().first(),
+        "otherdetails": OtherDetailModel.objects.first(),
     }
+
     return render(request, "index.html", context)
-
-
-def userregister(request):
-    return handling_register(
-        request=request,
-        form_class=UserForm,
-        model=UserModel,
-        templateurl="auth/userregister.html",
-        success_url="userlogin",
-    )
-
-
-def userlogin(request):
-    return handling_login(
-        request=request,
-        model=UserModel,
-        templateurl="auth/userlogin.html",
-        success_url="mainpage",
-    )
-
-
-def userlogout(request):
-    return handling_logout(request=request, model=UserModel, url="userlogin")
 
 
 def user(request):
@@ -90,8 +89,6 @@ def del_user(request, id):
     user = UserModel.objects.get(id=id)
     user.delete()
     return redirect("user")
-
-   
 
 
 # Search
@@ -290,7 +287,13 @@ def add_to_cart(request, id):
 
     userid = request.session.get("user_id")
     if userid:
-        cart, _ = CartModel.objects.get_or_create(user_id=userid, is_paid=False)
+        cart = CartModel.objects.filter(
+            user_id=userid, is_paid=False, is_active=True
+        ).first()
+        if not cart:
+            cart = CartModel.objects.create(
+                user_id=userid, is_paid=False, is_active=True
+            )
         cart_item = CartItemModel.objects.filter(cart=cart, product=product).first()
         if cart_item:
             cart_item.quantity += 1
@@ -348,7 +351,7 @@ def update_cart_quantity(request, id):
 
 
 # checkout
-@transaction.atomic  # Just in case you use a custom user model
+@transaction.atomic
 def checkout(request):
     user_id = request.session.get("user_id")
     if not user_id:
@@ -372,12 +375,16 @@ def checkout(request):
         form = ShippingForm(request.POST)
         if form.is_valid():
             shipping = form.save(commit=False)
-            shipping.user_id = custom_user.id  # Assign the actual user ID
-            shipping.save()
+            shipping.user = custom_user
+            try:
+                shipping.save()  # ✅ Must succeed before using in Order
+            except Exception as e:
+                messages.error(request, "Failed to save shipping info.")
+                return redirect("checkout")
 
             # Create the order
             order = OrderModel.objects.create(
-                user_id=custom_user.id,
+                user=custom_user,
                 shipping_info=shipping,
                 total_price=total_price,
                 payment_method="COD",
@@ -386,6 +393,8 @@ def checkout(request):
 
             # Create order items and update stock
             for item in cart_items:
+                if not item.product:
+                    return redirect("cart_Detail")
                 OrderItemModel.objects.create(
                     order=order,
                     product=item.product,
@@ -412,7 +421,9 @@ def checkout(request):
 
 
 def order_success(request, order_id):
-    order = get_object_or_404(OrderModel, id=order_id, user=request.session.get("user_id"))
+    order = get_object_or_404(
+        OrderModel, id=order_id, user=request.session.get("user_id")
+    )
     return render(request, "content/order_success.html", {"order": order})
 
 

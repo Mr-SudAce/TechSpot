@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 
 # For handling registration
 # This function handles the registration process for users.
-def handling_register(request, form_class, model, templateurl, success_url):
+def handling_register(request, form_class, model, templateurl, success_url, make_staff=False, make_superuser=False):
     if request.method == "POST":
         form = form_class(request.POST)
         if form.is_valid():
@@ -34,6 +34,10 @@ def handling_register(request, form_class, model, templateurl, success_url):
 
             user = form.save(commit=False)
             user.password = make_password(password)
+            # NEW: Add role flags based on function parameters
+            user.is_staff = make_staff
+            user.is_superuser = make_superuser
+            user.is_active = True
             user.save()
 
             messages.success(request, f"Account Created for {username}")

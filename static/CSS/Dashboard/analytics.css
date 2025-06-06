@@ -1,0 +1,230 @@
+/* .dashboard-container {
+    padding: 40px;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card-row {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 300px;
+    height: 150px;
+    background: #e0e0e0;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+    flex-direction: row;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+}
+
+.card-left {
+    font-weight: 600;
+    font-size: 20px;
+    text-transform: capitalize;
+    color: #333;
+    padding-left: 20px;
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.card-info {
+    font-weight: 600;
+    font-size: 15px;
+    text-transform: capitalize;
+    color: #333;
+    padding-left: 20px;
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.card-right {
+    width: 100px;
+    height: 100%;
+    background-color: #111;
+    border-radius: 0 20px 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.card:hover .card-right {
+    background-color: #222;
+}
+
+.card-right img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.4));
+}
+
+.chart-container {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    width: fit-content;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    margin: 0 auto;
+}
+
+.chart-legend {
+    margin-bottom: 15px;
+    display: flex;
+    gap: 20px;
+    font-size: 15px;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    color: #444;
+}
+
+.legend {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+    border-radius: 4px;
+}
+
+.red {
+    background-color: #e74c3c;
+}
+
+.grey {
+    background-color: #7f8c8d;
+}
+
+.green {
+    background-color: #2ecc71;
+}
+
+.chart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chart-circle {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #a93226 40%, #922b21 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: 700;
+    font-size: 20px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+
+.chart-legend {
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.legend {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+.legend.red {
+    background-color: #FF6384;
+}
+
+.legend.blue {
+    background-color: #36A2EB;
+}
+
+.legend.yellow {
+    background-color: #FFCE56;
+}
+
+.legend.green {
+    background-color: #8AFFC1;
+}
+
+
+.css-pie-chart {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: conic-gradient(#ff0037 0% 25%,
+            #0099ff 25% 50%,
+            #ffb700 50% 75%,
+            #00ff77 75% 100%);
+    margin: 0 auto;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.css-pie-chart .center-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: 700;
+    font-size: 18px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+}
+
+.css-pie-chart:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+} */
+
+
+
+.card {
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.card h5 {
+    font-weight: 600;
+}
+
+.card-glow {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-glow:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.chart-container {
+    background-color: #1e293b;
+    border-radius: 1rem;
+    padding: 1rem;
+}

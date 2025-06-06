@@ -3,6 +3,11 @@ from .models import *
 from django.core.validators import RegexValidator
 
 
+from django import forms
+from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from .models import UserModel
+
+
 class UserForm(forms.ModelForm):
     number = forms.CharField(
         widget=forms.TextInput(
@@ -10,7 +15,7 @@ class UserForm(forms.ModelForm):
                 "placeholder": "Enter your number",
                 "oninput": 'this.value = this.value.replace(/[^0-9]/g, "")',
             }
-        ),
+        )
     )
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={"placeholder": "Enter your password"})
@@ -24,12 +29,42 @@ class UserForm(forms.ModelForm):
             "email": forms.EmailInput(attrs={"placeholder": "Enter your email"}),
         }
 
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password"])  # Secure password hashing
+        if commit:
+            user.save()
+        return user
 
-class LoginForm(forms.ModelForm):
+
+class UserChangeForm(forms.ModelForm):
+    password = ReadOnlyPasswordHashField(
+        help_text=(
+            "Raw passwords are not stored, so there is no way to see this user's password, "
+            'but you can change it using <a href="../password/">this form</a>.'
+        )
+    )
+
     class Meta:
         model = UserModel
-        fields = ["email", "password"]
-        widgets = {"password": forms.PasswordInput()}
+        fields = [
+            "email",
+            "username",
+            "number",
+            "password",
+            "is_active",
+            "is_staff",
+            "is_superuser",
+        ]
+
+
+class LoginForm(forms.Form):
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={"placeholder": "Enter your email"})
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={"placeholder": "Enter your password"})
+    )
 
 
 # Add Product

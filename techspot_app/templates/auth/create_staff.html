@@ -1,0 +1,12 @@
+
+{% extends "Dashboard/dashboard.html" %}
+
+<h2>Create Staff Account</h2>
+{% block createstaff%}
+
+<form method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Create Staff</button>
+</form>
+{% endblock %}
