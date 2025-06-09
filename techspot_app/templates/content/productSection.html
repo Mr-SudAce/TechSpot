@@ -14,7 +14,7 @@
             {% endif %}
             <div class="card-content">
                 <h3 class="product-title">{{ prodct.product_name }}</h3>
-                <p class="product-description">{{ prodct.product_description }} {{prodct.created_at}} {{prodct.updated_at}} </p>
+                <p class="product-description">{{ prodct.product_description }}</p>
                 <p class="price">
                     Rs.{{ prodct.get_discount_amount|floatformat:0 }}
                     <span class="old-price">Rs.{{ prodct.product_price|floatformat:0 }}</span>
