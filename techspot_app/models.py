@@ -80,7 +80,8 @@ class ProductModel(models.Model):
     )
     product_stock = models.IntegerField(default=0)
     product_discount = models.DecimalField(max_digits=5, decimal_places=2, default=0)
-
+    created_at = models.DateField(auto_now_add=True)
+    updated_on = models.DateField(auto_now=True)
     def get_discount_amount(self):
         return self.product_price - (self.product_price * self.product_discount) / 100
 

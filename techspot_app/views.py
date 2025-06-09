@@ -15,29 +15,36 @@ from handler.otherhandler import *
 # Admin dashboard
 
 
+from django.shortcuts import render
+from django.db.models import Count
+from .models import UserModel, ProductModel, OrderItemModel, CategoryModel
+
 def dashboard(request):
     user = UserModel.objects.all()
     product_count = ProductModel.objects.all().count()
     order_count = OrderItemModel.objects.all().count()
+
+    order_data = [order_count] * 12
+    product_data = [product_count] * 12
 
     categories = CategoryModel.objects.annotate(total=Count("productcategory"))
     category_labels = [cat.category_name for cat in categories]
     category_counts = [cat.total for cat in categories]
 
     color_map = ["#FF0037", "#0099FF", "#FFB700", "#00FF77"]
-
-    category_gradient = build_conic_gradient(category_counts, color_map)
+    category_data = zip(category_labels, category_counts, color_map)
 
     context = {
         "user": user,
         "productcount": product_count,
         "ordercount": order_count,
-        "product": "Product",
-        "category_data": zip(category_labels, category_counts, color_map),
-        "category_gradient": category_gradient,
+        "order_data": order_data,
+        "product_data": product_data,
+        "category_data": category_data,
     }
 
     return render(request, "Dashboard/dashboard.html", context)
+
 
 
 # User Interface

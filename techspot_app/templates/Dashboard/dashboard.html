@@ -73,9 +73,6 @@
 
               <div class="side_menu_mid d-flex flex-column rounded-3">
                 <div class="row gap-2 p-3">
-                  
-
-
                   <a
                     href="{% url 'add_header' %}"
                     class="fw-bold dash_link nav-link text-start {% if request.resolver_match.url_name == 'add_header' %} active text-primary {% endif %}"
@@ -163,7 +160,9 @@
                     {% block add_header %} {% endblock %}
                     {% block createstaff %} {% endblock %}
                     {% block add_advertisement %} {% endblock %}
-                </form>
+                  </form>
+                  {% if request.path == '/dashboard/' %} 
+                  {% include "Dashboard/Analytics.html" %} {% endif %}
                 </div>
               </div>
             </div>
