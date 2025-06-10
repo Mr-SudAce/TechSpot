@@ -10,7 +10,6 @@ urlpatterns = [
     path('', mainpage, name='mainpage'),
     # dashboard
     path("dashboard/", dashboard, name="dashboard"),
-    
     # 
     # 
     # 

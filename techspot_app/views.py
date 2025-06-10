@@ -1,11 +1,14 @@
 from django.shortcuts import *
 from .models import *
 from .forms import *
+from .bot import *
 import json
+from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import ValidationError
 from django.contrib import messages
 from django.db import transaction, IntegrityError
 from django.contrib.auth.hashers import *
+from django.http import JsonResponse
 from handler.authhandler import *
 from django.db.models import *
 from handler.otherhandler import *
@@ -18,6 +21,7 @@ from handler.otherhandler import *
 from django.shortcuts import render
 from django.db.models import Count
 from .models import UserModel, ProductModel, OrderItemModel, CategoryModel
+
 
 def dashboard(request):
     user = UserModel.objects.all()
@@ -46,7 +50,6 @@ def dashboard(request):
     return render(request, "Dashboard/dashboard.html", context)
 
 
-
 # User Interface
 def mainpage(request):
     redirect_response = check_session_auth(request, 3600)
@@ -72,6 +75,23 @@ def mainpage(request):
         float(item.total_price()) if item.product else 0 for item in cart_items
     )
 
+    ############################################ Chat Bot ##########################################
+    
+    response = ""
+    user_input = ""
+
+    if request.method == "POST":
+        user_input = request.POST.get("prompt", "").strip()
+        response = get_bot_response(user_input)
+
+        if request.headers.get("x-requested-with") == "XMLHttpRequest":
+            return JsonResponse({
+                "user_input": user_input,
+                "response": response,
+            })
+
+    ############################################ Chat Bot ##########################################
+
     context = {
         "user": user,
         "header": HeaderModel.objects.first(),
@@ -81,6 +101,10 @@ def mainpage(request):
         "total_items_count": total_items_count,
         "grand_total": grand_total,
         "otherdetails": OtherDetailModel.objects.first(),
+        ############################################ Chat Bot ##########################################
+        "response": response,
+        "user_input": user_input,
+        ############################################ Chat Bot ##########################################
     }
 
     return render(request, "index.html", context)
@@ -458,3 +482,37 @@ def product_itemView_detail(request, id):
         "cart_itm": cart_itm,
     }
     return render(request, "content/product_detail.html", context)
+
+
+##################################  CHATBOT #######################################
+
+# def bot_view(request):
+#     response = ""
+#     user_input = ""
+
+#     if request.method == "POST":
+#         user_input = request.POST.get("prompt", "").strip().lower()
+#         print("🗣️ User said:", user_input)
+#         if user_input:
+#             if user_input in ["hello", "hi", "hey"]:
+#                 jokes = [
+#                     "Why don’t skeletons fight each other? They don’t have the guts.",
+#                     "Parallel lines have so much in common. It’s a shame they’ll never meet.",
+#                     "I told my wife she was drawing her eyebrows too high. She looked surprised.",
+#                 ]
+#                 response = random.choice(jokes)
+#             else:
+#                 response = "Not Found !!!!!"
+#         else:
+#             response = "Please Say Something :D"
+#         print("🤖 Bot responded:", response)
+
+#     context = {
+#         "response": response,
+#         "user_input": user_input
+#     }
+
+#     return render(request, "bot.html", context)
+
+
+##################################  CHATBOT #######################################

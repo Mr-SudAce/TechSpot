@@ -1,0 +1,93 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'CSS/bot.css' %}" />
+
+<div class="bot-container">
+  <!-- Icon to open the chat -->
+  <div class="image-div" onclick="openChat()">
+    <img
+      src="{% static 'images/chatbot.png' %}"
+      class="bot-img"
+      alt="Chatbot Icon"
+    />
+  </div>
+
+  <!-- Chat content -->
+  <div class="content-div" id="chat-content">
+    <div class="chat-box">
+      <div class="chat-header">
+        <h3>Chatbot</h3>
+        <span class="close-btn" onclick="closeChat()">✖</span>
+      </div>
+
+      <div class="chat-body" id="chat-body">
+      </div>
+
+      <form id="chat-form">
+        {% csrf_token %}
+        <div class="chat-footer">
+          <input
+            type="text"
+            name="prompt"
+            id="prompt-input"
+            placeholder="Type a message..."
+            required
+          />
+          <button type="submit">Send</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openChat() {
+    document.getElementById("chat-content").classList.add("active");
+  }
+
+  function closeChat() {
+    document.getElementById("chat-content").classList.remove("active");
+  }
+
+  // Handle form submission with fetch
+  document.getElementById("chat-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const inputField = document.getElementById("prompt-input");
+    const userInput = inputField.value;
+    const chatBody = document.getElementById("chat-body");
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    // Append user message
+    const userMessage = `<p><strong>🗣️:</strong> ${userInput}</p>`;
+    chatBody.insertAdjacentHTML("beforeend", userMessage);
+    inputField.value = "";
+
+    fetch("", {
+      method: "POST",
+      headers: {
+        "X-Requested-With": "XMLHttpRequest",
+        "X-CSRFToken": csrfToken,
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: new URLSearchParams({ prompt: userInput })
+    })
+    .then(response => response.json())
+    .then(data => {
+      const botMessage = `<p><strong>🤖:</strong> ${data.response}</p>`;
+      chatBody.insertAdjacentHTML("beforeend", botMessage);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    })
+    .catch(error => {
+      console.error("Error:", error);
+    });
+  });
+
+  // Scroll on load
+  window.onload = function () {
+    const chatBody = document.querySelector(".chat-body");
+    if (chatBody) {
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+  };
+</script>
