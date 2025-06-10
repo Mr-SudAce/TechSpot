@@ -23,7 +23,7 @@ def ecommerce_prompts(user_input):
     elif user_input in ["recommend", "suggest", "what should i buy"]:
         return "Looking for recommendations? Based on your style, you might love these trending picks 🔥. Wanna see some cool stuff?"
 
-    elif user_input in ["new arrivals", "latest products"]:
+    elif user_input in ["new arrivals", "latest products", "product", "latest"]:
         return "Fresh drops just landed! Check out the new arrivals before everyone else grabs ‘em 🛍️."
 
     elif user_input in ["cart", "my cart", "view cart"]:

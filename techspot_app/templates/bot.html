@@ -16,12 +16,11 @@
   <div class="content-div" id="chat-content">
     <div class="chat-box">
       <div class="chat-header">
-        <h3>Chatbot</h3>
+        <h3 class="m-0">Chatbot</h3>
         <span class="close-btn" onclick="closeChat()">✖</span>
       </div>
 
-      <div class="chat-body" id="chat-body">
-      </div>
+      <div class="chat-body" id="chat-body"></div>
 
       <form id="chat-form">
         {% csrf_token %}
@@ -56,10 +55,12 @@
     const inputField = document.getElementById("prompt-input");
     const userInput = inputField.value;
     const chatBody = document.getElementById("chat-body");
-    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    const csrfToken = document.querySelector(
+      "[name=csrfmiddlewaretoken]"
+    ).value;
 
     // Append user message
-    const userMessage = `<p><strong>🗣️:</strong> ${userInput}</p>`;
+    const userMessage = `<p class="user"><strong>🗣️</strong> ${userInput}</p>`;
     chatBody.insertAdjacentHTML("beforeend", userMessage);
     inputField.value = "";
 
@@ -68,19 +69,19 @@
       headers: {
         "X-Requested-With": "XMLHttpRequest",
         "X-CSRFToken": csrfToken,
-        "Content-Type": "application/x-www-form-urlencoded"
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: new URLSearchParams({ prompt: userInput })
+      body: new URLSearchParams({ prompt: userInput }),
     })
-    .then(response => response.json())
-    .then(data => {
-      const botMessage = `<p><strong>🤖:</strong> ${data.response}</p>`;
-      chatBody.insertAdjacentHTML("beforeend", botMessage);
-      chatBody.scrollTop = chatBody.scrollHeight;
-    })
-    .catch(error => {
-      console.error("Error:", error);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        const botMessage = `<p class="bot"><strong>🤖</strong> ${data.response}</p>`;
+        chatBody.insertAdjacentHTML("beforeend", botMessage);
+        chatBody.scrollTop = chatBody.scrollHeight;
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   });
 
   // Scroll on load

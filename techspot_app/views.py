@@ -41,6 +41,7 @@ def dashboard(request):
     context = {
         "user": user,
         "productcount": product_count,
+        "header" : HeaderModel.objects.all(),
         "ordercount": order_count,
         "order_data": order_data,
         "product_data": product_data,
