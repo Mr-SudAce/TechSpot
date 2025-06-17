@@ -75,10 +75,11 @@
                     <span>Rs. {{ grand_total|default:"0" }}</span>
                 </div>
                 <div class="cart-actions">
-                    <a href="{% url 'cart_Detail' %}" class="view-cart-btn">
+                    <a class="btn" href="{% url 'cart_Detail' %}" class="view-cart-btn">
                         See All
                     </a>
-                    <a href="{% url 'checkout' %}" class="checkout-btn">
+
+                    <a class="btn btn-success" href="{% url 'checkout' %}" class="checkout-btn">
                         Checkout
                     </a>
                 </div>

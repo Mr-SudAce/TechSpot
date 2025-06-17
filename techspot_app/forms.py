@@ -2,7 +2,7 @@ from django import forms
 from .models import *
 from django.core.validators import RegexValidator
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-
+from tinymce.widgets import TinyMCE
 
 class UserForm(forms.ModelForm):
     number = forms.CharField(
@@ -63,42 +63,36 @@ class LoginForm(forms.Form):
     )
 
 
-# Add Product
 class ProductForm(forms.ModelForm):
     class Meta:
         model = ProductModel
         fields = "__all__"
 
 
-# Add Catgory
 class CategoryForm(forms.ModelForm):
     class Meta:
         model = CategoryModel
         fields = "__all__"
 
 
-# Add Cart Item
 class CartItemForm(forms.ModelForm):
     class Meta:
         model = CartItemModel
         fields = "__all__"
 
 
-# Add Cart
 class CartForm(forms.ModelForm):
     class Meta:
         model = CartModel
         fields = "__all__"
 
 
-# Add ImageSlider image
 class ImageSliderForm(forms.ModelForm):
     class Meta:
         model = image_SliderModel
         fields = "__all__"
 
 
-# Add Sub_Category
 class SubCategoryForm(forms.ModelForm):
     class Meta:
         model = Sub_CategoryModel
@@ -141,3 +135,10 @@ class ShippingForm(forms.ModelForm):
                 attrs={"class": "form-control", "placeholder": "Enter phone number"}
             ),
         }
+
+
+class BlogForm(forms.ModelForm):
+
+    class Meta:
+        model = BlogModel
+        fields = "__all__"

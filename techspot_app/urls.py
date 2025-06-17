@@ -10,6 +10,7 @@ urlpatterns = [
     path('', mainpage, name='mainpage'),
     # dashboard
     path("dashboard/", dashboard, name="dashboard"),
+    path("blog/<slug:slug>", blog_detail, name='blog-detail'),
     # 
     # 
     # 
@@ -95,6 +96,7 @@ urlpatterns = [
     path("add_header/", add_header, name="add_header"),
     path("add_otherdetail/", add_otherdetail, name="add_otherdetail"),
     path("add_advertisement/", add_advertisement, name="add_advertisement"),
+    path("add_blog/", add_blog, name="add_blog"),
     #
     #
     # D_Content [update function]
@@ -107,6 +109,7 @@ urlpatterns = [
     path('update-header/<int:id>', update_header, name='update_header'),
     path('update-otherdetail/<int:id>', update_otherdetail, name='update_otherdetail'),
     path('update-advertisement/<int:id>', update_advertisement, name='update_advertisement'),
+    path('update-blog/<int:id>', update_blog, name='update_blog'),
     # 
     # 
     # 
@@ -120,4 +123,5 @@ urlpatterns = [
     path("delete-header/<int:id>", del_header, name="del_header"),
     path("delete-otherdetail/<int:id>", del_otherdetail, name="del_otherdetail"),
     path("delete-advertisement/<int:id>", del_advertisement, name="del_advertisement"),
+    path("delete-blog/<slug:slug>", del_blog, name="del_blog"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

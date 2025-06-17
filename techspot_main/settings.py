@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
-
 from dotenv import load_dotenv
 from pathlib import Path
 
@@ -35,8 +34,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = os.getenv("DEBUG", "True") == "True"
 
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.7']
-
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "192.168.1.7"]
 
 
 # Application definition
@@ -50,8 +48,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "techspot_app",
     "rest_framework",
+    "tinymce",
     "api",
 ]
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -62,8 +62,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-
-
 
 ROOT_URLCONF = "techspot_main.urls"
 
@@ -114,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'techspot_app.UserModel'
+AUTH_USER_MODEL = "techspot_app.UserModel"
 
 
 # Internationalization

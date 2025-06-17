@@ -108,6 +108,15 @@ def add_advertisement(request):
         action_url="add_advertisement",
     )
 
+def add_blog(request):
+    return handle_create(
+        request=request,
+        model=BlogModel,
+        formname=BlogForm,
+        redirect_url="add_blog",
+        template_url="Dashboard/D_Content/add_blog.html",
+        action_url="add_blog"
+    )
 
 #
 #
@@ -219,6 +228,17 @@ def update_advertisement(request, id):
         action_url="update_advertisement",
     )
 
+def update_blog(request, id):
+    return handle_update(
+        request=request,
+        id=id,
+        model=BlogModel,
+        formname=BlogForm,
+        redirect_url="add_blog",
+        template_url="Dashboard/D_Content/add_blog.html",
+        action_url="update_blog",
+    )
+
 
 # delete functions
 def del_product(request, id):
@@ -308,4 +328,13 @@ def del_advertisement(request, id):
         model=AdvertisementModel,
         redirect_url="add_advertisement",
         success_msg="Advertisement Deleted Successfully :)",
+    )
+
+def del_blog(request, id):
+    return handle_delete(
+        request=request,
+        id=id,
+        model=BlogModel,
+        redirect_url="add_blog",
+        success_msg="Blog Deleted Successfully",
     )

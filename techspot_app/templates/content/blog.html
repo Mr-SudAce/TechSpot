@@ -1,6 +1,48 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'CSS/blog.css' %}" />
+
 <div class="container">
-    <h1>Blog</h1>
-    <div>
-        NO BLOG
+  <h1>Our Blog</h1>
+  <div class="blog-section">
+    {% for blog in blogdetails %} {% if blog.published == True %}
+    <div class="blog-card">
+      <!-- Image -->
+      {% if blog.featured_image %}
+      <img
+        src="{{ blog.featured_image.url }}"
+        alt="{{ blog.title }}"
+        class="blog-image"
+      />
+      {% else %}
+      <div class="no-image">No Image</div>
+      {% endif %}
+
+      <!-- Content -->
+      <div class="blog-content">
+        <div>
+          <h2 class="blog-title">{{ blog.title }}</h2>
+          <p class="blog-username">
+            👤 {{ blog.author.username }} | {{ blog.created_at|date:"M d, Y" }}
+          </p>
+          <p class="blog-snippet">{{ blog.content|truncatechars:250|safe }}</p>
+        </div>
+
+        
+        <div>
+          <!-- Tags -->
+          {% if blog.tags %}
+          <div class="blog-tag-div">
+            {% for tag in blog.get_tag_list %}
+            <span class="blog-tags">#{{ tag }}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+          <!-- Read More Button -->
+          <a href="{% url 'blog-detail' blog.slug %}" class="buttonUI">Read more</a>
+        </div>
+      </div>
     </div>
+    {% endif %} {% endfor %}
+  </div>
 </div>

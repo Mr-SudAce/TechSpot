@@ -27,6 +27,7 @@ admin.site.register(UserModel, CustomUserAdmin)
 
 admin.site.register(
     [
+        BlogModel, 
         image_SliderModel,
         CategoryModel,
         Sub_CategoryModel,

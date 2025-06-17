@@ -1,0 +1,51 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'CSS/footer.css' %}">
+
+<footer class="container footer">
+  <div class="footer-content">
+    <!-- About -->
+    <div class="footer-about">
+      <h2>TechSpot</h2>
+      <p>Your one-stop shop for the latest tech gadgets and accessories.</p>
+    </div>
+
+    <!-- Links -->
+    <div class="footer-links">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="{% url 'mainpage' %}">Home</a></li>
+        <li><a href="{% url 'allproduct' %}">Shop</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- Customer Service -->
+    <div class="footer-links">
+      <h3>Customer Service</h3>
+      <ul>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">Shipping</a></li>
+        <li><a href="#">Order Status</a></li>
+      </ul>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="footer-newsletter">
+      <h3>Newsletter</h3>
+      <form>
+        <input type="email" placeholder="Your email" />
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </div>
+
+</footer>
+<div class="footer-bottom container">
+  &copy; 2024 - <span id="year"></span> TechSpot. All rights reserved.
+</div>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>

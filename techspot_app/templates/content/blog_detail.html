@@ -1,0 +1,28 @@
+{% load static %}
+{% include "cdnlink.html" %}
+<link rel="stylesheet" href="{% static 'CSS/blog_detail.css' %}">
+
+<div class="blog-detail-wrapper">
+    <div class="blog-detail-section">
+
+        <div class="blog-header">
+            <button class="back-btn" onclick="window.history.back()">
+                <i class="bi bi-arrow-left-circle back-icon"></i>
+            </button>
+            <h1 class="blog-main-title">{{ blog.title }}</h1>
+            <p class="blog-publish-date">🗓️ Published on {{ blog.created_at }}</p>
+        </div>
+        
+        {% if blog.featured_image %}
+        <div class="blog-image-wrapper">
+            <img src="{{ blog.featured_image.url }}" class="blog-featured-image" alt="{{ blog.title }}">
+        </div>
+        {% endif %}
+    </div>
+        
+  <div class="blog-main-content">
+    <p id=""> 
+        {{ blog.content|safe }}
+    </p>
+  </div>
+</div>

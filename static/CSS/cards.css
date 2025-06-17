@@ -74,16 +74,9 @@
   backdrop-filter: blur(10px);
   width: 280px;
   border: 1px solid #d2d2d2;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   position: relative;
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.product-card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.15);
 }
 
 .badge {

@@ -10,16 +10,10 @@
   backdrop-filter: blur(10px);
   width: 280px;
   border: 1px solid #d2d2d2;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1); */
   overflow: hidden;
   position: relative;
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.product-card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.15);
 }
 
 .badge {
@@ -97,18 +91,16 @@
   box-shadow: 0 6px 16px rgba(0,0,0,0.1);
 }
 
-.add-cart {
-  background-color: #f2f2f2;
-  color: #444;
-}
 
-.buy {
-  background-color: #8b5cf6;
-  color: #fff;
-}
 
 @media (max-width: 600px) {
   .product-card {
     width: 100%;
   }
+}
+
+
+.allprdt{
+  font-size: larger;
+  font-weight: bold;
 }

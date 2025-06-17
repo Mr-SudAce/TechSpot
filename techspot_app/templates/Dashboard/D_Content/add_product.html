@@ -5,42 +5,44 @@
 
 <link rel="stylesheet" href="{% static 'CSS/Dashboard/addproduct.css' %}">
 
-
 <h1 class="text-center mb-4">Add Product</h1>
 <div class="container mt-4">
 
     <table class="table bg-white">
-        <tr>
-            <th>Product Name:</th>
-            <td>{{ form.product_name }}</td>
-            <th>Category:</th>
-            <td>{{ form.product_category }}</td>
-        </tr>
+
+            <tr>
+                <th>Product Name:</th>
+                <td>{{ form.product_name }}</td>
+                <th>Category:</th>
+                <td>{{ form.product_category }}</td>
+                <th>Price:</th>
+                <td>{{ form.product_price }}</td>
+            </tr>
+            <tr>
+                <th>Discount</th>
+                <td>{{ form.product_discount }}</td>
+                <th>Stock:</th>
+                <td>{{ form.product_stock }}</td>
+            </tr>
+            <tr>
+                <th>Image:</th>
+                <td>
+                    {% if form.instance.product_image %}
+                    <img src="{{ form.instance.product_image.url }}" width="100"><br>
+                    {% endif %}
+                    {{ form.product_image }}
+                </td>
+                <th>Sub-Category:</th>
+                <td>{{ form.pro_sub_category }}</td>
+            </tr>
+
         <tr>
             <th>Description:</th>
-            <td>{{ form.product_description }}</td>
-            <th>Price:</th>
-            <td>{{ form.product_price }}</td>
+            <td colspan="5">{{ form.product_description }}</td>
         </tr>
-        <tr>
-            <th>Stock:</th>
-            <td>{{ form.product_stock }}</td>
-            <th>Image:</th>
-            <td>
-                {% if form.instance.product_image %}
-                <img src="{{ form.instance.product_image.url }}" width="100"><br>
-                {% endif %}
-                {{ form.product_image }}
-            </td>
-        </tr>
-        <tr>
-            <th>Sub-Category:</th>
-            <td>{{ form.pro_sub_category }}</td>
-            <th>Discount</th>
-            <td>{{ form.product_discount }}</td>
-        </tr>
-    </table>
+        
 
+    </table>
 
     <button type="submit" name="submit" class="btn btn-success">
         {% if form.instance.id %} Update {% else %} Save {% endif %}

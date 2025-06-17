@@ -1,0 +1,87 @@
+{% extends "Dashboard/dashboard.html" %} {% load static %} {% block blog %}
+<h1>Blog</h1>
+
+<table class="table table-borderless">
+  <tr>
+    <th><label for="cart_user">Title</label></th>
+    <td>{{form.title}}</td>
+  </tr>
+  <tr>
+    <th><label for="cart_status">Author</label></th>
+    <td>{{form.author}}</td>
+  </tr>
+  <tr>
+    <th><label for="cart_status">Content</label></th>
+    <td colspan="3">{{form.content}}</td>
+  </tr>
+  <tr>
+    <th><label for="cart_status">Featured Image</label></th>
+    <td>{{form.featured_image}}</td>
+    <th><label for="cart_status">Tags</label></th>
+    <td>{{form.tags}}</td>
+  </tr>
+  <tr>
+    <th><label for="cart_status">Published</label></th>
+    <td>{{form.published}}</td>
+  </tr>
+</table>
+
+<button type="submit" name="submit" class="btn btn-success">
+  {% if form.instance.id %} Update {% else %} Save {% endif %}
+</button>
+
+<div class="mt-5">
+  <table class="table bg-white">
+    <thead>
+      <tr>
+        <th class="bg-dark text-light">Title</th>
+        <th class="bg-dark text-light">Author</th>
+        <th class="bg-dark text-light">Content</th>
+        <th class="bg-dark text-light">Image</th>
+        <th class="bg-dark text-light">Tags</th>
+        <th class="bg-dark text-light">Published</th>
+        <th class="bg-dark text-light">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for crt in data %}
+      <tr>
+        <td class="align-middle">{{ crt.title }}</td>
+        <td class="align-middle">{{ crt.author.username }}</td>
+        <td class="align-middle">{{ crt.content|truncatewords:10|safe }}</td>
+        <td class="align-middle">
+          {% if crt.featured_image and crt.featured_image.url %}
+          <img
+            src="{{ crt.featured_image.url }}"
+            alt="Featured Image"
+            loading="lazy"
+            class="img-fluid rounded shadow"
+            style="width: 100px; height: 100px; object-fit: cover"
+          />
+          {% else %}
+          <img
+            src="{% static 'images/default_image.png' %}"
+            alt="Default Image"
+            loading="lazy"
+            class="img-fluid rounded shadow"
+            style="width: 100px; height: 100px; object-fit: cover"
+          />
+          {% endif %}
+        </td>
+        <td class="align-middle">{{ crt.tags }}</td>
+        <td class="align-middle">{{ crt.published }}</td>
+        <td class="align-middle">
+          <a href="{% url 'del_blog' crt.id %}" class="btn btn-danger"
+            ><i class="fas fa-trash-alt"></i
+          ></a>
+          <a href="{% url 'update_blog' crt.id %}" class="btn btn-warning"
+            ><i class="fas fa-pencil-alt"></i
+          ></a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

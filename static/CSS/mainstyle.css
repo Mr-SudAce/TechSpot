@@ -9,12 +9,39 @@
 
 
 
-hr{
+hr {
   border: 1px solid var(--main-color);
 }
 
-:root{
-  --main-color: #000000;
+:root {
+  --main-color: #757575;
   --secondary-color: #f1f1f1;
   --text-color: #333;
+}
+
+.boxshadow {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.boxshadow:hover {
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.15);
+}
+
+.cursor {
+  cursor: pointer;
+}
+
+.buttonUI{
+  text-align: center;
+  padding: 8px 12px;
+  text-decoration: none;
+  border-radius: 10px;
+  background-color: #f2f2f2;
+  color: var(--text-color);
+  font-weight: 700;
+  border: 1px solid var(--main-color);
+}
+
+.buttonUI:hover {
+  color: var(--main-color);
 }

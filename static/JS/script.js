@@ -29,3 +29,7 @@ function slideRight() {
     scrollAmount += 250;
     cards.style.transform = `translateX(${scrollAmount}px)`;
 }
+
+
+
+

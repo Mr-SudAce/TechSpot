@@ -2,8 +2,9 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import *
 from .manageauth import *
+from tinymce.models import HTMLField
+from django.utils.text import slugify
 # Create your models here.
-
 
 class UserModel(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=600, unique=True)
@@ -66,7 +67,7 @@ class ProductModel(models.Model):
         on_delete=models.CASCADE,
     )
     product_name = models.CharField(max_length=200, default="")
-    product_description = models.CharField(max_length=200, default="")
+    product_description = HTMLField()
     product_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     product_image = models.ImageField(
         upload_to="productImage/", default="", null=True, blank=True
@@ -196,3 +197,30 @@ class SocialMediaModel(models.Model):
 
     def __str__(self) -> str:
         return f"{self.icon} - {self.link}"
+
+
+
+
+class BlogModel(models.Model):
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(unique=True, blank=True, max_length=220)
+    author = models.ForeignKey(UserModel, on_delete=models.CASCADE)
+    content = HTMLField()
+    featured_image = models.ImageField(upload_to='blog_images/', blank=True, null=True)
+    tags = models.CharField(max_length=255, blank=True, help_text="Comma-separated tags")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    published = models.BooleanField(default=False)
+    
+    
+    def get_tag_list(self):
+        return [tag.strip() for tag in self.tags.split(',') if tag.strip()]
+    
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super(BlogModel, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.title

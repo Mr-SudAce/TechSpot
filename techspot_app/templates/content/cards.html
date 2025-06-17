@@ -1,69 +1,81 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "base.html" %} {% load static %} {% block title %} Products 
+{% endblock %} {% block category %}
 
-{% block title %}
-Products
-{% endblock %}
-
-
-{% block category %}
-
-<link rel="stylesheet" href="{% static 'CSS/cards.css' %}">
+<link rel="stylesheet" href="{% static 'CSS/cards.css' %}" />
 {% include "content/cart.html" %}
-<div class="catg">
-    <div class="catglist py-2">
-        <a href="{% url 'allproduct' %}">
-            <div class="border rounded" style="padding: 10px;">
-                All Categories
-            </div>
+<div class="container catg">
+  <div class="catglist py-2">
+    <a href="{% url 'allproduct' %}">
+      <div class="border rounded" style="padding: 10px">All Categories</div>
+    </a>
+    {% for category in categories %}
+    <details class="category-dropdown border">
+      <summary>
+        <a href="{% url 'filter_by_category' category.id %}">
+          <span>
+            <i class="{{ category.category_icon }}"></i>
+            {{ category.category_name }}
+          </span>
         </a>
-        {% for category in categories %}
-        <details class="category-dropdown border">
-            <summary>
-                <a href="{% url 'filter_by_category' category.id %}">
-                    <span><i class="{{ category.category_icon }}"></i> {{ category.category_name }}</span>
-                </a>
-            </summary>
-            <div class="subcategory-menu">
-                {% for subcategory in category.subcategories.all %}
-                <a href="{% url 'filterbysubcate' subcategory.id %}">{{ subcategory.sub_category_name }}
-                    <i class="{{ subcategory.sub_category_icon }}"></i>
-                </a>
-                {% empty %}
-                <a href="#">No subcategories</a>
-                {% endfor %}
-            </div>
-        </details>
+      </summary>
+      <div class="subcategory-menu">
+        {% for subcategory in category.subcategories.all %}
+        <a href="{% url 'filterbysubcate' subcategory.id %}"
+          >{{ subcategory.sub_category_name }}
+          <i class="{{ subcategory.sub_category_icon }}"></i>
+        </a>
+        {% empty %}
+        <a href="#">No subcategories</a>
         {% endfor %}
-    </div>
+      </div>
+    </details>
+    {% endfor %}
+  </div>
 
-    <!-- Product Cards -->
-    <div class="card-container my-2">
-        {% for prodct in products %}
-        <article class="product-card" onclick="location.href=`{% url 'product_itemView_detail' prodct.id %}`">
-            <span class="badge">{{ prodct.product_discount }}% OFF</span>
-            {% if prodct.product_image %}
-            <img src="{{ prodct.product_image.url }}" alt="{{ prodct.product_name }}" class="product-img">
-            {% else %}
-            <img src="{% static 'images/default_image.png' %}" alt="Default image" class="product-img">
-            {% endif %}
-            <div class="card-content">
-                <h3 class="product-title">{{ prodct.product_name }}</h3>
-                <p class="product-description">{{ prodct.product_description }}</p>
-                <p class="price">
-                    Rs.{{ prodct.get_discount_amount|floatformat:0 }}
-                    <span class="old-price">Rs.{{ prodct.product_price|floatformat:0 }}</span>
-                </p>
-                <div class="button-group">
-                    <a href="{% url 'add_to_cart' prodct.id %}" class="btn add-cart" title="Add to Cart">
-                        Add to Cart
-                    </a>
-                    <button class="btn buy" title="Buy Now">Buy</button>
-                </div>
-            </div>
-        </article>
-        {% endfor %}
-    </div>
+  <!-- Product Cards -->
+  <div class="card-container my-2">
+    {% for prodct in products %}
+    <article class="product-card boxshadow">
+      <span class="badge">{{ prodct.product_discount }}% OFF</span>
+      <div
+        onclick="location.href=`{% url 'product_itemView_detail' prodct.id %}`"
+      >
+        {% if prodct.product_image %}
+        <img
+          src="{{ prodct.product_image.url }}"
+          alt="{{ prodct.product_name }}"
+          class="product-img"
+        />
+        {% else %}
+        <img
+          src="{% static 'images/default_image.png' %}"
+          alt="Default image"
+          class="product-img"
+        />
+        {% endif %}
+      </div>
+      <div class="card-content">
+        <h3 class="product-title">{{ prodct.product_name }}</h3>
+        <p class="product-description">{{ prodct.product_description }}</p>
+        <p class="price">
+          Rs.{{ prodct.get_discount_amount|floatformat:0 }}
+          <span class="old-price"
+            >Rs.{{ prodct.product_price|floatformat:0 }}</span
+          >
+        </p>
+        <div class="button-group">
+          <a
+            href="{% url 'add_to_cart' prodct.id %}"
+            class="buttonUI"
+            title="Add to Cart"
+          >
+            Add to Cart
+          </a>
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
 </div>
 
 {% endblock %}

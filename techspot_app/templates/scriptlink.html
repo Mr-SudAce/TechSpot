@@ -1,0 +1,39 @@
+{% load static %}
+
+<script src="{% static 'JS/script.js' %}" async defer></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.tiny.cloud/1/jkk7x68jr5yjhxnwjqps72q25l1g0acffet2mln2x26a99ua/tinymce/7/tinymce.min.js"
+    referrerpolicy="origin"></script>
+
+  <script>
+    tinymce.init({
+      selector: "textarea",
+      plugins: [
+        "anchor",
+        "autolink",
+        "charmap",
+        "codesample",
+        "emoticons",
+        "image",
+        "link",
+        "lists",
+        "media",
+        "searchreplace",
+        "table",
+        "visualblocks",
+        "wordcount",
+      ],
+      toolbar:
+        "undo redo code | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
+      tinycomments_mode: "embedded",
+      tinycomments_author: "Author name",
+      mergetags_list: [
+        { value: "First.Name", title: "First Name" },
+        { value: "Email", title: "Email" },
+      ],
+      ai_request: (request, respondWith) =>
+        respondWith.string(() =>
+          Promise.reject("See docs to implement AI Assistant")
+        ),
+    });
+  </script>

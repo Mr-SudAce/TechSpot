@@ -18,11 +18,6 @@ from handler.otherhandler import *
 # Admin dashboard
 
 
-from django.shortcuts import render
-from django.db.models import Count
-from .models import UserModel, ProductModel, OrderItemModel, CategoryModel
-
-
 def dashboard(request):
     user = UserModel.objects.all()
     product_count = ProductModel.objects.all().count()
@@ -41,7 +36,7 @@ def dashboard(request):
     context = {
         "user": user,
         "productcount": product_count,
-        "header" : HeaderModel.objects.all(),
+        "header": HeaderModel.objects.all(),
         "ordercount": order_count,
         "order_data": order_data,
         "product_data": product_data,
@@ -77,7 +72,7 @@ def mainpage(request):
     )
 
     ############################################ Chat Bot ##########################################
-    
+
     response = ""
     user_input = ""
 
@@ -86,10 +81,12 @@ def mainpage(request):
         response = get_bot_response(user_input)
 
         if request.headers.get("x-requested-with") == "XMLHttpRequest":
-            return JsonResponse({
-                "user_input": user_input,
-                "response": response,
-            })
+            return JsonResponse(
+                {
+                    "user_input": user_input,
+                    "response": response,
+                }
+            )
 
     ############################################ Chat Bot ##########################################
 
@@ -101,6 +98,7 @@ def mainpage(request):
         "cart_item": cart_items,
         "total_items_count": total_items_count,
         "grand_total": grand_total,
+        "blogdetails": BlogModel.objects.all(),
         "otherdetails": OtherDetailModel.objects.first(),
         ############################################ Chat Bot ##########################################
         "response": response,
@@ -485,35 +483,6 @@ def product_itemView_detail(request, id):
     return render(request, "content/product_detail.html", context)
 
 
-##################################  CHATBOT #######################################
-
-# def bot_view(request):
-#     response = ""
-#     user_input = ""
-
-#     if request.method == "POST":
-#         user_input = request.POST.get("prompt", "").strip().lower()
-#         print("🗣️ User said:", user_input)
-#         if user_input:
-#             if user_input in ["hello", "hi", "hey"]:
-#                 jokes = [
-#                     "Why don’t skeletons fight each other? They don’t have the guts.",
-#                     "Parallel lines have so much in common. It’s a shame they’ll never meet.",
-#                     "I told my wife she was drawing her eyebrows too high. She looked surprised.",
-#                 ]
-#                 response = random.choice(jokes)
-#             else:
-#                 response = "Not Found !!!!!"
-#         else:
-#             response = "Please Say Something :D"
-#         print("🤖 Bot responded:", response)
-
-#     context = {
-#         "response": response,
-#         "user_input": user_input
-#     }
-
-#     return render(request, "bot.html", context)
-
-
-##################################  CHATBOT #######################################
+def blog_detail(request, slug):
+    blog = get_object_or_404(BlogModel, slug=slug)
+    return render(request, "content/blog_detail.html", {"blog": blog})

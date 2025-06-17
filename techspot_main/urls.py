@@ -22,4 +22,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("techspot_app.urls")),
     path("api/", include("api.apiurls")),
+    path('tinymce/', include('tinymce.urls')),
 ]

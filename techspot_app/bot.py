@@ -1,6 +1,3 @@
-import random
-from datetime import datetime
-
 from .prompt import *
 
 
