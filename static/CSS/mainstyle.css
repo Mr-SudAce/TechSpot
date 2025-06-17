@@ -45,3 +45,20 @@ hr {
 .buttonUI:hover {
   color: var(--main-color);
 }
+
+.back-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.back-icon {
+    font-size: 2rem;
+    color: var(--main-color);
+    transition: transform 0.2s ease;
+}
+
+.back-icon:hover {
+    transform: scale(1.1);
+    color: var(--text-color);
+}

@@ -1,19 +1,26 @@
+{% include "base.html" %}
 {% load static %}
+
+{% block blog %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'CSS/blog.css' %}" />
 
 <div class="container">
+
+  <button class="back-btn" onclick="window.history.back()">
+    <i class="bi bi-arrow-left-circle back-icon"></i>
+  </button>
+
   <h1>Our Blog</h1>
   <div class="blog-section">
-    {% for blog in blogdetails %} {% if blog.published == True %}
+    {% for blog in blogs %} {% if blog.published == True %}
     <div class="blog-card">
       <!-- Image -->
       {% if blog.featured_image %}
       <img
         src="{{ blog.featured_image.url }}"
         alt="{{ blog.title }}"
-        class="blog-image"
-      />
+        class="blog-image" />
       {% else %}
       <div class="no-image">No Image</div>
       {% endif %}
@@ -28,7 +35,6 @@
           <p class="blog-snippet">{{ blog.content|truncatechars:250|safe }}</p>
         </div>
 
-        
         <div>
           <!-- Tags -->
           {% if blog.tags %}
@@ -46,3 +52,4 @@
     {% endif %} {% endfor %}
   </div>
 </div>
+{% endblock %}

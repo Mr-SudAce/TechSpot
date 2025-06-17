@@ -98,7 +98,6 @@ def mainpage(request):
         "cart_item": cart_items,
         "total_items_count": total_items_count,
         "grand_total": grand_total,
-        "blogdetails": BlogModel.objects.all(),
         "otherdetails": OtherDetailModel.objects.first(),
         ############################################ Chat Bot ##########################################
         "response": response,
@@ -486,3 +485,7 @@ def product_itemView_detail(request, id):
 def blog_detail(request, slug):
     blog = get_object_or_404(BlogModel, slug=slug)
     return render(request, "content/blog_detail.html", {"blog": blog})
+
+def blogs(request):
+    blogs = BlogModel.objects.all()
+    return render (request, 'content/blog.html', {'blogs':blogs})

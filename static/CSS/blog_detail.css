@@ -9,7 +9,6 @@
 
 .blog-detail-section {
     display: flex;
-    margin-top: 10vh;
     background-color: rgb(178, 178, 178);
     flex-wrap: nowrap;
     justify-content: space-around;
@@ -19,26 +18,6 @@
 .blog-header {
     text-align: center;
     margin-bottom: 2rem;
-}
-
-.back-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    position: absolute;
-    left: 2rem;
-    top: 2rem;
-}
-
-.back-icon {
-    font-size: 2rem;
-    color: var(--main-color);
-    transition: transform 0.2s ease;
-}
-
-.back-icon:hover {
-    transform: scale(1.1);
-    color: var(--text-color);
 }
 
 .blog-main-title {

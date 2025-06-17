@@ -11,6 +11,7 @@ urlpatterns = [
     # dashboard
     path("dashboard/", dashboard, name="dashboard"),
     path("blog/<slug:slug>", blog_detail, name='blog-detail'),
+    path("blog/", blogs, name='blogs'),
     # 
     # 
     # 

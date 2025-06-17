@@ -1,31 +1,10 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'CSS/headernav.css' %}">
 
-<div class="header-nav bg-light">
-    <div class="col-sm-12 col-md-12 col-lg-12">
-        <div class="col-sm-12 col-md-12 col-lg-12 d-flex flex-wrap bg-white">
-            <div class="bg-dark col-sm-6 col-md-4 col-lg-3 align-content-center">
-                <a href="{% url 'allproduct' %}" style="text-decoration: none;">
-                    <div class="d-flex py-1 justify-content-between align-items-center">
-                        <span class="fs-5 px-4 text-light">
-                            Categories
-                        </span>
-                        <i class="bi bi-list fs-4 m-auto text-light"></i>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-sm-6 col-md-8 col-lg-9 m-auto">
-                <div class="">
-                    <ul class="nav bg-light d-flex flex-wrap m-auto bg-white">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'mainpage' %}">
-                                <i class="bi bi-house-fill px-1"></i>Home
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+<nav class="container">
+    <div class="header-nav-items">
+        <li onclick="location.href=`{% url 'mainpage' %}`">Home</li>
+        <li onclick="location.href=`{% url 'allproduct' %}`">Shop</li>
+        <li onclick="location.href=`{% url 'blogs' %}`">Blog</li>
     </div>
-</div>
+</nav>

@@ -1,7 +1,12 @@
 {% extends "mainpage.html" %}
 
 {% load static %}
+
+{% include "cdnlink.html" %}
+
+
 {% block home %}
+<link rel="stylesheet" href="{% static 'CSS/mainstyle.css' %}">
 
 
 
@@ -13,6 +18,8 @@
 {% block category %}{% endblock %}
 {% block search %} {% endblock %}
 {% block product_detail %} {% endblock %}
+{% block blog %} {% endblock %}
+{% block blogdetail %} {% endblock %}
 
 
 
