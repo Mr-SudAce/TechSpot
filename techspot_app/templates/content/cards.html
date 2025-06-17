@@ -1,33 +1,28 @@
-{% extends "base.html" %} {% load static %} {% block title %} Products 
+{% extends "base.html" %} {% load static %} {% block title %} Products
 {% endblock %} {% block category %}
 
 <link rel="stylesheet" href="{% static 'CSS/cards.css' %}" />
-{% include "content/cart.html" %}
 <div class="container catg">
   <div class="catglist py-2">
-    <a href="{% url 'allproduct' %}">
-      <div class="border rounded" style="padding: 10px">All Categories</div>
-    </a>
+    <div class="border pointcursor rounded" style="padding: 10px" onclick="location.href=`{% url 'allproduct' %}`">All Categories</div>
     {% for category in categories %}
     <details class="category-dropdown border">
       <summary>
-        <a href="{% url 'filter_by_category' category.id %}">
-          <span>
-            <i class="{{ category.category_icon }}"></i>
-            {{ category.category_name }}
-          </span>
-        </a>
+        <span class="pointcursor" onclick="location.href=`{% url 'filter_by_category' category.id %}`">
+          <i class="{{ category.category_icon }}"></i>
+          {{ category.category_name }}
+        </span>
       </summary>
       <div class="subcategory-menu">
         {% for subcategory in category.subcategories.all %}
-        <a href="{% url 'filterbysubcate' subcategory.id %}"
-          >{{ subcategory.sub_category_name }}
+        <span class="pointcursor d-flex flex-column gap-2 " onclick="location.href=`{% url 'filterbysubcate' subcategory.id %}`">
+          {{ subcategory.sub_category_name }}
           <i class="{{ subcategory.sub_category_icon }}"></i>
-        </a>
+        </span>
         {% empty %}
-        <a href="#">No subcategories</a>
+        <p>No subcategories</p>
         {% endfor %}
-      </div>
+      </div> 
     </details>
     {% endfor %}
   </div>
@@ -38,20 +33,17 @@
     <article class="product-card boxshadow">
       <span class="badge">{{ prodct.product_discount }}% OFF</span>
       <div
-        onclick="location.href=`{% url 'product_itemView_detail' prodct.id %}`"
-      >
+        onclick="location.href=`{% url 'product_itemView_detail' prodct.id %}`">
         {% if prodct.product_image %}
         <img
           src="{{ prodct.product_image.url }}"
           alt="{{ prodct.product_name }}"
-          class="product-img"
-        />
+          class="product-img" />
         {% else %}
         <img
           src="{% static 'images/default_image.png' %}"
           alt="Default image"
-          class="product-img"
-        />
+          class="product-img" />
         {% endif %}
       </div>
       <div class="card-content">
@@ -59,16 +51,13 @@
         <p class="product-description">{{ prodct.product_description }}</p>
         <p class="price">
           Rs.{{ prodct.get_discount_amount|floatformat:0 }}
-          <span class="old-price"
-            >Rs.{{ prodct.product_price|floatformat:0 }}</span
-          >
+          <span class="old-price">Rs.{{ prodct.product_price|floatformat:0 }}</span>
         </p>
         <div class="button-group">
           <a
             href="{% url 'add_to_cart' prodct.id %}"
             class="buttonUI"
-            title="Add to Cart"
-          >
+            title="Add to Cart">
             Add to Cart
           </a>
         </div>

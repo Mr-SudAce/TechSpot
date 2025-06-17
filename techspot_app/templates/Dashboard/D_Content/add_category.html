@@ -37,7 +37,7 @@
             {% if category %}
             <tr>
                 {{category.category_id}}
-                <td class="align-middle"> 
+                <td class="align-middle">
                     {% if category.category_icon %}
                     {{ category.category_icon|default:"N/A" }} [<i class="{{ category.category_icon }}"></i>]
                     {% else %}
@@ -55,10 +55,13 @@
                     {% endif %}
                 </td>
                 <td class="align-middle">
-                    <a href="{% url 'update_category' category.id %}" class="btn btn-warning btn-sm"><i
-                            class="fas fa-pencil-alt"></i></a>
-                    <a href="{% url 'del_category' category.id %}" class="btn btn-danger btn-sm"><i
-                            class="fas fa-trash-alt"></i></a>
+                    <span onclick="location.href=`{% url 'update_category' category.id %}`" class="btn btn-warning btn-sm pointcursor">
+                        <i class="fas fa-pencil-alt"></i>
+                    </span>
+
+                    <span onclick="location.href=`{% url 'del_category' category.id %}`" class="btn btn-danger btn-sm pointcursor">
+                        <i class="fas fa-trash-alt"></i>
+                    </span>
                 </td>
             </tr>
             {% else %}

@@ -71,8 +71,8 @@ urlpatterns = [
     # 
     # 
     # 
-    path('all-products/', show_allproducts, name='allproduct'),
-    path('all-products/category/<int:category_id>/', show_allproducts, name='allproduct_by_category'),
+    path('allproduct/', show_allproducts, name='allproduct'),
+    path('allproduct/category/<int:category_id>/', show_allproducts, name='allproduct_by_category'),
     path('products/<int:id>/', filter_by_subcategory, name='filterbysubcate'),
     path('category/<int:id>/', filter_by_category, name='filter_by_category'),
     # 

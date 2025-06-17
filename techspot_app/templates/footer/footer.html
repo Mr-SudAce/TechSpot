@@ -1,8 +1,8 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'CSS/footer.css' %}">
 
-<footer class="container footer">
-  <div class="footer-content">
+<footer class="footer">
+  <div class="footer-content container">
     <!-- About -->
     <div class="footer-about">
       <h2>TechSpot</h2>
@@ -13,10 +13,10 @@
     <div class="footer-links">
       <h3>Quick Links</h3>
       <ul>
-        <li><a href="{% url 'mainpage' %}">Home</a></li>
-        <li><a href="{% url 'allproduct' %}">Shop</a></li>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><span onclick="location.href=`{% url 'mainpage' %}`" class="pointcursor">Home</span></li>
+        <li><span onclick="location.href=`{% url 'allproduct' %}`" class="pointcursor">Shop</span></li>
+        <li><span onclick="location.href='#'" class="pointcursor">About Us</span></li>
+        <li><span onclick="location.href='#'" class="pointcursor">Contact</span></li>
       </ul>
     </div>
 
@@ -24,10 +24,10 @@
     <div class="footer-links">
       <h3>Customer Service</h3>
       <ul>
-        <li><a href="#">FAQ</a></li>
-        <li><a href="#">Returns</a></li>
-        <li><a href="#">Shipping</a></li>
-        <li><a href="#">Order Status</a></li>
+        <li><span onclick="location.href='#'" class="pointcursor">FAQ</span></li>
+        <li><span onclick="location.href='#'" class="pointcursor">Returns</span></li>
+        <li><span onclick="location.href='#'" class="pointcursor">Shipping</span></li>
+        <li><span onclick="location.href='#'" class="pointcursor">Order Status</span></li>
       </ul>
     </div>
 
@@ -42,7 +42,7 @@
   </div>
 
 </footer>
-<div class="footer-bottom container">
+<div class="footer-bottom">
   &copy; 2024 - <span id="year"></span> TechSpot. All rights reserved.
 </div>
 

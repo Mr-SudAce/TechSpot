@@ -25,12 +25,8 @@ Login
     </div>
     {% endif %}
 
-    <p>
-        Don't have an account? <a href="{% url 'userregister' %}">Register</a>
-    </p>
-
-    <p>
-        <a href="{% url 'mainpage' %}">← Return to Home</a>
+    <p class="pointcursor" >
+        Don't have an account? <span onclick="location.href=`{% url 'userregister' %}`">Register</span>
     </p>
 </div>
 {% endblock %}

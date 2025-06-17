@@ -7,8 +7,6 @@
   display: none;
 }
 
-
-
 hr {
   border: 1px solid var(--main-color);
 }
@@ -61,4 +59,9 @@ hr {
 .back-icon:hover {
     transform: scale(1.1);
     color: var(--text-color);
+}
+
+
+.pointcursor {
+  cursor: pointer;
 }

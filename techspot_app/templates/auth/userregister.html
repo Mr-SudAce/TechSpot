@@ -23,12 +23,8 @@ Register
         <button type="submit">Submit</button>
     </form>
 
-    <p>
-        Already have an account? <a href="{% url 'userlogin' %}">Login here</a>
-    </p>
-
-    <p>
-        <a href="{% url 'mainpage' %}">← Return to Home</a>
+    <p class="pointcursor">
+        Already have an account?<span onclick="location.href=`{% url 'userlogin' %}`">Login here</span>
     </p>
 </div>
 {% endblock %}

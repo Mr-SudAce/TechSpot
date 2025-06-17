@@ -10,37 +10,36 @@
 
     <table class="table bg-white">
 
-            <tr>
-                <th>Product Name:</th>
-                <td>{{ form.product_name }}</td>
-                <th>Category:</th>
-                <td>{{ form.product_category }}</td>
-                <th>Price:</th>
-                <td>{{ form.product_price }}</td>
-            </tr>
-            <tr>
-                <th>Discount</th>
-                <td>{{ form.product_discount }}</td>
-                <th>Stock:</th>
-                <td>{{ form.product_stock }}</td>
-            </tr>
-            <tr>
-                <th>Image:</th>
-                <td>
-                    {% if form.instance.product_image %}
-                    <img src="{{ form.instance.product_image.url }}" width="100"><br>
-                    {% endif %}
-                    {{ form.product_image }}
-                </td>
-                <th>Sub-Category:</th>
-                <td>{{ form.pro_sub_category }}</td>
-            </tr>
+        <tr>
+            <th>Product Name:</th>
+            <td>{{ form.product_name }}</td>
+            <th>Category:</th>
+            <td>{{ form.product_category }}</td>
+            <th>Price:</th>
+            <td>{{ form.product_price }}</td>
+        </tr>
+        <tr>
+            <th>Discount</th>
+            <td>{{ form.product_discount }}</td>
+            <th>Stock:</th>
+            <td>{{ form.product_stock }}</td>
+        </tr>
+        <tr>
+            <th>Image:</th>
+            <td>
+                {% if form.instance.product_image %}
+                <img src="{{ form.instance.product_image.url }}" width="100"><br>
+                {% endif %}
+                {{ form.product_image }}
+            </td>
+            <th>Sub-Category:</th>
+            <td>{{ form.pro_sub_category }}</td>
+        </tr>
 
         <tr>
             <th>Description:</th>
             <td colspan="5">{{ form.product_description }}</td>
         </tr>
-        
 
     </table>
 
@@ -81,10 +80,12 @@
                     <td class="detl align-middle">{{ prod.product_stock }}</td>
                     <td class="detl align-middle">{{ prod.pro_sub_category }}</td>
                     <td class="align-middle">
-                        <a href="{% url 'update_product' prod.id %}" class="btn btn-warning"><i
-                                class="fas fa-pencil-alt"></i></a>
-                        <a href="{% url 'del_product' prod.id %}" class="btn btn-danger"><i
-                                class="fas fa-trash-alt"></i></a>
+                        <span onclick="location.href=`{% url 'update_product' prod.id %}`" class="btn btn-warning pointcursor">
+                            <i class="fas fa-pencil-alt"></i>
+                        </span>
+                        <span onclick="location.href=`{% url 'del_product' prod.id %}`" class="btn btn-danger pointcursor">
+                            <i class="fas fa-trash-alt"></i>
+                        </span>
                     </td>
                 </tr>
                 {% endfor %}

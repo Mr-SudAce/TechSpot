@@ -1,10 +1,44 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'CSS/headernav.css' %}">
 
-<nav class="container">
-    <div class="header-nav-items">
-        <li onclick="location.href=`{% url 'mainpage' %}`">Home</li>
-        <li onclick="location.href=`{% url 'allproduct' %}`">Shop</li>
-        <li onclick="location.href=`{% url 'blogs' %}`">Blog</li>
+<div class="container nav-wrapper">
+    <!-- Toggle Checkbox -->
+    <input type="checkbox" id="menu-toggle" hidden />
+
+    <nav class="navbar">
+        <div class="logo" onclick="location.href=`{% url 'mainpage' %}`">
+            {% include "content/mainlogo.html" %}
+        </div>
+
+        <ul class="nav-links">
+            <li class="{% if request.path == '/' %}active{% endif %}" onclick="location.href=`{% url 'mainpage' %}`">Home</li>
+            <li class="{% if request.path == '/allproduct/' %}active{% endif %}" onclick="location.href=`{% url 'allproduct' %}`">Shop</li>
+            <li class="{% if request.path == '/blog/' %}active{% endif %}" onclick="location.href=`{% url 'blogs' %}`">Blog</li>
+        </ul>
+
+        <div class="nav-icons ">
+            {% include "content/searchbox.html" %}
+            {% include "content/cart.html" %}
+        </div>
+
+        <!-- Hamburger -->
+        <label class="hamburger" for="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+    </nav>
+    <div class="mobile-views">
+        <div class="mobile-views-display">
+            <li>{% include "content/searchbox.html" %}</li>
+            <li>{% include "content/cart.html" %}</li>
+        </div>
+        <ul class="mobile-menu">
+            <li onclick="location.href=`{% url 'mainpage' %}`">Home</li>
+            <li onclick="location.href=`{% url 'allproduct' %}`">Shop</li>
+            <li onclick="location.href=`{% url 'blogs' %}`">Blog</li>
+        </ul>
     </div>
-</nav>
+
+    <!-- Mobile Menu -->
+</div>

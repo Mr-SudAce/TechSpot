@@ -71,12 +71,8 @@
         <td class="align-middle">{{ crt.tags }}</td>
         <td class="align-middle">{{ crt.published }}</td>
         <td class="align-middle">
-          <a href="{% url 'del_blog' crt.id %}" class="btn btn-danger"
-            ><i class="fas fa-trash-alt"></i
-          ></a>
-          <a href="{% url 'update_blog' crt.id %}" class="btn btn-warning"
-            ><i class="fas fa-pencil-alt"></i
-          ></a>
+          <span onclick="location.href=`{% url 'del_blog' crt.id %}`" class="btn pointcursor btn-danger" ><i class="fas fa-trash-alt"></i></span>
+          <span onclick="location.href=`{% url 'update_blog' crt.id %}`" class="btn pointcursor btn-warning" ><i class="fas fa-pencil-alt"></i></span>
         </td>
       </tr>
       {% endfor %}

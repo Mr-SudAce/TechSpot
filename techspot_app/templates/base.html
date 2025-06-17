@@ -4,15 +4,19 @@
 
 {% include "cdnlink.html" %}
 
-
 {% block home %}
 <link rel="stylesheet" href="{% static 'CSS/mainstyle.css' %}">
 
-
-
+{% if request.path == "/login/" %}
 
 {% block login %}{% endblock %}
+{% elif request.path == '/register/' %}
 {% block register %}{% endblock %}
+
+{% else %}
+
+{% include "header/header_top.html" %}
+{% include "header/header_nav.html" %}
 
 {% block cart_detail %}{% endblock %}
 {% block category %}{% endblock %}
@@ -20,8 +24,6 @@
 {% block product_detail %} {% endblock %}
 {% block blog %} {% endblock %}
 {% block blogdetail %} {% endblock %}
-
-
-
+{% endif %}
 
 {% endblock %}

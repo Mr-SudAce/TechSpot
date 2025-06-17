@@ -44,8 +44,8 @@
                     <td class="align-middle">{{ cartitem.product }}</td>
                     <td class="align-middle">{{ cartitem.quantity }}</td>
                     <td>
-                        <a href="{% url 'del_cart_item' cartitem.id %}" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
-                        <a href="{% url 'update_cart_item' cartitem.id %}" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
+                        <span onclick="location.href=`{% url 'del_cart_item' cartitem.id %}`" class="btn pointcursor btn-danger"><i class="fas fa-trash-alt"></i></span>
+                        <span onclick="location.href=`{% url 'update_cart_item' cartitem.id %}`" class="btn pointcursor btn-warning"><i class="fas fa-pencil-alt"></i></span>
                     </td>
                 </tr>
                 {% endfor %}

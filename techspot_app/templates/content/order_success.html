@@ -71,5 +71,5 @@
   <p><strong>Payment Method:</strong> {{ order.payment_method }}</p>
   <p><strong>Status:</strong> {{ order.status }}</p>
 
-  <a href="{% url 'mainpage' %}">⬅️ Back to Home</a>
+  <div onclick="location.href=`{% url 'mainpage' %}`" class="pointcursor">⬅️ Back to Home</div>
 </div>

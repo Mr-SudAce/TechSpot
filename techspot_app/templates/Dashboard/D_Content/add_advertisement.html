@@ -40,8 +40,8 @@
                     <p>{{ ad.link }}</p>
                 </td>
                 <td>
-                    <a href="{% url 'del_advertisement' ad.id %}" class="btn btn-danger">Delete</a>
-                    <a href="{% url 'update_advertisement' ad.id %}" class="btn btn-warning">Update</a>
+                    <span onclick="location.href=`{% url 'del_advertisement' ad.id %}`" class="btn pointcursor btn-danger">Delete</span>
+                    <span onclick="location.href=`{% url 'update_advertisement' ad.id %}`" class="btn pointcursor btn-warning">Update</span>
                 </td>
             </tr>
             {% endfor %}

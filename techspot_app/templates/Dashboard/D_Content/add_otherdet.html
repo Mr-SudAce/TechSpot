@@ -55,10 +55,13 @@
                     <p>{{ data.address }}</p>
                 </td>
                 <td>
-                    <a href="{% url 'del_otherdetail' data.id %}" class="btn btn-danger btn-sm"><i
-                            class="fas fa-trash-alt"></i> Delete </a>
-                    <a href="{% url 'update_otherdetail' data.id %}" class="btn btn-warning btn-sm"><i
-                            class="fas fa-pencil"></i> Update </a>
+                    <span onclick="location.href=`{% url 'del_otherdetail' data.id %}`" class="btn btn-danger btn-sm pointcursor">
+                        <i class="fas fa-trash-alt"></i> Delete
+                    </span>
+
+                    <span onclick="location.href=`{% url 'update_otherdetail' data.id %}`" class="btn btn-warning btn-sm pointcursor">
+                        <i class="fas fa-pencil"></i> Update
+                    </span>
                 </td>
             </tr>
             {% else %}

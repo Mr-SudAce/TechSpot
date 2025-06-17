@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {% include "cdnlink.html" %}
 
-      {% include "scriptlink.html" %}
-      
-      <link rel="shortcut icon" href="{{ header.header_image_left.url }}" type="image/x-icon">
+    {% include "scriptlink.html" %}
 
-      <link rel="stylesheet" href="{% static 'CSS/Dashboard/dashboard.css' %}" />
-      
+    <link rel="shortcut icon" href="{{ header.header_image_left.url }}" type="image/x-icon">
+
+    <link rel="stylesheet" href="{% static 'CSS/Dashboard/dashboard.css' %}" />
+
     <title>NEPHOT-DASHBOARD</title>
   </head>
 
@@ -22,29 +22,26 @@
           <div class="side-menu p-1 bg-light">
             <div class="sub_side_menu rounded-3">
               <div
-                class="side_menu_top d-flex flex-column justify-content-center rounded-3"
-              >
+                class="side_menu_top d-flex flex-column justify-content-center rounded-3">
                 <div class="position-absolute">
-                  <a href="{% url 'mainpage' %}">
-                    <i class="bi bi-house-door-fill px-2 py-0 fs-2"></i>
-                  </a>
+                  <span onclick="location.href=`{% url 'mainpage' %}`">
+                    <i class="bi bi-house-door-fill px-2 py-0 fs-2 pointcursor"></i>
+                  </span>
                 </div>
                 <div class="d-flex justify-content-center">
-                  <a href="{% url 'dashboard' %}">
+                  <span onclick="location.href=`{% url 'dashboard' %}`" class="pointcursor">
                     {% if user.profile.profile_image %}
                     <img
                       id="p_icon"
                       src="{{ user.profile.profile_image.url }}"
-                      alt="User Profile Image"
-                    />
+                      alt="User Profile Image" />
                     {% else %}
                     <img
                       id="p_icon"
                       src="https://preview.redd.it/zfohxnf8t3pa1.jpg?width=1024&format=pjpg&auto=webp&v=enabled&s=0f660e0a56476991ee3b97f2885d8c010fec5b97"
-                      alt="Default Profile Image"
-                    />
+                      alt="Default Profile Image" />
                     {% endif %}
-                  </a>
+                  </span>
                 </div>
                 {% if user %}
                 <p class="text-center m-0">Superadmin</p>
@@ -57,75 +54,57 @@
 
               <div class="side_menu_mid d-flex flex-column rounded-3">
                 <div class="row gap-2 p-3">
-                  <a
-                    href="{% url 'add_header' %}"
-                    class="fw-bold dash_link nav-link text-start {% if request.resolver_match.url_name == 'add_header' %} active text-primary {% endif %}"
-                    onclick="toggleDisplay('header_mid')"
-                    ><i class="bi bi-plus fw-bold px-2 py-0"></i>Header</a
-                  >
+                  
+                  <span onclick="location.href=`{% url 'add_header' %}`; toggleDisplay('header_mid')"
+                    class="fw-bold pointcursor dash_link nav-link text-start {% if request.resolver_match.url_name == 'add_header' %} active text-primary {% endif %}">
+                    <i class="bi bi-plus fw-bold px-2 py-0"></i>Header
+                  </span>
 
-                  <a
-                    href="{% url 'add_product' %}"
-                    class="fw-bold dash_link nav-link text-start {% if request.resolver_match.url_name == 'add_product' %} active text-primary {% endif %}"
-                    onclick="toggleDisplay('Add_product')"
-                    ><i class="bi bi-plus fw-bold px-2 py-0"></i>Product</a
-                  >
+                  <span onclick="location.href=`{% url 'add_product' %}`; toggleDisplay('Add_product')"
+                    class="fw-bold pointcursor dash_link nav-link text-start {% if request.resolver_match.url_name == 'add_product' %} active text-primary {% endif %}">
+                    <i class="bi bi-plus fw-bold px-2 py-0"></i>Product
+                  </span>
 
-                  <a
-                    href="{% url 'add_blog' %}"
-                    class="fw-bold dash_link nav-link text-start {% if request.resolver_match.url_name == 'add_blog' %} active text-primary {% endif %}"
-                    onclick="toggleDisplay('Add_blog')"
-                    ><i class="bi bi-plus fw-bold px-2 py-0"></i>Blog</a
-                  >
+                  <span onclick="location.href=`{% url 'add_blog' %}`; toggleDisplay('Add_blog')"
+                    class="fw-bold pointcursor dash_link nav-link text-start {% if request.resolver_match.url_name == 'add_blog' %} active text-primary {% endif %}">
+                    <i class="bi bi-plus fw-bold px-2 py-0"></i>Blog
+                  </span>
 
-                  <a
-                    href="{% url 'add_category' %}"
-                    class="fw-bold dash_link nav-link text-start {% if request.resolver_match.url_name == 'add_category' %} active text-primary {% endif %}"
-                    onclick="toggleDisplay('Add_category')"
-                    ><i class="bi bi-plus fw-bold px-2 py-0"></i>Category</a
-                  >
+                  <span onclick="location.href=`{% url 'add_category' %}`; toggleDisplay('Add_category')"
+                    class="fw-bold pointcursor dash_link nav-link text-start {% if request.resolver_match.url_name == 'add_category' %} active text-primary {% endif %}">
+                    <i class="bi bi-plus fw-bold px-2 py-0"></i>Category
+                  </span>
 
-                  <a
-                    href="{% url 'add_sub_category' %}"
-                    class="fw-bold dash_link nav-link text-start {% if request.resolver_match.url_name == 'add_sub_category' %} active text-primary {% endif %}"
-                    onclick="toggleDisplay('Add_sub_category')"
-                    ><i class="bi bi-plus fw-bold px-2 py-0"></i>Sub-Category</a
-                  >
+                  <span onclick="location.href=`{% url 'add_sub_category' %}`; toggleDisplay('Add_sub_category')"
+                    class="fw-bold pointcursor dash_link nav-link text-start {% if request.resolver_match.url_name == 'add_sub_category' %} active text-primary {% endif %}">
+                    <i class="bi bi-plus fw-bold px-2 py-0"></i>Sub-Category
+                  </span>
 
-                  <a
-                    href="{% url 'add_image_slider' %}"
-                    class="fw-bold dash_link nav-link text-start {% if request.resolver_match.url_name == 'add_image_slider' %} active text-primary {% endif %}"
-                    onclick="toggleDisplay('Add_image_slider')"
-                    ><i class="bi bi-plus fw-bold px-2 py-0"></i>Image Slider</a
-                  >
+                  <span onclick="location.href=`{% url 'add_image_slider' %}`; toggleDisplay('Add_image_slider')"
+                    class="fw-bold pointcursor dash_link nav-link text-start {% if request.resolver_match.url_name == 'add_image_slider' %} active text-primary {% endif %}">
+                    <i class="bi bi-plus fw-bold px-2 py-0"></i>Image Slider
+                  </span>
 
-                  <a
-                    href="{% url 'add_cart' %}"
-                    class="fw-bold dash_link nav-link text-start {% if request.resolver_match.url_name == 'add_cart' %} active text-primary {% endif %}"
-                    onclick="toggleDisplay('Add_cart')"
-                    ><i class="bi bi-plus fw-bold px-2 py-0"></i>Cart</a
-                  >
+                  <span onclick="location.href=`{% url 'add_cart' %}`; toggleDisplay('Add_cart')"
+                    class="fw-bold pointcursor dash_link nav-link text-start {% if request.resolver_match.url_name == 'add_cart' %} active text-primary {% endif %}">
+                    <i class="bi bi-plus fw-bold px-2 py-0"></i>Cart
+                  </span>
 
-                  <a
-                    href="{% url 'add_cart_item' %}"
-                    class="fw-bold dash_link nav-link text-start {% if request.resolver_match.url_name == 'add_cart_item' %} active text-primary {% endif %}"
-                    onclick="toggleDisplay('Add_cart_item')"
-                    ><i class="bi bi-plus fw-bold px-2 py-0"></i>Cart Item</a
-                  >
+                  <span onclick="location.href=`{% url 'add_cart_item' %}`; toggleDisplay('Add_cart_item')"
+                    class="fw-bold pointcursor dash_link nav-link text-start {% if request.resolver_match.url_name == 'add_cart_item' %} active text-primary {% endif %}">
+                    <i class="bi bi-plus fw-bold px-2 py-0"></i>Cart Item
+                  </span>
 
-                  <a
-                    href="{% url 'add_otherdetail' %}"
-                    class="fw-bold dash_link nav-link text-start {% if request.resolver_match.url_name == 'add_otherdetail' %} active text-primary {% endif %}"
-                    onclick="toggleDisplay('A_otherdetails')"
-                    ><i class="bi bi-plus fw-bold px-2 py-0"></i>Other Detail</a
-                  >
+                  <span onclick="location.href=`{% url 'add_otherdetail' %}`; toggleDisplay('A_otherdetails')"
+                    class="fw-bold pointcursor dash_link nav-link text-start {% if request.resolver_match.url_name == 'add_otherdetail' %} active text-primary {% endif %}">
+                    <i class="bi bi-plus fw-bold px-2 py-0"></i>Other Detail
+                  </span>
 
-                  <a
-                    href="{% url 'user' %}"
-                    class="fw-bold dash_link nav-link text-start {% if request.resolver_match.url_name == 'user' %} active text-primary {% endif %}"
-                    onclick="toggleDisplay('User')"
-                    ><i class="bi bi-plus fw-bold px-2 py-0"></i>User</a
-                  >
+                  <span onclick="location.href=`{% url 'user' %}`; toggleDisplay('User')"
+                    class="fw-bold pointcursor dash_link nav-link text-start {% if request.resolver_match.url_name == 'user' %} active text-primary {% endif %}">
+                    <i class="bi bi-plus fw-bold px-2 py-0"></i>User
+                  </span>
+
                 </div>
               </div>
             </div>
@@ -137,10 +116,9 @@
                   <form
                     action="{{ form_action_url }}"
                     method="POST"
-                    enctype="multipart/form-data"
-                  >
-                    {% csrf_token %} 
-                    {% block otherdetail %} {% endblock %} 
+                    enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% block otherdetail %} {% endblock %}
                     {% block add_product %} {% endblock %}
                     {% block add_category %} {% endblock %}
                     {% block add_sub_category %} {% endblock %}
@@ -153,7 +131,7 @@
                     {% block createstaff %} {% endblock %}
                     {% block add_advertisement %} {% endblock %}
                   </form>
-                  {% if request.path == '/dashboard/' %} 
+                  {% if request.path == '/dashboard/' %}
                   {% include "Dashboard/Analytics.html" %} {% endif %}
                 </div>
               </div>

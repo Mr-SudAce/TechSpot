@@ -61,10 +61,15 @@
                         </div>
                     </td>
                     <td class="align-middle">
-                        <!-- <a href="{% url 'del_header' datas.id %}" class="btn btn-danger btn-sm"> <i
-                                class="fas fa-trash-alt"></i> Delete </a> -->
-                        <a href="{% url 'update_header' datas.id %}" class="btn btn-warning btn-sm"> <i
-                                class="fas fa-pencil-alt"></i></a>
+
+                        <!-- <span onclick="if(confirm('Are you sure you want to delete this header?')) location.href=`{% url 'del_header' datas.id %}`" class="btn btn-danger btn-sm pointcursor">
+                            <i class="fas fa-trash-alt"></i> Delete
+                        </span> -->
+
+                        <!-- Update Button -->
+                        <span onclick="location.href=`{% url 'update_header' datas.id %}`" class="btn btn-warning btn-sm pointcursor">
+                            <i class="fas fa-pencil-alt"></i>
+                        </span>
                     </td>
                 </tr>
                 {% empty %}

@@ -6,13 +6,13 @@
         <span>
             <h1>Products</h1>
         </span>
-        <span onclick="location.href=`{% url 'allproduct' %}`" class="cursor allprdt">
+        <span onclick="location.href=`{% url 'allproduct' %}`" class="pointcursor allprdt">
             <i class="bi bi-arrow-right h-25 w-25 border px-1 rounded-circle"></i>
         </span>
     </div>
     <div class="card-container mb-2">
         {% for prodct in product %}
-        <article class="product-card boxshadow" onclick="location.href=`{% url 'product_itemView_detail' prodct.id %}`">
+        <article class="product-card boxshadow pointcursor" onclick="location.href=`{% url 'product_itemView_detail' prodct.id %}`">
             <span class="badge">{{ prodct.product_discount }}% OFF</span>
             {% if prodct.product_image %}
             <img src="{{ prodct.product_image.url }}" alt="{{ prodct.product_name }}" class="product-img">
@@ -27,9 +27,9 @@
                     <span class="old-price">Rs.{{ prodct.product_price|floatformat:0 }}</span>
                 </p>
                 <div class="button-group">
-                    <a href="{% url 'add_to_cart' prodct.id %}" class="buttonUI" title="Add to Cart">
+                    <span onclick="location.href=`{% url 'add_to_cart' prodct.id %}`" class="buttonUI pointcursor" title="Add to Cart">
                         Add to Carts
-                    </a>
+                    </span>
                 </div>
             </div>
         </article>

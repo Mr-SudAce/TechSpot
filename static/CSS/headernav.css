@@ -1,6 +1,152 @@
-.header-nav-items{
+.navbar {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    margin: 0 auto;
+    padding: 1rem 0rem 0rem 1rem;
     display: flex;
-    list-style-type: none;
-    gap: 20px;
-    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.logo-img {
+    height: 50px;
+    cursor: pointer;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.nav-links li {
+    font-weight: 600;
+    position: relative;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 6px;
+    transition: all 0.3s ease-in-out;
+}
+
+.nav-links li:hover,
+.nav-links li.active {
+    color: #ff4c60;
+    background-color: rgba(255, 76, 96, 0.08);
+}
+
+.mobile-views {
+    list-style: none;
+}
+
+.mobile-views-display {
+    display: none;
+}
+
+.nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-icons i {
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.nav-icons i:hover {
+    transform: scale(1.2);
+    color: #ff4c60;
+}
+
+/* Hamburger Styles */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    z-index: 1100;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: #333;
+    border-radius: 2px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Toggle checkbox */
+#menu-toggle {
+    display: none;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+
+    .navbar{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .hamburger {
+        display: flex;
+        margin: 10px 0;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .mobile-menu {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: #ffffff;
+        padding: 1rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        animation: slideDown 0.3s ease forwards;
+        z-index: 1050;
+    }
+
+    #menu-toggle:checked~.mobile-menu {
+        display: flex;
+        list-style: none;
+    }
+
+    .mobile-menu li {
+        padding: 0.5rem 0;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-menu {
+        display: none !important;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

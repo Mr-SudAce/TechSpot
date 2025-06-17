@@ -1,10 +1,6 @@
 {% extends "Dashboard/dashboard.html" %}
 
-
 {% block user%}
-
-
-
 
 <div class="container mt-4">
   {% if user %}
@@ -22,9 +18,9 @@
         <td>{{ forloop.counter }}</td>
         <td>{{ usr.username }}</td>
         <td>
-          <a href="{% url 'del_user' usr.id %}" class="btn btn-sm btn-danger">
+          <span onclick="location.href=`{% url 'del_user' usr.id %}`" class="btn btn-sm btn-danger pointcursor">
             <i class="fa fa-trash-alt"></i> Delete
-          </a>
+          </span>
         </td>
       </tr>
       {% endfor %}
@@ -35,10 +31,9 @@
     <strong>No users found.</strong>
   </div>
   {% endif %}
-  <a href="{% url 'create_staff' %}">Create Staff</a>
+  <span onclick="location.href=`{% url 'create_staff' %}`" class="pointcursor">
+    Create Staff
+  </span>
 </div>
-
-
-
 
 {% endblock %}

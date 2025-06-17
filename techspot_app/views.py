@@ -484,7 +484,7 @@ def product_itemView_detail(request, id):
 
 def blog_detail(request, slug):
     blog = get_object_or_404(BlogModel, slug=slug)
-    return render(request, "content/blog_detail.html", {"blog": blog})
+    return render(request, "content/blog_detail.html", {'blog':blog})
 
 def blogs(request):
     blogs = BlogModel.objects.all()
