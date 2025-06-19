@@ -1,4 +1,5 @@
 from .models import *
+from django.shortcuts import *
 
 def global_context(request):
     categories = CategoryModel.objects.prefetch_related("subcategories").all()
@@ -23,6 +24,7 @@ def global_context(request):
                     cart_items = CartItemModel.objects.filter(cart=cart)
         except UserModel.DoesNotExist:
             request.session.flush()
+            return redirect("userlogin")
 
     # Filter out any cart items with missing products
     cart_items = [item for item in cart_items if item.product]

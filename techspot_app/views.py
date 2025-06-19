@@ -4,9 +4,8 @@ from .forms import *
 from .bot import *
 import json
 from django.views.decorators.csrf import csrf_exempt
-from django.core.exceptions import ValidationError
 from django.contrib import messages
-from django.db import transaction, IntegrityError
+from django.db import transaction
 from django.contrib.auth.hashers import *
 from django.http import JsonResponse
 from handler.authhandler import *
@@ -225,15 +224,15 @@ def get_common_context(request, products=None, extra_context=None):
 
     user_id = request.session.get("user_id")
     cart_items = []
+    total_items_count = 0
+    grand_total = 0.0
+    
     try:
         if user_id:
             custom_user = UserModel.objects.get(id=user_id)
-            # Check if user is active
             if not custom_user.is_active:
                 request.session.flush()
                 return redirect("login")
-
-            # Fetch unpaid cart
             cart = CartModel.objects.filter(user=custom_user.id, is_paid=False).first()
             if cart:
                 cart_items = CartItemModel.objects.filter(cart=cart)
@@ -271,7 +270,7 @@ def get_common_context(request, products=None, extra_context=None):
 # filter products by category -> subcategory
 def filter_by_subcategory(request, id):
     if not request.session.get("user_id"):
-        return redirect("login")
+        return redirect("userlogin")
     fltr_subcategory = get_object_or_404(Sub_CategoryModel, id=id)
     products = ProductModel.objects.filter(pro_sub_category=fltr_subcategory)
     context = get_common_context(
@@ -283,7 +282,7 @@ def filter_by_subcategory(request, id):
 # filter products by category
 def filter_by_category(request, id):
     if not request.session.get("user_id"):
-        return redirect("login")
+        return redirect("userlogin")
     fltr_category = get_object_or_404(CategoryModel, id=id)
     products = ProductModel.objects.filter(product_category=fltr_category)
     context = get_common_context(
@@ -295,7 +294,7 @@ def filter_by_category(request, id):
 # Show all products
 def show_allproducts(request, category_id=None):
     if not request.session.get("user_id"):
-        return redirect("login")
+        return redirect("userlogin")
     if category_id:
         fltr_category = get_object_or_404(CategoryModel, id=category_id)
         products = ProductModel.objects.filter(product_category=fltr_category)
@@ -459,9 +458,13 @@ def order_success(request, order_id):
 # productDetail
 def product_itemView_detail(request, id):
     product_itemView_detail = ProductModel.objects.get(id=id)
-    products = ProductModel.objects.exclude(id=id)
     cart_itm = CartItemModel.objects.all()
     header = HeaderModel.objects.last()
+    
+    similarproduct = ProductModel.objects.filter(
+        product_category=product_itemView_detail.product_category
+    ).exclude(id=id)
+   
 
     cart = CartModel.objects.filter(
         user=request.session.get("user_id"), is_paid=False
@@ -475,7 +478,7 @@ def product_itemView_detail(request, id):
     context = {
         "product_detailV": product_itemView_detail,
         "product_in_cart": product_in_cart,
-        "similarproduct": products,
+        "similarproduct": similarproduct,
         "header": header,
         "cart_itm": cart_itm,
     }

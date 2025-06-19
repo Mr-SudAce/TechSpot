@@ -45,7 +45,9 @@
           </div>
           {% endif %}
           <!-- Read More Button -->
-           <p class="pointcursor buttonUI" onclick="location.href=`{% url 'blog-detail' blog.slug %}`" >Read more</p>
+          <div class="pointcursor buttonUI btn" onclick="location.href=`{% url 'blog-detail' blog.slug %}`">
+            <p class="m-0">Read more</p>
+          </div>
         </div>
       </div>
     </div>

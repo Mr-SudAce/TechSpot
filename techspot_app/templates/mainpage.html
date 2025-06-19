@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="" />
+    <meta name="description" content />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- CDN Links -->
     {% include "cdnlink.html" %}
@@ -11,15 +11,14 @@
     <link
       rel="shortcut icon"
       href="{{ header.header_image_left.url }}"
-      type="image/x-icon"
-    />
+      type="image/x-icon" />
     {% load static %}
     <link rel="stylesheet" href="{% static 'CSS/mainstyle.css' %}" />
     <title>TechSpot | {% block title %} {% endblock %}</title>
   </head>
 
   <body>
-   {% block home %} {% endblock %}
+    {% block home %} {% endblock %}
   </body>
   {% include "scriptlink.html" %}
 </html>

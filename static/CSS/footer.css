@@ -33,7 +33,7 @@
 }
 
 .footer p {
-    color: #bbb;
+    color: var(--text-color);
 }
 
 .footer ul {
@@ -46,7 +46,7 @@
 }
 
 .footer a {
-    color: #bbb;
+    color: var(--main-color);
     text-decoration: none;
 }
 
@@ -87,5 +87,5 @@
     padding: 10px 0;
     text-align: center;
     background-color: var(--main-color);
-    color: var(--text-color);
+    color: white;
 }

@@ -140,7 +140,16 @@
 
 .cart-empty {
   text-align: center;
+  position: relative;
   padding: 10px;
+}
+
+.empty-cart-text{
+  margin: 0;
+  top: 70%;
+
+  position: absolute;
+
 }
 
 .cart-empty img {

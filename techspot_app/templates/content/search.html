@@ -1,122 +1,72 @@
-{% extends "base.html" %} {% load static %} {% block search %}
-<div class="container py-4">
-  <!-- 🔍 Search Bar and Heading -->
-  <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
-    <h2 class="mb-0">
-      Search Results for: <span class="text-primary">"{{ query }}"</span>
-    </h2>
+{% extends "base.html" %} {% load static %}
 
-    {% if request.path == "/search/" %}
+{% block search %}
 
-    <form
-      action="{% url 'search_query' %}"
-      method="get"
-      class="d-flex align-items-center gap-2 mt-2 mt-md-0"
-    >
-      <input
-        class="form-control rounded-0"
-        type="search"
-        name="search_query"
-        id="search_query"
-        placeholder="Searching For........."
-      />
-      <button type="submit" class="btn btn-dark rounded-0">
-        <i class="bi bi-search"></i>
-      </button>
-    </form>
-    {% endif %}
-  </div>
+<link rel="stylesheet" href="{% static 'CSS/search.css' %}">
 
+
+<div class="container">
   <hr />
 
   <!-- 🎯 Result Section -->
   {% if queryproducts %}
-  <div class="row g-4">
+  <div class="cardcontainer">
     {% for product in queryproducts %}
-    <div class="col-md-6 col-lg-4">
-      <div class="card h-100 shadow-sm border-0">
-        {% if product.product_image %}
-        <img
-          src="{{ product.product_image.url }}"
-          class="card-img-top"
-          alt="{{ product.product_name }}"
-        />
-        {% else %}
-        <img
-          src="{% static 'images/default_image.png' %}"
-          class="card-img-top"
-          alt="{{ product.product_name }}"
-        />
-        {% endif %}
-        <div class="card-body">
-          <h5 class="card-title">{{ product.product_name }}</h5>
-          <p class="card-text">
-            {{ product.product_description|truncatechars:80 }}
-          </p>
-          <p class="mb-1">
-            <strong>Category:</strong> {{ product.product_category }}
-          </p>
-          <div class="d-flex justify-content-between align-items-center">
-            <span class="text-success fw-bold"
-              >Rs. {{ product.product_price }}</span
-            >
-            <a
-              href="{% url 'add_to_cart' product.id %}"
-              class="btn btn-sm btn-success"
-              >Add to Cart</a
-            >
-          </div>
+    <article class="product-card boxshadow" onclick="location.href=`{% url 'product_itemView_detail' product.id %}`">
+      <span class="badge">{{ product.product_discount }}% OFF</span>
+      {% if product.product_image %}
+      <img src="{{ product.product_image.url }}" alt="{{ product.product_name }}" class="product-img">
+      {% else %}
+      <img src="{% static 'images/default_image.png' %}" alt="Default image" class="product-img">
+      {% endif %}
+      <div class="card-content">
+        <h3 class="product-title">{{ product.product_name }}</h3>
+        <p class="product-description">{{ product.product_description }}</p>
+        <p class="price">
+          Rs.{{ product.get_discount_amount|floatformat:0 }}
+          <span class="old-price">Rs.{{ product.product_price|floatformat:0 }}</span>
+        </p>
+        <div class="button-group">
+          <span onclick="location.href=`{% url 'add_to_cart' product.id %}`" class="buttonUI pointcursor" title="Add to Cart">
+            Add to Cart
+          </span>
         </div>
       </div>
-    </div>
+    </article>
     {% endfor %}
   </div>
 
   {% else %}
   <!-- 😢 No results fallback -->
-  <div class="alert alert-warning text-center my-4" role="alert">
+  <div class="alert alert-warning text-center" role="alert">
     No matching products found for "<strong>{{ query }}</strong>". Here's more
     you might like:
   </div>
 
   <!-- 💡 Fallback Products -->
-  <div class="row g-4">
+  <div class="cardcontainer">
     {% for item in product %}
-    <div class="col-md-6 col-lg-3">
-      <div class="card h-100 shadow-sm border-0">
-        <div class="position-relative">
-          {% if item.product_image %}
-          <img
-            src="{{ item.product_image.url }}"
-            class="card-img-top"
-            alt="{{ item.product_name }}"
-          />
-          {% else %}
-          <img
-            src="{% static 'images/default_image.png' %}"
-            class="card-img-top"
-            alt="{{ item.product_name }}"
-          />
-          {% endif %}
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">{{ item.product_name }}</h5>
-          <p class="card-text">
-            {{ item.product_description|truncatechars:80 }}
-          </p>
-          <div class="d-flex justify-content-between align-items-center">
-            <span class="text-muted text-decoration-line-through"
-              >Rs. {{ item.product_price }}</span
-            >
-            <a
-              href="{% url 'add_to_cart' item.id %}"
-              class="btn btn-sm btn-outline-success"
-              >Add to Cart</a
-            >
-          </div>
+    <article class="product-card boxshadow" onclick="location.href=`{% url 'product_itemView_detail' item.id %}`">
+      <span class="badge">{{ item.product_discount }}% OFF</span>
+      {% if item.product_image %}
+      <img src="{{ item.product_image.url }}" alt="{{ item.product_name }}" class="product-img">
+      {% else %}
+      <img src="{% static 'images/default_image.png' %}" alt="Default image" class="product-img">
+      {% endif %}
+      <div class="card-content">
+        <h3 class="product-title">{{ item.product_name }}</h3>
+        <p class="product-description">{{ item.product_description }}</p>
+        <p class="price">
+          Rs.{{ item.get_discount_amount|floatformat:0 }}
+          <span class="old-price">Rs.{{ item.product_price|floatformat:0 }}</span>
+        </p>
+        <div class="button-group">
+          <span onclick="location.href=`{% url 'add_to_cart' item.id %}`" class="buttonUI pointcursor" title="Add to Cart">
+            Add to Cart
+          </span>
         </div>
       </div>
-    </div>
+    </article>
     {% endfor %}
   </div>
   {% endif %}

@@ -29,7 +29,7 @@ hr {
   cursor: pointer;
 }
 
-.buttonUI{
+.buttonUI {
   text-align: center;
   padding: 8px 12px;
   text-decoration: none;
@@ -45,20 +45,20 @@ hr {
 }
 
 .back-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 .back-icon {
-    font-size: 2rem;
-    color: var(--main-color);
-    transition: transform 0.2s ease;
+  font-size: 2rem;
+  color: var(--main-color);
+  transition: transform 0.2s ease;
 }
 
 .back-icon:hover {
-    transform: scale(1.1);
-    color: var(--text-color);
+  transform: scale(1.1);
+  color: var(--text-color);
 }
 
 

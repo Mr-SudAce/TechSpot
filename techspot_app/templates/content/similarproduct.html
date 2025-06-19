@@ -1,6 +1,5 @@
 {% load static %}
 
-
 {% block similarproduct%}
 <link rel="stylesheet" href="{% static 'CSS/similarproduct.css' %}">
 <div class="container similar-products my-4">
@@ -25,7 +24,7 @@
                             <span class="old-price">Rs.{{ prodct.product_price|floatformat:0 }}</span>
                         </p>
                         <div class="button-group">
-                            <span  onclick="location.href=`{% url 'add_to_cart' prodct.id %}`" class="btn add-cart pointcursor" title="Add to Cart">
+                            <span onclick="location.href=`{% url 'add_to_cart' prodct.id %}`" class="btn add-cart pointcursor" title="Add to Cart">
                                 Add to Cart
                             </span>
                             <button class="btn buy" title="Buy Now">Buy</button>

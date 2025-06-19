@@ -1,70 +1,90 @@
 {% extends "base.html" %}
-
 {% load static %}
-{% block title %}
 
-Product Detail
-
-{% endblock %}
-
+{% block title %}{{ product_detailV.product_name }} | Product Detail{% endblock %}
 
 {% block product_detail %}
-
 <link rel="stylesheet" href="{% static 'CSS/productdetail.css' %}">
 
-<div class="container">
-    <h1>Product Details</h1>
-    <div class="productdetails-card row g-4 py-4 px-3">
-        <!-- Product Info -->
-        <div class="col-lg-4 col-md-6 d-flex flex-column justify-content-center align-items-center text-center">
-            <h1 class="productdetails-title mb-3">{{ product_detailV.product_name }}</h1>
-            <p class="productdetails-subtitle text-muted">{{ product_detailV.product_description }}</p>
+<div class="container py-5">
+    <div class="productcontain">
+
+        <!-- Product Info (Left Column) -->
+        <div class="leftcolumn">
+            <h1 class="prd_det_name">{{ product_detailV.product_name }}</h1>
         </div>
 
-        <!-- Product Image -->
-        <div class="col-lg-4 col-md-6 d-flex justify-content-center align-items-center">
+        <!-- Product Image (Center Column) -->
+        <div class="prodImg">
             {% if product_detailV.product_image %}
-            <img src="{{ product_detailV.product_image.url }}" alt="{{ product_detailV.product_name }}"
-                class="img-fluid rounded shadow-sm">
+                <img src="{{ product_detailV.product_image.url }}"
+                     alt="{{ product_detailV.product_name }}"
+                     class="img-fluid rounded-4 shadow-sm border" />
             {% else %}
-            <img src="{% static 'images/default_image.png' %}" alt="Default Product Image"
-                class="img-fluid rounded shadow-sm">
+                <img src="{% static 'images/default_image.png' %}"
+                     alt="Default Product Image"
+                     class="img-fluid rounded-4 shadow-sm border" />
             {% endif %}
         </div>
 
-        <!-- Product Price & Cart Form -->
-        <div class="col-lg-4 col-md-12 d-flex flex-column justify-content-center align-items-center gap-4">
-            <p class="fs-5">
-                <del class="text-muted me-2">Rs. {{ product_detailV.product_price }}</del>
-                <span class="fw-bold text-success">Rs. {{ product_detailV.get_discount_amount|floatformat:2 }}</span>
-            </p>
+        <!-- Purchase & Details (Right Column) -->
+        <div class="rightcolumn">
+            <!-- Price -->
+            <div class="mb-3">
+                {% if product_detailV.product_discount > 0 %}
+                    <p class="text-muted mb-1">
+                        <del>Rs. {{ product_detailV.product_price }}</del>
+                    </p>
+                    <p class="fs-4 text-success fw-semibold">
+                        Rs. {{ product_detailV.get_discount_amount|floatformat:2 }}
+                    </p>
+                    <span class="badge bg-warning text-dark">
+                        {{ product_detailV.product_discount|floatformat:0 }}% OFF 🎉
+                    </span>
+                {% else %}
+                    <p class="fs-4 fw-semibold text-dark">
+                        Rs. {{ product_detailV.product_price }}
+                    </p>
+                {% endif %}
+            </div>
 
-            {% if product_detailV.product_discount > 0 %}
-            <p class="badge left-0 bg-warning text-dark">Discount: {{ product_detailV.product_discount|floatformat:0 }}%
-            </p>
-            {% endif %}
-
-            <form method="POST"
-                action="{% if product_in_cart %}{% url 'update_cart_quantity' product_detailV.id %}{% else %}{% url 'add_to_cart' product_detailV.id %}{% endif %}"
-                class="w-100 px-4">
+            <!-- Cart Form -->
+            <form method="POST" action="{% if product_in_cart %} {% url 'update_cart_quantity' product_detailV.id %} {% else %} {% url 'add_to_cart' product_detailV.id %} {% endif %}" class="mb-4">
                 {% csrf_token %}
+
+                <!-- Quantity -->
+                <label for="cart_quantity" class="form-label">Quantity</label>
+                <input type="number" name="quantity" id="cart_quantity" class="mb-3" value="{{ cart_itm.quantity|default:1 }}" min="1" required />
+
+                <!-- Description -->
                 <div class="mb-3">
-                    <label for="cart_quantity" class="form-label">Quantity</label>
-                    <input type="number" name="quantity" id="cart_quantity" class="form-control"
-                        value="{{ cart_itm.quantity|default:1 }}" min="1">
+                    <h6 class="fw-bold">Description:</h6>
+                    <div class="text-muted small">
+                        {{ product_detailV.product_description|safe|truncatechars:100 }}
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-success w-100">Add to Cart</button>
+
+                <!-- Product Specs -->
+                <div class="mb-3">
+                    <h6 class="fw-bold mb-2">Product Info:</h6>
+                    <ul class="list-unstyled text-muted small">
+                        <li><strong>Category:</strong> {{ product_detailV.product_category.category_name }}</li>
+                        {% if product_detailV.pro_sub_category %}
+                            <li><strong>Subcategory:</strong> {{ product_detailV.pro_sub_category.sub_category_name }}</li>
+                        {% endif %}
+                        <li><strong>Stock:</strong> {{ product_detailV.product_stock }}</li>
+                    </ul>
+                </div>
+
+                <!-- Add to Cart Button (BOTTOM) -->
+                <button type="submit" class="buttonUI mt-3">🛒 Add to Cart</button>
             </form>
         </div>
     </div>
 
-
-
-    {% include "content/similarproduct.html" %}
+    <!-- Similar Products -->
+    <div class="mt-5">
+        {% include "content/similarproduct.html" %}
+    </div>
 </div>
-
-
-
-
-
 {% endblock %}
