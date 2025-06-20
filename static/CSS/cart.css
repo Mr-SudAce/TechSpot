@@ -39,6 +39,13 @@
 .product-name {
   font-size: 20px;
 }
+.product-total-price{
+  font-weight: bold;
+}
+
+.product-price{
+  font-weight: 500;
+}
 
 .product-price,
 .product-total-price {

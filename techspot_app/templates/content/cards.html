@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{% static 'CSS/cards.css' %}" />
 <div class="container catg">
   <div class="catglist py-2">
-    <div class="border pointcursor rounded" style="padding: 10px" onclick="location.href=`{% url 'allproduct' %}`">All Categories</div>
+    <div class="border pointcursor " style="padding: 10px" onclick="location.href=`{% url 'allproduct' %}`">All Categories</div>
     {% for category in categories %}
     <details class="category-dropdown border">
       <summary>

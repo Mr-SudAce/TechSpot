@@ -38,8 +38,8 @@
 
 .nav-links li:hover,
 .nav-links li.active {
-    color: #ff4c60;
-    background-color: rgba(255, 76, 96, 0.08);
+    color: var(--main-color);
+    background-color: rgba(139, 139, 139, 0.1);
 }
 
 .mobile-views {
@@ -64,7 +64,7 @@
 
 .nav-icons i:hover {
     transform: scale(1.2);
-    color: #ff4c60;
+    color: var(--main-color);
 }
 
 /* Hamburger Styles */

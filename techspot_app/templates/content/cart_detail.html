@@ -38,8 +38,9 @@ Cart
                 <th>Quantity</th>
                 <th>Unit Price</th>
                 <th>Total Price</th>
-                <th></th>
+                <th>Action</th>
             </tr>
+
             {% if cartdet %}
             {% for cartdetail in cartdet %}
             <tr class="table-light text-center">
@@ -70,7 +71,6 @@ Cart
                 </tr>
             </tfoot>
         </table>
-
         <div class="d-flex justify-content-between">
             <div class="inline">
                 <span onclick="location.href=`{% url 'allproduct' %}`" class="btn btn-primary rounded-0 bg-transparent text-dark fw-bold border-dark pointcursor">

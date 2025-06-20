@@ -1,3 +1,15 @@
+:root {
+  --main-color: #70abcb;
+  --secondary-color: #f1f1f1;
+  --text-color: #333;
+}
+
+
+
+
+
+
+
 .container {
   max-width: 95%;
   padding: 0;
@@ -11,11 +23,6 @@ hr {
   border: 1px solid var(--main-color);
 }
 
-:root {
-  --main-color: #757575;
-  --secondary-color: #f1f1f1;
-  --text-color: #333;
-}
 
 .boxshadow {
   transition: transform 0.3s ease, box-shadow 0.3s ease;

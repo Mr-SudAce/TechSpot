@@ -75,7 +75,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "techspot_app.context_processors.global_context",
+                "techspot_app.context_processors.get_common_context",
             ],
         },
     },
